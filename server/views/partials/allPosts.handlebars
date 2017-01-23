@@ -1,0 +1,16 @@
+<section class="col-sm-12 row">
+    <p>All recent posts</p>
+
+    {{#each foundPosts}}
+
+        <article class="col-sm-8">
+            <h3>{{this.title}}</h3>
+            <p>{{this.body}}</p>
+            <div class="pull-right">
+                <a href="/viewAllPosts/editPost/{{this._id}}" class="btn btn-default">Edit</a>
+                <a href="/viewAllPosts/deletePost" class="btn btn-default">Delete</a>
+            </div>
+        </article>
+
+    {{/each}}
+</section>
