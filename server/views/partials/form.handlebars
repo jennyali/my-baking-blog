@@ -7,15 +7,15 @@
         <h4 class="alert alert-danger">Ooops! please check fields are filled in.</h4>
     {{/if}}
         <form method="POST" action="/createPost" class="form-group">
-            <div class="form-group {{#if title}}has-error{{/if}}">
+            <div class="form-group {{#if errors.title}}has-error{{/if}}">
                 <label for="title">Title:</label>
                 <input type="text" name="title" class="form-control" value="{{#if prefillTitle}}{{prefillTitle}}{{/if}}"/>
-                {{#if title}}<span class="pull-right">* Title missing.</span>{{/if}}
+                {{#if errors.title}}<span class="pull-right">* Title missing.</span>{{/if}}
             </div>
-            <div class="form-group {{#if body}}has-error{{/if}}">
+            <div class="form-group {{#if errors.body}}has-error{{/if}}">
                 <br /><label for="body">Description:</label>
                 <textarea type="text" name="body" class="form-control">{{#if prefillBody}}{{prefillBody}}{{/if}}</textarea>
-                {{#if body}}<span class="pull-right">* Description missing.</span>{{/if}}
+                {{#if errors.body}}<span class="pull-right">* Description missing.</span>{{/if}}
             </div>   
             <br /><input type="submit" value="Submit" class="btn btn-primary"/>
         </form>

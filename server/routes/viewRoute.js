@@ -11,6 +11,11 @@ router
 
 router
     .route('/editPost/:id')
-    .get(postController.editPost);
+    .get(postController.editPost)
+    .post(postController.updatePost);
+
+router
+    .route('/deletePost/:id')
+    .get(postController.deletePost);
 
 module.exports = router;

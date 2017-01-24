@@ -10,6 +10,7 @@ module.exports = {
         path: './public',
         filename: '/javascripts/index.bundle.js'
     },
+    devtool: 'source-map',
     module: {
         loaders: [
             {
