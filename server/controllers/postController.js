@@ -2,6 +2,7 @@
 //---------------------------------
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
+var _ = require('lodash');
 
 // GET = Render this page
 exports.renderFormPost = function(req, res) {
@@ -26,25 +27,18 @@ exports.createPost = function(req, res) {
         if(err) {
 
             var validation = errorHelper(err);
-
-            validation.failed = true;
-            validation.pageTitle = "Create Post";
-            validation.hasForm = true;
-
-            // to prefill form fields when other fields are incorrect
-            validation.prefillTitle = req.body.title;
-            validation.prefillBody = req.body.body;
-            
-            console.log(validation);
-
-            res.render('formPost', validation);
+       
+            res.render('formPost', {
+                pageTitle: "Create Post",
+                failed: true,
+                hasForm: true,
+                prefillTitle: req.body.title,
+                prefillBody: req.body.body,
+                errors: validation
+            });
 
         } else {
-            res.render('formPost', { 
-                pageTitle: "Create Post",
-                hasForm: true, 
-                success: true 
-            });
+            res.redirect(301, '/viewAllPosts');
         }
     });
 
@@ -59,7 +53,7 @@ exports.findAllPosts = function(req, res) {
         //console.log(results);
 
         res.render('formPost', { 
-            pageTitle: "All Posts",
+            pageTitle: "All Recipes",
             hasForm: false, 
             hasAllPosts: true,
             foundPosts: results
@@ -67,7 +61,21 @@ exports.findAllPosts = function(req, res) {
     });
 };
 
-//GET = Render Edit page linked to :id given
+// GET = Read (view/show ONLY several posts)
+exports.findSomePosts = function(req, res) {
+
+    Post.find({}, function(err, results) {
+        if (err) throw err;
+
+        var someResults = _.slice(results, 0, 3);
+
+        res.render('home', { 
+            foundPosts: someResults
+        });
+    });
+}
+
+// GET = Render Edit page linked to :id given
 exports.editPost = function(req, res) {
     var postId = req.params.id;
 
@@ -79,5 +87,35 @@ exports.editPost = function(req, res) {
             hasPrefilledForm: true,
             editPost: post
         });
+    });
+};
+
+// POST = Using information from url and browser body, function updates post with new strings.
+exports.updatePost = function(req, res) {
+
+    var postId = req.params.id;
+
+    Post.findByIdAndUpdate(postId, {
+         title: req.body.title,
+         body: req.body.body,
+         updated: new Date()
+    }, function(err, post) {
+        
+        if (err) throw err;
+
+        //console.log(post);
+        res.redirect(301, '/viewAllPosts');
+    });  
+};
+
+// GET = find by id and delete post
+exports.deletePost = function(req, res) {
+    var postId = req.params.id;
+
+    Post.findByIdAndRemove(postId, function(err) {
+        if (err) throw err;
+
+        console.log('post deleted');
+        res.redirect(301, '/viewAllPosts');
     });
 };
