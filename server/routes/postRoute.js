@@ -7,7 +7,7 @@ var viewController = require('../controllers/viewController');
 
 router
     .route('/')
-    .get(postController.findAllPosts);
+    .get(postController.findAllPostsWithAlert);
 
 router
     .route('/:id')
@@ -21,5 +21,9 @@ router
 router
     .route('/deletePost/:id')
     .get(postController.deletePost);
+
+router
+    .route('/alert/:msg')
+    .get(postController.findAllPostsWithAlert);
 
 module.exports = router;

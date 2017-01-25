@@ -6,6 +6,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Error.messages.general.required = "The '{PATH}' field is required";
+mongoose.Promise = require('bluebird');
 var port =  process.env.PORT || 3000;
 var routes = require('./server/routes');
 var path = require('path');
