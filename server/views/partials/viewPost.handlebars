@@ -1,0 +1,12 @@
+<section>
+    <div class="row">
+        <a href="/viewAllPosts" class="pull-left">< Recipes</a>
+    </div>
+    <article class="row">
+        <p>{{ foundPost.body}}</p>
+        <div class="pull-right">
+            <a href="/viewAllPosts/editPost/{{foundPost._id}}" class="btn btn-default">Edit</a>
+            <a href="/viewAllPosts/deletePost/{{foundPost._id}}" class="btn btn-default">Delete</a>
+        </div>
+    </article>
+</section>

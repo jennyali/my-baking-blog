@@ -1,21 +1,12 @@
-// View Route
+//View Route
 
 var router = require('express').Router();
-//var viewPageController = require('../controllers/viewPageController');
 var postController = require('../controllers/postController');
-
+var viewController = require('../controllers/viewController');
 
 router
     .route('/')
-    .get(postController.findAllPosts);
-
-router
-    .route('/editPost/:id')
-    .get(postController.editPost)
-    .post(postController.updatePost);
-
-router
-    .route('/deletePost/:id')
-    .get(postController.deletePost);
+    .get(viewController.postWrapper)
+    .post(postController.createPost);
 
 module.exports = router;
