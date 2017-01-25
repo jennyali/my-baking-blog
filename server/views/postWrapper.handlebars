@@ -1,0 +1,48 @@
+<main class="container">
+    <!-- Form for Post Creation -->
+    <section>
+        <div class="jumbotron row">
+            <h1>{{ pageTitle }}</h1>
+        </div>
+        <div class="row alert-msg">
+
+            {{#if alertSuccess }}
+                <div class="alert alert-success">
+                    <strong>New Post!</strong> 
+                </div>
+            {{/if}}
+
+            {{#if alertUpdate }}
+                <div class="alert alert-info">
+                    <strong>Post Updated!</strong> 
+                </div>
+            {{/if}}
+
+            {{#if alertDelete }}
+                <div class="alert alert-danger">
+                    <strong>Post Delete!</strong> 
+                </div>
+            {{/if}}
+
+        </div>
+        <div class="row">
+            
+            {{#if hasForm }}
+                {{> form }}
+            {{/if}}
+
+            {{#if hasAllPosts}}
+                {{> allPosts }}
+            {{/if}}
+                
+            {{#if hasPrefilledForm}}
+                {{> formPrefilled }}
+            {{/if}}
+
+            {{#if hasViewPost}}
+                {{> viewPost }}
+            {{/if}}
+
+        </div>
+    </section>
+</main>

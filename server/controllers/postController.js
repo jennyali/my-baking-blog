@@ -4,16 +4,6 @@ var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
 var _ = require('lodash');
 
-// GET = Render this page
-exports.renderFormPost = function(req, res) {
-
-    res.render('formPost', { 
-        pageTitle: "Create Post",
-        hasForm: true
-    });
-
-};
-
 
 // POST = Create
 exports.createPost = function(req, res) {
@@ -28,7 +18,7 @@ exports.createPost = function(req, res) {
 
             var validation = errorHelper(err);
        
-            res.render('formPost', {
+            res.render('postWrapper', {
                 pageTitle: "Create Post",
                 failed: true,
                 hasForm: true,
@@ -38,10 +28,10 @@ exports.createPost = function(req, res) {
             });
 
         } else {
+            console.log('post created');
             res.redirect(301, '/viewAllPosts');
         }
     });
-
 };
 
 // GET = Read (view/find all posts)
@@ -50,18 +40,16 @@ exports.findAllPosts = function(req, res) {
     Post.find({}, function(err, results) {
         if (err) throw err;
 
-        //console.log(results);
-
-        res.render('formPost', { 
+        res.render('postWrapper', { 
             pageTitle: "All Recipes",
             hasForm: false, 
             hasAllPosts: true,
-            foundPosts: results
+            foundPosts: results,
         });
     });
 };
 
-// GET = Read (view/show ONLY several posts)
+// GET = Read (view/show ONLY 3 posts)
 exports.findSomePosts = function(req, res) {
 
     Post.find({}, function(err, results) {
@@ -73,7 +61,22 @@ exports.findSomePosts = function(req, res) {
             foundPosts: someResults
         });
     });
-}
+};
+
+// GET = Read (view/show ONLY 1 post)
+exports.findOnePost = function(req, res) {
+    var postId = req.params.id;
+
+    Post.find({ _id: postId}, function(err, post) {
+        if (err) throw err;
+
+        res.render('postWrapper', {
+            pageTitle: post[0].title,
+            hasViewPost: true,
+            foundPost: post[0]
+        });
+    });
+};
 
 // GET = Render Edit page linked to :id given
 exports.editPost = function(req, res) {
@@ -82,10 +85,10 @@ exports.editPost = function(req, res) {
     Post.findById(postId, function(err, post) {
         if (err) throw err;
 
-        res.render('formPost', { 
+        res.render('postWrapper', { 
             pageTitle: "Edit Post",
             hasPrefilledForm: true,
-            editPost: post
+            editPost: post,
         });
     });
 };
@@ -103,7 +106,6 @@ exports.updatePost = function(req, res) {
         
         if (err) throw err;
 
-        //console.log(post);
         res.redirect(301, '/viewAllPosts');
     });  
 };
@@ -119,3 +121,4 @@ exports.deletePost = function(req, res) {
         res.redirect(301, '/viewAllPosts');
     });
 };
+

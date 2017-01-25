@@ -1,7 +1,7 @@
 // Home Route
 
 var router = require('express').Router();
-var homeController = require('../controllers/homeController');
+var viewController = require('../controllers/viewController');
 var postController = require('../controllers/postController');
 
 router

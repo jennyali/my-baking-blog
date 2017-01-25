@@ -7,7 +7,8 @@ var viewRoute = require('./viewRoute');
 module.exports = function(app) {
 
     app.use('/', homeRoute);
-    app.use('/createPost', postRoute);
-    app.use('/viewAllPosts', viewRoute);
+    app.use('/createPost', viewRoute);
+    app.use('/viewAllPosts', postRoute);
+    app.use('/viewPost', postRoute);
 
 };
