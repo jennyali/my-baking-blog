@@ -1,11 +1,11 @@
 // View Controller
 
-exports.home = function(req, res) {
+exports.home = (req, res) => {
     
     res.render('home');
 };
 
-exports.postWrapper = function(req, res) {
+exports.postWrapper = (req, res) => {
     
     res.render('postWrapper', { 
         pageTitle: "Create Post",

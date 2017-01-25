@@ -6,19 +6,19 @@
         </div>
         <div class="row alert-msg">
 
-            {{#if alertSuccess }}
+            {{#if alert.success }}
                 <div class="alert alert-success">
                     <strong>New Post!</strong> 
                 </div>
             {{/if}}
 
-            {{#if alertUpdate }}
+            {{#if alert.update }}
                 <div class="alert alert-info">
                     <strong>Post Updated!</strong> 
                 </div>
             {{/if}}
 
-            {{#if alertDelete }}
+            {{#if alert.delete }}
                 <div class="alert alert-danger">
                     <strong>Post Delete!</strong> 
                 </div>
