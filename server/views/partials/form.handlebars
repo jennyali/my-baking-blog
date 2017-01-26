@@ -1,12 +1,14 @@
 <!-- Form partial -->   
 <div class="col-sm-8">
-    {{#if success}}
-        <h4 class="alert alert-success">Success! post created.</h4>
-    {{/if}}
+    <div>
+        <h2> Create Post </h2>
+    </div>
+
     {{#if failed}}
         <h4 class="alert alert-danger">Ooops! please check fields are filled in.</h4>
     {{/if}}
-        <form method="POST" action="/createPost" class="form-group">
+
+        <form method="POST" action="" class="form-group">
             <div class="form-group {{#if errors.title}}has-error{{/if}}">
                 <label for="title">Title:</label>
                 <input type="text" name="title" class="form-control" value="{{#if prefillTitle}}{{prefillTitle}}{{/if}}"/>
