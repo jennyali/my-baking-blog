@@ -1,0 +1,16 @@
+<div class="col-sm-12">
+    <div>
+        <a href="/post-editor"><span class="icon-arrow-39"></span> Back</a>
+    </div>
+    <article>
+        <p class="small">{{foundPost.created}}</p>
+        <h2>{{ foundPost.title }}</h2>
+        <p>{{ foundPost.body }}</p>
+        <div>
+            <button class="btn btn-default" data-toggle="collapse" data-target="#edit-form">
+                Edit <span class="icon-edit-1"></span>
+            </button>
+            <a href="/post-editor/deletePost/{{this._id}}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
+        </div>
+    </article>
+</div>

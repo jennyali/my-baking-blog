@@ -1,0 +1,29 @@
+<main class="container">
+    <section class="row">
+        <div class="col-sm-12">
+            <h1>
+                {{ pageTitle }}
+            </h1>
+        </div>
+    </section>
+    <section class="row">
+
+            {{#if homePage }}
+                {{> recentPosts }}
+            {{/if}}
+
+            {{#if recipeIndexPage}}
+                {{> recipeIndex }}
+            {{/if}}
+
+            {{#if viewPostPage }}
+                {{> viewPost }}
+            {{/if}}
+
+            {{#if aboutPage }}
+                {{> about }}
+            {{/if}}
+
+        </div>
+    </section>
+</main>

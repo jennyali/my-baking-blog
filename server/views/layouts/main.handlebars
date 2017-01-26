@@ -13,15 +13,14 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">My Baking Blog</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li><a href="/createPost">Create</a></li>
-                    <li><a href="/viewAllPosts">Recipes</a></li>
+        <div class="jumbotron">
+            <h1 class="text-center">My Baking Blog</h1>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav nav-tabs nav-justified">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/recipe-index/page?p=1">Recipes</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/post-editor">Post Editor</a></li>
                 </ul>
@@ -31,6 +30,23 @@
 
 
     {{{ body }}}
+
+    <!--
+    <footer class="navbar-inverse">
+        <div class="container">
+            <div class="row">
+                <h4 class="col-sm-3">My Baking Blog 2017</h4>
+                <ul class="list-unstyled col-sm-9">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/recipe-index">Recipes</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/post-editor">Post Editor</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    -->
+
 
     <script src="/assets/javascripts/bootstrap.js"></script>
     <script src="/assets/lib/bower_components/lodash/lodash.js"></script>

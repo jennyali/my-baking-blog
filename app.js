@@ -20,15 +20,26 @@ mongoose.connect('mongodb://localhost/jentestdb', function() {
 //==== app + middleware
 var app = express();
 
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/assets', express.static(__dirname + '/public'));
 app.set('views', './server/views');
+
 app.engine('handlebars', exphbs({
     layoutsDir: './server/views/layouts',
     partialsDir: './server/views/partials',
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        times: function(n, block) {
+            var accum = '';
+            for(var i = 1; i < n; ++i)
+                accum += block.fn(i);
+            return accum;
+        }
+    }
 }));
+
 app.set('view engine', 'handlebars');
 app.use(morgan('dev'));
 

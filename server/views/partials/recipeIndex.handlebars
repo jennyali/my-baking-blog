@@ -1,23 +1,24 @@
-<div class="col-sm-8 row">
-    <div>
-        <h2> Recipe Index </h2>
-    </div>
+<div class="col-sm-8">
 
-    {{#each foundPosts }}
+    {{#each foundPosts}}
 
         <article>
-            <h3>{{ this.title }}</h3>
-            <div id="{{ this._id }}" class="collapse">
-                <p>{{ this.body }}</p>
-            </div>
+            <p class="small">{{this.created}}</p>
+            <h3>{{this.title}}</h3>
+            <p>{{this.body}}</p>
             <div>
-                <button data-toggle="collapse" data-target="#{{ this._id }}" class="btn btn-default">
-                    <span class="icon-arrow-37"></span>
-                </button>
-                <a href="/post-editor/editPost/{{ this._id }}" class="btn btn-default">Edit <span class="icon-edit-1"></span></a>
-                <a href="/post-editor/deletePost/{{ this._id }}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
+                <a href="/view-post/{{this._id}}" class="btn btn-primary">Read More >></a>
             </div>
         </article>
 
     {{/each}}
+
+        <ul class="pagination text-center">
+
+        {{#times pages}}
+            <li><a href="/recipe-index/page?p={{this}}">{{this}}</a></li>
+        {{/times}}
+        
+        </ul>
+
 </div>
