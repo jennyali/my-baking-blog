@@ -5,7 +5,7 @@ var Post = require('../models/postModel');
 var _ = require('lodash');
 
 // GET to render inital page / Uses the 'findAllPosts' function
-exports.pageRender = (req, res) => {
+exports.pageRender = function(req, res) {
 
     Post.find({}).then( results => {
 
@@ -23,7 +23,7 @@ exports.pageRender = (req, res) => {
 
 
 // POST = Create
-exports.createPost = (req, res) => {
+exports.createPost = function(req, res) {
 
     var entry = new Post({
         title: req.body.title,
@@ -79,7 +79,7 @@ exports.createPost = (req, res) => {
 };
 
 // GET = Read (view/find all posts)
-exports.findAllPosts = (req, res) => {
+exports.findAllPosts = function(req, res) {
 
     Post.find({}).then( results => {
 
@@ -99,7 +99,7 @@ exports.findAllPosts = (req, res) => {
 
 
 // GET = Read (view/show ONLY 3 posts)
-exports.findSomePosts = (req, res) => {
+exports.findSomePosts = function(req, res) {
 
     Post.find({}).then( results => {
         
@@ -117,7 +117,7 @@ exports.findSomePosts = (req, res) => {
 };
 
 // GET = Read (view/show ONLY 1 post)
-exports.findOnePost = (req, res) => {
+exports.findOnePost = function(req, res) {
 
     var postId = req.params.id;
 
@@ -137,7 +137,7 @@ exports.findOnePost = (req, res) => {
 };
 
 // GET = Render Edit page linked to :id given
-exports.editPost = (req, res) => {
+exports.editPost = function(req, res) {
 
     var postId = req.params.id;
 
@@ -163,7 +163,7 @@ exports.editPost = (req, res) => {
 };
 
 // POST = Using information from url and browser body, function updates post with new strings.
-exports.updatePost = (req, res) => {
+exports.updatePost = function(req, res) {
 
     var postId = req.params.id;
 
@@ -186,7 +186,7 @@ exports.updatePost = (req, res) => {
 };
 
 // GET = find by id and delete post
-exports.deletePost = (req, res) => {
+exports.deletePost = function(req, res) {
 
     var postId = req.params.id;
 

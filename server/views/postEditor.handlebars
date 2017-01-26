@@ -1,12 +1,12 @@
 <main class="container">
     <section class="row">
-        <div class="jumbotron">
+        <div class="col-sm-12">
             <h1>
                 {{ pageTitle }}   
             </h1>
         </div>
     </section>
-    <section>
+    <section class="row">
 
         {{#if success }}
             <div class="alert alert-success">
@@ -34,14 +34,14 @@
         {{/if}}
 
         {{#if hasViewPost }}
-            {{> viewPost }}
+            {{> adminViewPost }}
         {{/if}}
 
     </section>
     <section class="row">
 
         {{#if hasAllPosts }}
-            {{> recipeIndex }}
+            {{> adminRecipeIndex }}
         {{/if}}
 
         {{#if hasPrefilledForm }}

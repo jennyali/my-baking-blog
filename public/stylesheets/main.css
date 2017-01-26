@@ -5047,10 +5047,4 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-h1 {
-  color: red;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex; }
-
 /*# sourceMappingURL=main.css.map*/
