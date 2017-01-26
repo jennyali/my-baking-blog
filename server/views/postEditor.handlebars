@@ -1,0 +1,52 @@
+<main class="container">
+    <section class="row">
+        <div class="jumbotron">
+            <h1>
+                {{ title }}   
+            </h1>
+        </div>
+    </section>
+    <section>
+
+        {{#if success }}
+            <div class="alert alert-success">
+                <strong>Success!</strong><p>Created Post: {{ alertMsg }}</p>
+            </div>
+        {{/if}}
+
+        {{#if update }}
+            <div class="alert alert-info">
+                <strong>Post Updated!</strong> 
+            </div>
+        {{/if}}
+
+        {{#if delete }}
+            <div class="alert alert-danger">
+                <strong>Deleted!</strong><p>Removed Post: {{ alertMsg }}</p>
+            </div>
+        {{/if}}
+
+    </section>
+    <section class="row">
+
+        {{#if hasForm }}
+            {{> form }}
+        {{/if}}
+
+        {{#if hasViewPost }}
+            {{> viewPost }}
+        {{/if}}
+
+    </section>
+    <section class="row">
+
+        {{#if hasAllPosts }}
+            {{> allPosts }}
+        {{/if}}
+
+        {{#if hasPrefilledForm }}
+            {{> formPrefilled }}
+        {{/if}}
+
+    </section>
+</main>
