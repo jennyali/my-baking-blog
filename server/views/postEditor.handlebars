@@ -2,7 +2,7 @@
     <section class="row">
         <div class="jumbotron">
             <h1>
-                {{ title }}   
+                {{ pageTitle }}   
             </h1>
         </div>
     </section>
@@ -41,7 +41,7 @@
     <section class="row">
 
         {{#if hasAllPosts }}
-            {{> allPosts }}
+            {{> recipeIndex }}
         {{/if}}
 
         {{#if hasPrefilledForm }}

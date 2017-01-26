@@ -2,13 +2,11 @@
 
     {{#each foundPosts}}
 
-        <article class="col-sm-8 col-sm-offset-2">
+        <article class="col-sm-8">
             <h2>{{this.title}}</h2>
             <p>{{this.body}}</p>
-            <div class="pull-right">
-                <a href="/viewPost/{{this._id}}" class="btn btn-primary">View</a>
-                <a href="/viewAllPosts/editPost/{{this._id}}" class="btn btn-default">Edit</a>
-                <a href="/viewAllPosts/deletePost/{{this._id}}" class="btn btn-default">Delete</a>
+            <div>
+                <a href="/post-editor/viewPost/{{this._id}}" class="btn btn-primary">Read More >></a>
             </div>
         </article>
 

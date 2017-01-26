@@ -10,7 +10,7 @@ exports.pageRender = (req, res) => {
     Post.find({}).then( results => {
 
         res.render('postEditor', { 
-            title: "Post Editor",
+            pageTitle: "Post Editor",
             hasForm: true,
             hasAllPosts: true,
             foundPosts: results,
@@ -39,7 +39,7 @@ exports.createPost = (req, res) => {
         Post.find({}).then( results => {
 
             res.render('postEditor', { 
-                title: "Post Editor",
+                pageTitle: "Post Editor",
                 hasForm: true,
                 hasAllPosts: true,
                 foundPosts: results,
@@ -62,7 +62,7 @@ exports.createPost = (req, res) => {
             Post.find({}).then( results => {
                 // repeats the renderPage function to validate the form and render the recipe index.
                 res.render('postEditor', { 
-                    title: "Post Editor",
+                    pageTitle: "Post Editor",
                     hasForm: true,
                     hasAllPosts: true,
                     foundPosts: results,
@@ -149,16 +149,16 @@ exports.editPost = (req, res) => {
 
         } else {
 
-            res.render('postWrapper', { 
-                pageTitle: "Edit Post",
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
                 hasPrefilledForm: true,
+                hasViewPost: true,
+                foundPost: post,
                 editPost: post,
             });
         }
     }).catch( err => {
-
         if (err) throw err;
-
     });
 };
 
@@ -199,7 +199,7 @@ exports.deletePost = (req, res) => {
         Post.find({}).then( results => {
 
             res.render('postEditor', { 
-                title: "Post Editor",
+                pageTitle: "Post Editor",
                 hasForm: true,
                 hasAllPosts: true,
                 foundPosts: results,

@@ -1,4 +1,4 @@
-<div class="col-sm-8">
+<div id="edit-form" class="collapse col-sm-8">
         <form method="POST" action="" class="form-group">
             <div class="form-group {{#if title}}has-error{{/if}}">
                 <label for="title">Title:</label>
@@ -10,6 +10,6 @@
                 <textarea type="text" name="body" class="form-control">{{editPost.body}}</textarea>
                 {{#if body}}<span class="pull-right">* Description missing.</span>{{/if}}
             </div>   
-            <br /><input type="submit" value="Submit" class="btn btn-primary"/>
+            <br /><button type="submit" class="btn btn-lg btn-primary"/>Update <span class=""></span></button>
         </form>
 </div>
