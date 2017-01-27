@@ -9,7 +9,7 @@ router
 
 router
     .route('/recipe-index')
-    .get(viewController.recipeIndexRender);
+    .get(viewController.recipeIndexCategories);
 
 router
     .route('/recipe-index/page')

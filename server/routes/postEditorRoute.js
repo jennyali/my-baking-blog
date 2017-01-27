@@ -7,7 +7,7 @@ var postEditorController = require('../controllers/postEditorController');
 router
     .route('/')
     .get(postEditorController.pageRender)
-    .post(postEditorController.createPost);
+    .post(postEditorController.createPost);   
 
 router
     .route('/editPost/:id')
