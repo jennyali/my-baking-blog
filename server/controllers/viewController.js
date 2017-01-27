@@ -7,7 +7,10 @@ var _ = require('lodash');
 // GET = Read (view/show ONLY 3 posts)
 exports.homeRender = function(req, res) {
 
-    Post.find({}).then( results => {
+    Post
+        .find({})
+        .sort({created: 'desc'})
+        .then( results => {
         
         var someResults = _.slice(results, 0, 5);
 
@@ -25,7 +28,10 @@ exports.homeRender = function(req, res) {
 // GET = Read (view/find all posts)
 exports.recipeIndexRender = function(req, res) {
 
-    Post.find({}).then( results => {
+    Post
+        .find({})
+        .sort({created: 'desc'})
+        .then( results => {
 
         res.render('main', { 
             pageTitle: "Recipe Index",
