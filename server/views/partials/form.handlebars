@@ -28,14 +28,14 @@
                     Select from the categories listed <span class="icon-arrow-37"></span>
                 </div>
                 <div id="category-checkbox" class="collapse">
-                    <label for="cake">Cake</label>
-                    <input class="form-control" type="checkbox" name="category[]" value="cake"></br>
-                    <label for="pancake">Pancake</label>
-                    <input class="form-control" type="checkbox" name="category[]" value="pancake"></br>
-                    <label for="muffin">Muffin</label>
-                    <input class="form-control" type="checkbox" name="category[]" value="muffin"></br>
-                    <label for="chocolate">Chocolate</label>
-                    <input class="form-control" type="checkbox" name="category[]" value="chocolate"></br>
+
+                    {{#each categories}}
+
+                        <label for="{{this.category}}">{{this.category}}</label>
+                        <input class="form-control" type="checkbox" name="category[]" value="{{this.category}}"></br>
+
+                    {{/each}}
+
                 </div>
             </div>
 

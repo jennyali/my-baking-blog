@@ -2,6 +2,7 @@
 
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
+var categories = require('../models/categoriesArray');
 var _ = require('lodash');
 
 // GET = Read (view/show ONLY 3 posts)
@@ -27,6 +28,25 @@ exports.homeRender = function(req, res) {
 
 // GET = Read (view/find all posts)
 exports.recipeIndexRender = function(req, res) {
+
+    Post
+        .find({})
+        .sort({created: 'desc'})
+        .then( results => {
+
+        res.render('main', { 
+            pageTitle: "Recipe Index",
+            recipeIndexPage: true,
+            foundPosts: results,
+        });
+
+    }).catch( err => {
+        if (err) throw err;
+    });
+};
+
+// GET = Read (view/find all posts)
+exports.recipeIndexCategories = function(req, res) {
 
     Post
         .find({})

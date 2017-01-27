@@ -2,26 +2,70 @@
 //---------------------------------
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
+var categories = require('../models/categoriesArray');
 var _ = require('lodash');
 
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res) {
 
-    Post
-        .find({})
-        .sort({created: 'desc'})
-        .then( results => {
+    if(req.query.delete) {
 
-        res.render('postEditor', { 
-            pageTitle: "Post Editor",
-            hasForm: true,
-            hasAllPosts: true,
-            foundPosts: results,
+        Post
+            .find({})
+            .sort({created: 'desc'})
+            .then( results => {
+
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasForm: true,
+                hasAllPosts: true,
+                foundPosts: results,
+                alertMsg: req.query.alertMsg,
+                delete: true
+            });
+
+        }).catch( err => {
+            if (err) throw err;
         });
 
-    }).catch( err => {
-        if (err) throw err;
-    });
+    } else if(req.query.update) {
+
+        Post
+            .find({})
+            .sort({created: 'desc'})
+            .then( results => {
+
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasForm: true,
+                hasAllPosts: true,
+                foundPosts: results,
+                alertMsg: req.query.alertMsg,
+                update: true
+            });
+
+        }).catch( err => {
+            if (err) throw err;
+        });
+
+    } else {
+        Post
+            .find({})
+            .sort({created: 'desc'})
+            .then( results => {
+
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasForm: true,
+                hasAllPosts: true,
+                foundPosts: results,
+                categories: categories,
+            });
+
+        }).catch( err => {
+            if (err) throw err;
+        });
+    }
 };
 
 
@@ -40,7 +84,10 @@ exports.createPost = function(req, res) {
 
         console.log('CREATED POST: ' + post.title);
 
-        Post.find({}).then( results => {
+        Post
+            .find({})
+            .sort({created: 'desc'})
+            .then( results => {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
@@ -114,9 +161,7 @@ exports.findSomePosts = function(req, res) {
         });
 
     }).catch( err => {
-
         if (err) throw err;
-
     });
 };
 
@@ -134,9 +179,7 @@ exports.findOnePost = function(req, res) {
         });
 
     }).catch( err => {
-
         if (err) throw err;
-
     });
 };
 
@@ -180,24 +223,14 @@ exports.updatePost = function(req, res) {
 
     }).then( function(post) {
 
-        var alertMsg = post.title;
+        var message = post.title;
 
         console.log('CREATED POST: ' + post.title);
 
-        Post.find({}).then( results => {
+        res.redirect(301, '/post-editor?update=true&alertMsg=' + message);
 
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasForm: true,
-                hasAllPosts: true,
-                foundPosts: results,
-                update: true,
-                alertMsg: alertMsg
-        });
-
-        }).catch( err => {
-            if (err) throw err;
-        });
+    }).catch( err => {
+        if (err) throw err;
     });
 };
 
@@ -208,24 +241,11 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
 
     Post.findByIdAndRemove(postId).then( post => {
 
-        var alertMsg =  post.title;
+        var message =  post.title;
 
         console.log('DELETED POST: ' + post.title);
 
-        Post.find({}).then( results => {
-
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasForm: true,
-                hasAllPosts: true,
-                foundPosts: results,
-                delete: true,
-                alertMsg: alertMsg
-            });
-
-            }).catch( err => {
-                if (err) throw err;
-            });
+        res.redirect(301, '/post-editor?delete=true&alertMsg=' + message);
 
     }).catch( err => {
         if (err) throw err;
