@@ -7,21 +7,43 @@
     </div>
 
     {{#if failed}}
-        <h4 class="alert alert-danger">Ooops! please check fields are filled in.</h4>
+        <div class="alert alert-danger">
+            <h4>Ooops! please check: </h4>
+            {{#if errors.title}}<span>* Title missing.</span>{{/if}}
+            {{#if errors.category}}<span>* No category selected.</span>{{/if}}
+            {{#if errors.body}}<span>* Description missing.</span>{{/if}}
+        </div>
     {{/if}}
 
     <div id="create-post" class="collapse">
         <form method="POST" action="" class="form-group">
+
             <div class="form-group {{#if errors.title}}has-error{{/if}}">
                 <label for="title">Title:</label>
                 <input type="text" name="title" class="form-control" value="{{#if prefillTitle}}{{prefillTitle}}{{/if}}"/>
-                {{#if errors.title}}<span class="pull-right">* Title missing.</span>{{/if}}
             </div>
+
+            <div class="form-group">
+                <div class="btn btn-default {{#if errors.category}}btn-danger{{/if}}" data-toggle="collapse" data-target="#category-checkbox">
+                    Select from the categories listed <span class="icon-arrow-37"></span>
+                </div>
+                <div id="category-checkbox" class="collapse">
+                    <label for="cake">Cake</label>
+                    <input class="form-control" type="checkbox" name="category[]" value="cake"></br>
+                    <label for="pancake">Pancake</label>
+                    <input class="form-control" type="checkbox" name="category[]" value="pancake"></br>
+                    <label for="muffin">Muffin</label>
+                    <input class="form-control" type="checkbox" name="category[]" value="muffin"></br>
+                    <label for="chocolate">Chocolate</label>
+                    <input class="form-control" type="checkbox" name="category[]" value="chocolate"></br>
+                </div>
+            </div>
+
             <div class="form-group {{#if errors.body}}has-error{{/if}}">
-                <br /><label for="body">Description:</label>
+                <label for="body">Description:</label>
                 <textarea type="text" name="body" class="form-control">{{#if prefillBody}}{{prefillBody}}{{/if}}</textarea>
-                {{#if errors.body}}<span class="pull-right">* Description missing.</span>{{/if}}
             </div>   
+
             <br /><input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
     </div>

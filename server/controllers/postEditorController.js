@@ -7,7 +7,10 @@ var _ = require('lodash');
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res) {
 
-    Post.find({}).then( results => {
+    Post
+        .find({})
+        .sort({created: 'desc'})
+        .then( results => {
 
         res.render('postEditor', { 
             pageTitle: "Post Editor",
@@ -27,6 +30,7 @@ exports.createPost = function(req, res) {
 
     var entry = new Post({
         title: req.body.title,
+        category: req.body.category,
         body: req.body.body,
     });
 
@@ -170,23 +174,35 @@ exports.updatePost = function(req, res) {
     Post.findByIdAndUpdate(postId, {
 
         title: req.body.title,
+        category: req.body.category,
         body: req.body.body,
         updated: new Date()
 
-    }).then( post => {
+    }).then( function(post) {
 
-        console.log('UPDATED POST: ' + post.title);
-        res.redirect(301, '/viewAllPosts/?update=true');
+        var alertMsg = post.title;
 
-    }).catch( err => {
+        console.log('CREATED POST: ' + post.title);
 
-        if (err) throw err;
+        Post.find({}).then( results => {
 
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasForm: true,
+                hasAllPosts: true,
+                foundPosts: results,
+                update: true,
+                alertMsg: alertMsg
+        });
+
+        }).catch( err => {
+            if (err) throw err;
+        });
     });
 };
 
 // GET = find by id and delete post
-exports.deletePost = function(req, res) {
+exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING WITH TITLE, ALERT, ALERTmsg
 
     var postId = req.params.id;
 
