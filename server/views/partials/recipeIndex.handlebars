@@ -1,17 +1,19 @@
 <div class="col-sm-8">
 
-    {{#each foundPosts}}
+        {{#each foundPosts}}
 
-        <article>
-            <p class="small">{{this.created}}</p>
-            <h3>{{this.title}}</h3>
-            <p>{{this.body}}</p>
             <div>
-                <a href="/view-post/{{this._id}}" class="btn btn-primary">Read More >></a>
-            </div>
-        </article>
 
-    {{/each}}
+                <h2>{{this.category}}</h2>
+
+                {{#each this.postsCropped}}
+                    <p>{{this.title}}</p>
+                {{/each}}
+
+            </div>
+
+        {{/each}}
+
 
         <ul class="pagination text-center">
 

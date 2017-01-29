@@ -1,11 +1,10 @@
-<!-- Form partial -->   
-<div class="col-sm-8">
-    <div>
-        <button data-toggle="collapse" data-target="#create-post" class="btn btn-default">
-            <h2> Create Post <span class="icon-edit-3"></span></h2>
-        </button>
-    </div>
-
+<!-- Form partial --> 
+<div class="col-sm-12">
+    <a href="/post-editor" class="btn btn-link">
+        <span class="icon-arrow-39"> Back </span>
+    </a>
+</div>
+<div class="col-sm-12">
     {{#if failed}}
         <div class="alert alert-danger">
             <h4>Ooops! please check: </h4>
@@ -15,36 +14,41 @@
         </div>
     {{/if}}
 
-    <div id="create-post" class="collapse">
+    <div id="create-post" class="row">
         <form method="POST" action="" class="form-group">
 
-            <div class="form-group {{#if errors.title}}has-error{{/if}}">
-                <label for="title">Title:</label>
-                <input type="text" name="title" class="form-control" value="{{#if prefillTitle}}{{prefillTitle}}{{/if}}"/>
-            </div>
-
-            <div class="form-group">
-                <div class="btn btn-default {{#if errors.category}}btn-danger{{/if}}" data-toggle="collapse" data-target="#category-checkbox">
-                    Select from the categories listed <span class="icon-arrow-37"></span>
+            <div class="col-sm-9">
+                <div class="form-group {{#if errors.title}}has-error{{/if}}">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" class="form-control" value="{{#if prefill}}{{prefill.title}}{{/if}}"/>
                 </div>
-                <div id="category-checkbox" class="collapse">
 
-                    {{#each categories}}
-
-                        <label for="{{this.category}}">{{this.category}}</label>
-                        <input class="form-control" type="checkbox" name="category[]" value="{{this.category}}"></br>
-
-                    {{/each}}
-
+                <div class="form-group {{#if errors.body}}has-error{{/if}}">
+                    <label for="body">Description:</label>
+                    <textarea type="text" name="body" class="form-control">{{#if prefill}}{{prefill.body}}{{/if}}</textarea>
                 </div>
-            </div>
 
-            <div class="form-group {{#if errors.body}}has-error{{/if}}">
-                <label for="body">Description:</label>
-                <textarea type="text" name="body" class="form-control">{{#if prefillBody}}{{prefillBody}}{{/if}}</textarea>
+                <br /><input type="submit" value="Submit" class="btn btn-primary pull-left"/>
             </div>   
 
-            <br /><input type="submit" value="Submit" class="btn btn-primary"/>
+            <aside class="col-sm-3">
+                <div class="form-group">
+                    <div class="alert {{#if errors.category}}alert-danger{{/if}}">
+                        Baking Categories 
+                        {{#if errors.category}}<span class="icon-arrow-37 pull-right"></span>{{/if}}
+                    </div>
+                    <div id="category-checkbox" class="text-right">
+
+                        {{#each categories}}
+
+                            <label for="{{this.category}}">{{this.category}}</label>
+                            <input type="checkbox" name="category[]" value="{{this._id}}"></br>
+
+                        {{/each}}
+
+                    </div>
+                </div>
+            </aside>
         </form>
     </div>
 </div>

@@ -2,7 +2,9 @@
 
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
-var categories = require('../models/categoriesArray');
+var Category = require('../models/categoriesModel');
+var categories = require('../models/categoriesSeed');
+var Promise = require('bluebird');
 var _ = require('lodash');
 
 // GET = Read (view/show ONLY 3 posts)
@@ -48,20 +50,35 @@ exports.recipeIndexRender = function(req, res) {
 // GET = Read (view/find all posts)
 exports.recipeIndexCategories = function(req, res) {
 
-    Post
-        .find({})
-        .sort({created: 'desc'})
-        .then( results => {
+    Category.find({})
+        .then(categories => {
 
-        res.render('main', { 
-            pageTitle: "Recipe Index",
-            recipeIndexPage: true,
-            foundPosts: results,
+            return Promise.map(categories, function(category) {
+
+                return Post.find({category: category._id})
+                    .lean()
+                    .exec()
+                    .then( posts => {
+
+                        postsCropped = _.slice(posts, [0], [3]);
+                  
+                        category = category.toObject(); // turns into normal object
+                        category.posts = posts; // adds a posts property to category object, equals the posts found
+                        category.postsCropped = postsCropped;
+                        return category; // this 'then' block finishes with these 'category object' results being sent back
+                });
+            });
+        }).then( results => {
+
+            console.log(results);
+
+            res.render('main', { 
+                pageTitle: "Recipe Index",
+                recipeIndexPage: true,
+                foundPosts: results,
+            });
+            
         });
-
-    }).catch( err => {
-        if (err) throw err;
-    });
 };
 
 // GET = Read (view/find all posts)

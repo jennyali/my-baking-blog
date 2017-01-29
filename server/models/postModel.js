@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema ({
     title: { type: String, required: true },
-    category: { type: Array, required: true },
+    category: [{ref: 'categories', type: Schema.Types.ObjectId}],
     body: { type: String, required: true },
     created: Date,
     updated: Date
