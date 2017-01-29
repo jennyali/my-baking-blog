@@ -4,34 +4,51 @@
             <h1>
                 {{ pageTitle }}   
             </h1>
+            {{#if prefill}}
+                <h3>
+                    {{prefill.title}}
+                </h3>
+            {{/if}}
         </div>
+
+        {{#if hasCreateBtn}}
+            <div class="col-sm-12">
+                <a href="/post-editor/createPost" class="btn btn-default">
+                    <h3>Create Post <span class="icon-edit-3"></span></h3>
+                </a>
+            </div>
+        {{/if}}
+        
     </section>
     <section class="row">
 
         {{#if success }}
-            <div class="alert alert-success">
+            <div class="alert alert-success col-sm-12">
                 <strong>Success!</strong><p>Created Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
 
         {{#if update }}
-            <div class="alert alert-info">
+            <div class="alert alert-info col-sm-12">
                 <strong>Updated!</strong><p>Alterted Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
 
         {{#if delete }}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger col-sm-12">
                 <strong>Deleted!</strong><p>Removed Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
 
     </section>
-    <section class="row">
+    <section class="row col-sm-9">
 
         {{#if hasForm }}
             {{> form }}
         {{/if}}
+    
+    </section>
+    <section class="row">
 
         {{#if hasViewPost }}
             {{> adminViewPost }}

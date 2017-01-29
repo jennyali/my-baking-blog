@@ -2,7 +2,8 @@
 //---------------------------------
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
-var categories = require('../models/categoriesArray');
+var Category = require('../models/categoriesModel');
+var categorySeed = require('../models/categoriesSeed');
 var _ = require('lodash');
 
 // GET to render inital page / Uses the 'findAllPosts' function
@@ -12,13 +13,13 @@ exports.pageRender = function(req, res) {
 
         Post
             .find({})
-            .sort({created: 'desc'})
+            .sort({updated: 'desc'})
             .then( results => {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
-                hasForm: true,
                 hasAllPosts: true,
+                hasCreateBtn: true,
                 foundPosts: results,
                 alertMsg: req.query.alertMsg,
                 delete: true
@@ -32,13 +33,13 @@ exports.pageRender = function(req, res) {
 
         Post
             .find({})
-            .sort({created: 'desc'})
+            .sort({updated: 'desc'})
             .then( results => {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
-                hasForm: true,
                 hasAllPosts: true,
+                hasCreateBtn: true,
                 foundPosts: results,
                 alertMsg: req.query.alertMsg,
                 update: true
@@ -48,6 +49,26 @@ exports.pageRender = function(req, res) {
             if (err) throw err;
         });
 
+    } else if(req.query.success) {
+
+        Post
+            .find({})
+            .sort({updated: 'desc'})
+            .then( results => {
+
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasAllPosts: true,
+                hasCreateBtn: true,
+                foundPosts: results,
+                alertMsg: req.query.alertMsg,
+                success: true
+            });
+
+        }).catch( err => {
+            if (err) throw err;
+        });
+    
     } else {
         Post
             .find({})
@@ -56,10 +77,9 @@ exports.pageRender = function(req, res) {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
-                hasForm: true,
                 hasAllPosts: true,
                 foundPosts: results,
-                categories: categories,
+                hasCreateBtn: true,
             });
 
         }).catch( err => {
@@ -68,41 +88,74 @@ exports.pageRender = function(req, res) {
     }
 };
 
+// GET = different Rendering for the Create route/page, uses category model
+exports.formRender = function(req, res) {
+
+    if(!req.params.id) {
+        
+        categorySeed
+            .categoryList()
+            .then(function(results) {
+
+                res.render('postEditor', { 
+                    pageTitle: "Create Post",
+                    hasForm: true,
+                    categories: results,
+                });
+
+            }).catch(function(err) {
+                if (err) throw err;
+        });
+
+    } else {
+
+        var postId = req.params.id;
+
+        categorySeed
+            .categoryList()
+            .then(function(results) {
+
+                return Post.findById(postId)
+                    .exec()
+                    .then(post => {
+
+                        res.render('postEditor', { 
+                            pageTitle: "Edit Post",
+                            hasForm: true,
+                            categories: results,
+                            prefill: {
+                                title: post.title,
+                                body: post.body
+                            }
+                        });
+
+                    });
+
+            }).catch(function(err) {
+                if (err) throw err;
+        });
+    }
+};
 
 // POST = Create
 exports.createPost = function(req, res) {
 
-    var entry = new Post({
+    var postEntry = new Post({
         title: req.body.title,
         category: req.body.category,
         body: req.body.body,
     });
 
-    entry.save().then( post => { //Newly saved object would go into this functions parameters.
+    postEntry
+        .save()
+        .then( post => {
 
-        var alertMsg = post.title;
+            var message = post.title;
+            console.log('CREATED POST: ' + post.title);
+            res.redirect(301, '/post-editor?success=true&alertMsg=' + message);
 
-        console.log('CREATED POST: ' + post.title);
-
-        Post
-            .find({})
-            .sort({created: 'desc'})
-            .then( results => {
-
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasForm: true,
-                hasAllPosts: true,
-                foundPosts: results,
-                success: true,
-                alertMsg: alertMsg
-            });
-
-            }).catch( err => {
-                if (err) throw err;
-            });
-        
-        }).catch( err => {
+        })
+        .catch( err => {
             var error = err;
 
             if(err.name === 'ValidationError') {
@@ -110,23 +163,26 @@ exports.createPost = function(req, res) {
                 error = errorHelper(err);
             }
 
-            Post.find({}).then( results => {
-                // repeats the renderPage function to validate the form and render the recipe index.
-                res.render('postEditor', { 
-                    pageTitle: "Post Editor",
-                    hasForm: true,
-                    hasAllPosts: true,
-                    foundPosts: results,
-                    failed: true,
-                    prefillTitle: req.body.title,
-                    prefillBody: req.body.body,
-                    errors: error
-                });
+            categorySeed
+                .categoryList()
+                .then(function(results) {
 
-                }).catch( err => {
+                    res.render('postEditor', { 
+                        pageTitle: "Create Post",
+                        hasForm: true,
+                        categories: results,
+                        failed: true,
+                        prefill: {
+                            title: req.body.title,
+                            body: req.body.body
+                        },
+                        errors: error
+                    });
+                })
+                .catch( err => {
                     if (err) throw err;
-        });
-    });
+                });
+            });
 };
 
 // GET = Read (view/find all posts)
@@ -165,26 +221,10 @@ exports.findSomePosts = function(req, res) {
     });
 };
 
-// GET = Read (view/show ONLY 1 post)
-exports.findOnePost = function(req, res) {
 
-    var postId = req.params.id;
 
-    Post.find({ _id: postId}).then( post => {
-
-        res.render('postWrapper', {
-            pageTitle: post[0].title,
-            hasViewPost: true,
-            foundPost: post[0]
-        });
-
-    }).catch( err => {
-        if (err) throw err;
-    });
-};
-
-// GET = Render Edit page linked to :id given
-exports.editPost = function(req, res) {
+//GET = Render view post page using req.params.id
+exports.viewPost = function(req, res) {
 
     var postId = req.params.id;
 
@@ -198,19 +238,19 @@ exports.editPost = function(req, res) {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
-                hasPrefilledForm: true,
                 hasViewPost: true,
                 foundPost: post,
-                editPost: post,
             });
         }
     }).catch( err => {
         if (err) throw err;
     });
+
 };
 
+
 // POST = Using information from url and browser body, function updates post with new strings.
-exports.updatePost = function(req, res) {
+exports.editPost = function(req, res) {
 
     var postId = req.params.id;
 
