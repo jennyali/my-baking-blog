@@ -1,24 +1,28 @@
-<div class="col-sm-8">
+<div class="col-sm-9">
     <div>
         <h2> Recipe Index </h2>
     </div>
 
-    {{#each foundPosts }}
+        {{#each foundPosts}}
+            <div class="row">
 
-        <article>
-            <h3>{{ this.title }}</h3>
-            <p class="small">{{this.updated}}</p>
-            <div id="{{ this._id }}" class="collapse">
-                <p>{{ this.body }}</p>
-            </div>
-            <div>
-                <button data-toggle="collapse" data-target="#{{ this._id }}" class="btn btn-default">
-                    <span class="icon-arrow-37"></span>
-                </button>
-                <a href="/post-editor/viewPost/{{ this._id }}" class="btn btn-default">View <span class="icon-preview-1"></span></a>
-                <a href="/post-editor/deletePost/{{ this._id }}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
-            </div>
-        </article>
+                <h2 class="col-sm-12">{{this.category}}</h2>
+  
+                {{#each this.postsCropped}}
+                    <div class="col-sm-3 text-center">
+                        <a href="/post-editor/viewPost/{{ this._id }}" class="col-sm-12"><h4>{{this.title}}</h4></a>
+                        <p class="col-sm-12 small">{{this.updated}}</p>
+                        <a href="/post-editor/viewPost/{{ this._id }}" class="btn btn-sm btn-default col-sm-6">View <span class="icon-preview-1"></span></a>
+                        <a href="/post-editor/deletePost/{{ this._id }}" class="btn btn-sm btn-danger col-sm-6">Delete <span class="icon-bin-2"></span></a>
+                    </div>
+                {{/each}}
 
-    {{/each}}
+                <div class="col-sm-3">
+                    <a href="/post-editor/viewCategory/{{this._id}}">
+                        <h3>More <span class="icon-arrow-68"></span></h3>
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+
 </div>

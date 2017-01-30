@@ -16,6 +16,10 @@ router
 router
     .route('/viewPost/:id')
     .get(postEditorController.viewPost);
+
+router
+    .route('/viewCategory/:category')
+    .get(postEditorController.adminCategoryRender);
     
 router
     .route('/editPost/:id')
