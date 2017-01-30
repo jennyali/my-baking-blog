@@ -5,15 +5,15 @@ var Post = require('../models/postModel');
 var Category = require('../models/categoriesModel');
 var categorySeed = require('../models/categoriesSeed');
 var _ = require('lodash');
+var Promise = require('bluebird')
 
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res) {
 
     if(req.query.delete) {
 
-        Post
-            .find({})
-            .sort({updated: 'desc'})
+        categorySeed
+            .allCategoriesWithPosts()
             .then( results => {
 
             res.render('postEditor', { 
@@ -31,9 +31,8 @@ exports.pageRender = function(req, res) {
 
     } else if(req.query.update) {
 
-        Post
-            .find({})
-            .sort({updated: 'desc'})
+        categorySeed
+            .allCategoriesWithPosts()
             .then( results => {
 
             res.render('postEditor', { 
@@ -51,9 +50,8 @@ exports.pageRender = function(req, res) {
 
     } else if(req.query.success) {
 
-        Post
-            .find({})
-            .sort({updated: 'desc'})
+        categorySeed
+            .allCategoriesWithPosts()
             .then( results => {
 
             res.render('postEditor', { 
@@ -70,22 +68,37 @@ exports.pageRender = function(req, res) {
         });
     
     } else {
-        Post
-            .find({})
-            .sort({created: 'desc'})
+
+        categorySeed
+            .allCategoriesWithPosts()
             .then( results => {
+
+                res.render('postEditor', { 
+                    pageTitle: "Post Editor",
+                    hasAllPosts: true,
+                    hasCreateBtn: true,
+                    foundPosts: results,
+                });
+
+            }).catch( err => {
+                if (err) throw err;
+        });
+    }
+};
+
+//GET = render the page for different categories to load into
+exports.adminCategoryRender = function(req, res) {
+ 
+    categorySeed
+        .oneCategoryWithPosts(req)
+        .then( results => {
 
             res.render('postEditor', { 
                 pageTitle: "Post Editor",
-                hasAllPosts: true,
-                foundPosts: results,
-                hasCreateBtn: true,
-            });
-
-        }).catch( err => {
-            if (err) throw err;
+                hasViewCategory: true,
+                foundPosts: results[0],
         });
-    }
+    });
 };
 
 // GET = different Rendering for the Create route/page, uses category model

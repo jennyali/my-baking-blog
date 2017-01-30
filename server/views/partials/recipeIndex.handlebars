@@ -1,19 +1,23 @@
 <div class="col-sm-8">
 
         {{#each foundPosts}}
+            <div class="row">
 
-            <div>
-
-                <h2>{{this.category}}</h2>
-
+                <h2 class="col-sm-12">{{this.category}}</h2>
+  
                 {{#each this.postsCropped}}
-                    <p>{{this.title}}</p>
+                    <div class="col-sm-3 text-center">
+                        <a href="/view-post/{{this._id}}" class="col-sm-12">{{this.title}}</a>
+                    </div>
                 {{/each}}
 
+                <div class="col-sm-3">
+                    <a href="/recipe-index/{{this._id}}">
+                        <h3>More <span class="icon-arrow-68"></span></h3>
+                    </a>
+                </div>
             </div>
-
         {{/each}}
-
 
         <ul class="pagination text-center">
 

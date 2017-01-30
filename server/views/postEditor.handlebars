@@ -23,19 +23,19 @@
     <section class="row">
 
         {{#if success }}
-            <div class="alert alert-success col-sm-12">
+            <div class="alert alert-success">
                 <strong>Success!</strong><p>Created Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
 
         {{#if update }}
-            <div class="alert alert-info col-sm-12">
+            <div class="alert alert-info">
                 <strong>Updated!</strong><p>Alterted Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
 
         {{#if delete }}
-            <div class="alert alert-danger col-sm-12">
+            <div class="alert alert-danger">
                 <strong>Deleted!</strong><p>Removed Post: {{ alertMsg }}</p>
             </div>
         {{/if}}
@@ -52,6 +52,13 @@
 
         {{#if hasViewPost }}
             {{> adminViewPost }}
+        {{/if}}
+
+    </section>
+    <section class="row">
+        
+        {{#if hasViewCategory}}
+            {{> adminViewCategory}}
         {{/if}}
 
     </section>

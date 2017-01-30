@@ -5,11 +5,15 @@ var viewController = require('../controllers/viewController');
 
 router
     .route('/')
-    .get(viewController.homeRender);
+    .get(viewController.homeRenderPagi);
 
 router
     .route('/recipe-index')
     .get(viewController.recipeIndexCategories);
+
+router
+    .route('/recipe-index/:category')
+    .get(viewController.categoryRender);
 
 router
     .route('/recipe-index/page')
