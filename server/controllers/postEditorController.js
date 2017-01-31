@@ -267,23 +267,25 @@ exports.editPost = function(req, res) {
 
     var postId = req.params.id;
 
-    Post.findByIdAndUpdate(postId, {
+    Post
+        .findById(postId, function(err, post) {
 
-        title: req.body.title,
-        category: req.body.category,
-        body: req.body.body,
-        updated: new Date()
+            post.title = req.body.title;
+            post.category = req.body.category;
+            post.body= req.body.body;
+            post.updated = new Date();
 
-    }).then( function(post) {
+            post
+                .save()
+                .then( post => {
 
-        var message = post.title;
+                    var message = post.title;
+                    console.log('CREATED POST: ' + post.title);
+                    res.redirect(301, '/post-editor?update=true&alertMsg=' + message);
 
-        console.log('CREATED POST: ' + post.title);
-
-        res.redirect(301, '/post-editor?update=true&alertMsg=' + message);
-
-    }).catch( err => {
-        if (err) throw err;
+                });
+        }).catch( err => {
+            if (err) throw err;
     });
 };
 
