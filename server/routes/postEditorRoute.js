@@ -30,5 +30,10 @@ router
     .route('/deletePost/:id')
     .get(postEditorController.deletePost);
 
+router
+    .route('/ingredients-list/:id')
+    .get(postEditorController.ingreFormRender)
+    .post(postEditorController.ingreFormProcess);
+
 
 module.exports = router;

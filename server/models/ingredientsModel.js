@@ -5,6 +5,10 @@ var Schema = mongoose.Schema;
 var Promise = require('bluebird');
 
 
-var ingreSchema = new Schema ({
-    
+var ingredientSchema = new Schema ({
+    name: String,
+    quantity: Number,
+    unit: String
 });
+
+module.exports = ingredientSchema;
