@@ -1,0 +1,22 @@
+<div class="col-sm-8">
+
+    <form method="POST" action="">
+
+        <div class="form-group">
+            <label>Name: </label>
+            <input type="text" class="form-control" name="ingredient[]">
+            <label>Quantity: </label>
+            <input type="number" class="input-sm" name="ingredient[]">
+            <select name="ingredient[]">
+                <option value="grams">g</option>
+                <option value="kilograms">kg</option>
+                <option value="mililitres">ml</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary">Finished</button>
+
+    </form>
+    <a href="/post-editor/viewPost/{{thisPostId}}" class="btn btn-danger">Cancel</a>
+
+</div>

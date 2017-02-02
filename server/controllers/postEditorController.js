@@ -150,6 +150,41 @@ exports.formRender = function(req, res) {
     }
 };
 
+exports.ingreFormRender = function(req, res) {
+    postId = req.params.id;
+
+     res.render('postEditor', {
+         pageTitle: "Ingredients List",
+         hasIngreList: true,
+         thisPostId: postId
+     });
+};
+
+exports.ingreFormProcess = function(req, res) {
+    //console.log(req.body.ingredient);
+        postId = req.params.id;
+
+        Post.findById(postId, function(err, post) {
+
+            var list = {
+                name: req.body.ingredient[0],
+                quantity: req.body.ingredient[1],
+                unit: req.body.ingredient[2]
+            };
+
+            post.ingreList.push(list);
+
+            post.save(function(err, post) {
+                
+                res.render('postEditor', {
+                pageTitle: "Ingredients List",
+                hasIngreList: true,
+                thisPostId: postId
+            });
+        });
+    });
+};
+
 // POST = Create
 exports.createPost = function(req, res) {
 

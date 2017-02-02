@@ -3,9 +3,28 @@
         <p class="small">{{foundPost.created}}</p>
         <h2>{{ foundPost.title }}</h2>
         <p>{{ foundPost.body }}</p>
+
+        {{#if foundPost.ingreList}}
+        <h3>Ingredients</h3>
+            <div>
+                {{#each foundPost.ingreList}}
+                    <ul>
+                        <li>
+                            <p style="display: inline-block">{{this.name}}</p>
+                            <p style="display: inline-block">{{this.quantity}}</p>
+                            <p style="display: inline-block">{{this.unit}}</p></li>
+                    </ul>
+                {{/each}}
+            </div>
+        {{/if}}
+
+
         <div>
             <a href="/post-editor/editPost/{{foundPost._id}}" class="btn btn-default">Edit <span class="icon-edit-1"></span></a>
             <a href="/post-editor/deletePost/{{foundPost._id}}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
+        </div>
+        <div>
+            <a href="/post-editor/ingredients-list/{{foundPost._id}}" class="btn btn-default"> Add ingredients</a>
         </div>
     </article>
 </div>

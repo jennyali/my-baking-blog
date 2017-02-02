@@ -2,11 +2,13 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ingredients = require('./ingredientsModel');
 
 var postSchema = new Schema ({
     title: { type: String, required: true },
     category: [{ref: 'categories', type: Schema.Types.ObjectId}],
     body: { type: String, required: true },
+    ingreList: [ingredients],
     created: Date,
     updated: Date
 });
