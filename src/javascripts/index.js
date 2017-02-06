@@ -1,3 +1,109 @@
 import 'babel-polyfill';
 
+
+var Promise = require('bluebird');
+var _ = require('lodash');
+
 require('../sass/main.scss');
+
+$(document).ready(function(){
+
+
+
+/*==========================
+
+            MODEL
+
+=============================*/
+
+//------- ARRAYS ----------//
+
+// ------ OBJECTS -----------------//
+
+
+//------- FUNCTION CONSTRUCTORS ----------//
+
+
+//------- ARRAY UPDATERS VIA FUNCTION CONSTRUCTORS -----//
+
+/*===========================
+
+            VIEW
+
+=============================*/
+
+//------- SELECTORS ----------//
+
+// Form SELECTORS
+var $addIngreBtn = $('#add-ingre-btn');
+var $formPostDiv = $('#form-post');
+var $inputIngreName = $('#input-ingre-name');
+var $inputIngreQtn = $('#input-ingre-quantity');
+var $inputIngreUnit = $('#input-ingre-unit');
+var $subFormIngre = $('#sub-form-ingre');
+var $ingreList = $('#ingredient-list');
+
+
+
+
+//--------VARIABLES ----------//
+
+
+//------ TEMPLATES ---------//
+function ingreListItemTemplate(obj){
+    return `
+        <li data-id="${obj._id}">
+            <p>${obj.name} ${obj.quantity} ${obj.unit}</p>
+        </li>
+    `
+}
+
+//------- EVENTS ----------//
+
+$addIngreBtn.on({
+    'click' : function(e) {
+        addIngreBtnHandler(e);
+    }
+});
+
+/*===========================
+
+        CONTROLLER
+
+=============================*/
+
+//------- FUNCTIONS ----------//
+function addIngreBtnHandler(e) {
+    e.preventDefault();
+
+    var postId = $subFormIngre.attr('data-id');
+
+    var formData = {
+        'name' : $inputIngreName.val(),
+        'quantity' : $inputIngreQtn.val(),
+        'unit': $inputIngreUnit.val()
+    };
+
+    $.ajax({
+        type : 'POST',
+        url : './update-post/' + postId,
+        data : formData,
+        dataType : 'json',
+        success: function(data) {
+            console.log('success, ingredient added');
+            var newIngre = _.last(data);
+            var template = "";
+            
+            template += ingreListItemTemplate(newIngre);
+            $(template).appendTo($ingreList);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+
+}
+
+//------- FUNCTION CALLS ----------//
+
+});
