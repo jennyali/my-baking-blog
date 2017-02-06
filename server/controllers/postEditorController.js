@@ -5,7 +5,7 @@ var Post = require('../models/postModel');
 var Category = require('../models/categoriesModel');
 var categorySeed = require('../models/categoriesSeed');
 var _ = require('lodash');
-var Promise = require('bluebird')
+var Promise = require('bluebird');
 
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res) {
@@ -101,6 +101,31 @@ exports.adminCategoryRender = function(req, res) {
     });
 };
 
+// GET = Update Post for Ajax request on inserting Ingredients
+exports.updatePost = function(req, res) {
+
+    var postId = req.params.id;
+
+    Post.findById(postId, function(err, post) {
+
+            if (err) throw err;
+
+            var list = {
+                name : req.body.name,
+                quantity: req.body.quantity,
+                unit: req.body.unit
+            };
+
+            post.ingreList.push(list);
+
+            post.save(function(err, post) {
+                if (err) console.log(err);
+                //console.log('ingredient added');
+                res.send(post.ingreList);
+        });          
+    });
+};
+
 // GET = different Rendering for the Create route/page, uses category model
 exports.formRender = function(req, res) {
 
@@ -135,10 +160,13 @@ exports.formRender = function(req, res) {
                         res.render('postEditor', { 
                             pageTitle: "Edit Post",
                             hasForm: true,
+                            isEditPost: true,
                             categories: results,
+                            postId: postId,
                             prefill: {
                                 title: post.title,
-                                body: post.body
+                                body: post.body,
+                                ingreList: post.ingreList
                             }
                         });
 

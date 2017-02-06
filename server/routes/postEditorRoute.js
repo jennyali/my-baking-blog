@@ -9,6 +9,10 @@ router
     .get(postEditorController.pageRender);
 
 router
+    .route('/editPost/update-post/:id')
+    .post(postEditorController.updatePost);
+
+router
     .route('/createPost')
     .get(postEditorController.formRender)
     .post(postEditorController.createPost);

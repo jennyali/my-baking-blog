@@ -10,7 +10,7 @@
         </div>
     {{/if}}
 
-    <div id="create-post" class="row">
+    <div id="post-form" class="row">
         <form method="POST" action="" class="form-group">
 
             <div class="col-sm-9">
@@ -23,6 +23,31 @@
                     <label for="body">Description:</label>
                     <textarea type="text" name="body" class="form-control">{{#if prefill}}{{prefill.body}}{{/if}}</textarea>
                 </div>
+
+                {{#if isEditPost}}
+
+                    <h3>Ingredients</h3>
+                        <ul id="ingredient-list">
+                            {{#each prefill.ingreList}}
+                                <li>
+                                    <p>{{this.name}} {{this.quantity}} {{this.unit}}</p>
+                                </li>
+                            {{/each}}
+                        </ul>
+                        <div id="sub-form-ingre" class="form-group" data-id="{{postId}}">
+                            <label>Name: </label>
+                            <input id="input-ingre-name" type="text" class="form-control" name="ingredient[]">
+                            <label>Quantity: </label>
+                            <input id="input-ingre-quantity" type="number" class="input-sm" name="ingredient[]">
+                            <select id="input-ingre-unit" name="ingredient[]">
+                                <option value="grams">g</option>
+                                <option value="kilograms">kg</option>
+                                <option value="mililitres">ml</option>
+                            </select>
+                        </div>
+                    <button id="add-ingre-btn" class="btn btn-primary">Add <span class="icon-add-1"></span></button>
+                    <br />
+                {{/if}}
 
                 <br /><input type="submit" value="Submit" class="btn btn-primary pull-left"/>
 
