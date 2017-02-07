@@ -55,10 +55,10 @@
 	
 	__webpack_require__(2);
 	
-	var Promise = __webpack_require__(300);
-	var _ = __webpack_require__(303);
+	var Promise = __webpack_require__(299);
+	var _ = __webpack_require__(302);
 	
-	__webpack_require__(299);
+	__webpack_require__(304);
 	
 	$(document).ready(function () {
 	
@@ -8293,12 +8293,6 @@
 
 /***/ },
 /* 299 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -13882,10 +13876,10 @@
 	
 	},{"./es5":13}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(295), (function() { return this; }()), __webpack_require__(301).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(295), (function() { return this; }()), __webpack_require__(300).setImmediate))
 
 /***/ },
-/* 301 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var apply = Function.prototype.apply;
@@ -13938,13 +13932,13 @@
 	};
 	
 	// setimmediate attaches itself to the global object
-	__webpack_require__(302);
+	__webpack_require__(301);
 	exports.setImmediate = setImmediate;
 	exports.clearImmediate = clearImmediate;
 
 
 /***/ },
-/* 302 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -14137,7 +14131,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(295)))
 
 /***/ },
-/* 303 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -31225,10 +31219,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(304)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(303)(module)))
 
 /***/ },
-/* 304 */
+/* 303 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -31242,6 +31236,12 @@
 		return module;
 	}
 
+
+/***/ },
+/* 304 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
