@@ -101,30 +101,6 @@ exports.adminCategoryRender = function(req, res) {
     });
 };
 
-// GET = Update Post for Ajax request on inserting Ingredients
-exports.updatePost = function(req, res) {
-
-    var postId = req.params.id;
-
-    Post.findById(postId, function(err, post) {
-
-            if (err) throw err;
-
-            var list = {
-                name : req.body.name,
-                quantity: req.body.quantity,
-                unit: req.body.unit
-            };
-
-            post.ingreList.push(list);
-
-            post.save(function(err, post) {
-                if (err) console.log(err);
-                //console.log('ingredient added');
-                res.send(post.ingreList);
-        });          
-    });
-};
 
 // GET = different Rendering for the Create route/page, uses category model
 exports.formRender = function(req, res) {
@@ -157,6 +133,9 @@ exports.formRender = function(req, res) {
                     .exec()
                     .then(post => {
 
+                        //console.log(results);
+                        //console.log(post.category);
+
                         res.render('postEditor', { 
                             pageTitle: "Edit Post",
                             hasForm: true,
@@ -166,7 +145,8 @@ exports.formRender = function(req, res) {
                             prefill: {
                                 title: post.title,
                                 body: post.body,
-                                ingreList: post.ingreList
+                                ingreList: post.ingreList,
+                                category: post.category
                             }
                         });
 
@@ -178,40 +158,6 @@ exports.formRender = function(req, res) {
     }
 };
 
-exports.ingreFormRender = function(req, res) {
-    postId = req.params.id;
-
-     res.render('postEditor', {
-         pageTitle: "Ingredients List",
-         hasIngreList: true,
-         thisPostId: postId
-     });
-};
-
-exports.ingreFormProcess = function(req, res) {
-    //console.log(req.body.ingredient);
-        postId = req.params.id;
-
-        Post.findById(postId, function(err, post) {
-
-            var list = {
-                name: req.body.ingredient[0],
-                quantity: req.body.ingredient[1],
-                unit: req.body.ingredient[2]
-            };
-
-            post.ingreList.push(list);
-
-            post.save(function(err, post) {
-                
-                res.render('postEditor', {
-                pageTitle: "Ingredients List",
-                hasIngreList: true,
-                thisPostId: postId
-            });
-        });
-    });
-};
 
 // POST = Create
 exports.createPost = function(req, res) {
@@ -260,43 +206,6 @@ exports.createPost = function(req, res) {
                 });
             });
 };
-
-// GET = Read (view/find all posts)
-exports.findAllPosts = function(req, res) {
-
-    Post.find({}).then( results => {
-
-        res.render('postWrapper', { 
-            pageTitle: "All Recipes",
-            hasForm: false, 
-            hasAllPosts: true,
-            foundPosts: results,
-        });
-
-    }).catch( err => {
-
-        if (err) throw err;
-
-    });
-};
-
-
-// GET = Read (view/show ONLY 3 posts)
-exports.findSomePosts = function(req, res) {
-
-    Post.find({}).then( results => {
-        
-        var someResults = _.slice(results, 0, 3);
-
-        res.render('home', { 
-            foundPosts: someResults
-        });
-
-    }).catch( err => {
-        if (err) throw err;
-    });
-};
-
 
 
 //GET = Render view post page using req.params.id
@@ -367,6 +276,37 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
 
     }).catch( err => {
         if (err) throw err;
+    });
+};
+
+/*===============================
+
+        AJAX RELATED ROUTES
+ 
+ ================================*/
+
+// GET = Update Post for Ajax request on inserting Ingredients
+exports.updatePost = function(req, res) {
+
+    var postId = req.params.id;
+
+    Post.findById(postId, function(err, post) {
+
+            if (err) throw err;
+
+            var list = {
+                name : req.body.name,
+                quantity: req.body.quantity,
+                unit: req.body.unit
+            };
+
+            post.ingreList.push(list);
+
+            post.save(function(err, post) {
+                if (err) console.log(err);
+                //console.log('ingredient added');
+                res.send(post.ingreList);
+        });          
     });
 };
 

@@ -3,5 +3,19 @@
         <p class="small">{{foundPost.created}}</p>
         <h2>{{ foundPost.title }}</h2>
         <p>{{ foundPost.body }}</p>
+
+        {{#if foundPost.ingreList}}
+            <h3>Ingredients</h3>
+            <div>
+                {{#each foundPost.ingreList}}
+                    <ul>
+                        <li>
+                            <p style="display: inline-block">{{this.name}}</p>
+                            <p style="display: inline-block">{{this.quantity}}</p>
+                            <p style="display: inline-block">{{this.unit}}</p></li>
+                    </ul>
+                {{/each}}
+            </div>
+        {{/if}}
     </article>
 </div>

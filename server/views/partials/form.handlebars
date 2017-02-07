@@ -23,9 +23,29 @@
                     <label for="body">Description:</label>
                     <textarea type="text" name="body" class="form-control">{{#if prefill}}{{prefill.body}}{{/if}}</textarea>
                 </div>
+            </div>
 
-                {{#if isEditPost}}
+            <aside class="col-sm-3">
+                <div class="form-group">
+                    <div class="alert {{#if errors.category}}alert-danger{{/if}}">
+                        Baking Categories 
+                        {{#if errors.category}}<span class="icon-arrow-37 pull-right"></span>{{/if}}
+                    </div>
+                    <div id="category-checkbox" class="">
 
+                        {{#each categories}}
+
+                            <label for="{{this.category}}">{{this.category}}</label>
+                            <input type="checkbox" name="category[]" value="{{this._id}}"></br>
+
+                        {{/each}}
+
+                    </div>
+                </div>
+            </aside> 
+
+            {{#if isEditPost}}
+                <div class="col-sm-6">
                     <h3>Ingredients</h3>
                         <ul id="ingredient-list">
                             {{#each prefill.ingreList}}
@@ -47,30 +67,21 @@
                         </div>
                     <button id="add-ingre-btn" class="btn btn-primary">Add <span class="icon-add-1"></span></button>
                     <br />
-                {{/if}}
-
-                <br /><input type="submit" value="Submit" class="btn btn-primary pull-left"/>
-
-            </div> 
-
-            <aside class="col-sm-3">
-                <div class="form-group">
-                    <div class="alert {{#if errors.category}}alert-danger{{/if}}">
-                        Baking Categories 
-                        {{#if errors.category}}<span class="icon-arrow-37 pull-right"></span>{{/if}}
-                    </div>
-                    <div id="category-checkbox" class="text-right">
-
-                        {{#each categories}}
-
-                            <label for="{{this.category}}">{{this.category}}</label>
-                            <input type="checkbox" name="category[]" value="{{this._id}}"></br>
-
-                        {{/each}}
-
-                    </div>
                 </div>
-            </aside> 
+            {{/if}}
+
+
+
+            <div class="col-sm-12">
+                <br />
+                <input type="submit" value="Submit" class="btn btn-primary pull-left"/>
+
+                {{#if isEditPost}}
+                    <a href="/post-editor/viewPost/{{postId}}" class="btn btn-danger"> Cancel </a>
+                {{else}}
+                    <a href="/post-editor" class="btn btn-danger"> Cancel </a>
+                {{/if}}
+            </div>
         </form>
     </div>
 </div>
