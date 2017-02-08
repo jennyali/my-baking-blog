@@ -98,6 +98,8 @@
 	    var $ingreList = $('#ingredient-list');
 	
 	    var $ingreLiDelBtn = $('.del-btn');
+	    var $ingreLiEditBtn = $('.edit-btn');
+	
 	    var $ingreLi = $('.ingre-li');
 	
 	    //--------VARIABLES ----------//
@@ -105,7 +107,7 @@
 	
 	    //------ TEMPLATES ---------//
 	    function ingreListItemTemplate(obj) {
-	        return '\n        <li data-id="' + obj._id + '">\n            <p style="display: inline-block">' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n            <button class="btn btn-warning btn-sm del-btn" data-id="' + obj._id + '"><span class="icon-bin-2"></span></button>\n        </li>\n    ';
+	        return '\n        <li data-id="' + obj._id + '" class="ingre-li">\n            <p style="display: inline-block">' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n            <button class="btn btn-danger btn-sm del-btn" data-id="' + obj._id + '"><span class="icon-bin-2"></span></button>\n            <button class="btn btn-default btn-sm edit-btn" data-id="{{this._id}}"><span class="icon-edit-1"></span></button>\n        </li>\n    ';
 	    }
 	
 	    //------- EVENTS ----------//
@@ -116,8 +118,14 @@
 	        }
 	    });
 	
-	    $ingreLi.on('click', $ingreLiDelBtn, function (e) {
+	    $ingreList.on('click', 'li button.del-btn', function (e) {
+	        // individual ingredient delete button
 	        delIngreBtnHandler(e, this);
+	    });
+	
+	    $ingreList.on('click', 'li button.edit-btn', function (e) {
+	        // individual ingredient edit button
+	        editIngreBtnHandler(e, this);
 	    });
 	
 	    /*===========================
@@ -127,18 +135,49 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
-	    function delIngreBtnHandler(e, selector) {
+	
+	    function editIngreBtnHandler(e, selector) {
 	        e.preventDefault();
 	
-	        var postId = $subFormIngre.attr('data-id');
-	        var ingreId = $(selector).attr('data-id');
+	        var li = $(selector).closest('li'); // gets button parent li
+	        var ingreId = $(li[0]).attr('data-id'); // gets li data-id number
+	        var postId = $subFormIngre.attr('data-id'); // parent post id
 	
 	        var ingreData = {
 	            'ingreId': ingreId
 	        };
 	
-	        //console.log(ingreId);
-	        //console.log(postId);
+	        $.ajax({
+	            type: 'POST',
+	            url: './edit-ingredient/' + postId,
+	            data: ingreData,
+	            dataType: 'json',
+	            success: function success(data) {
+	                console.log('ingredient ready for edit');
+	                console.log(data);
+	
+	                var ingreObj = data;
+	
+	                $inputIngreName.val(ingreObj.name);
+	                $inputIngreQtn.val(ingreObj.quantity);
+	                $inputIngreUnit.val(ingreObj.unit);
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
+	
+	    function delIngreBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var li = $(selector).closest('li');
+	        var postId = $subFormIngre.attr('data-id');
+	        var ingreId = $(li[0]).attr('data-id');
+	
+	        var ingreData = {
+	            'ingreId': ingreId
+	        };
 	
 	        $.ajax({
 	            type: 'POST',
@@ -147,6 +186,20 @@
 	            dataType: 'json',
 	            success: function success(data) {
 	                console.log('ingredient deleted');
+	
+	                var updatedIngreList = $($ingreList).children('li');
+	
+	                var foundLi = _.find(updatedIngreList, function (li) {
+	
+	                    if ($(li).attr('data-id') === ingreId) {
+	
+	                        return li;
+	                    } else {
+	                        return console.log('not found');
+	                    }
+	                });
+	
+	                $(foundLi).remove();
 	            },
 	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
 	                console.log('error', errorThrown);
@@ -171,7 +224,7 @@
 	            data: formData,
 	            dataType: 'json',
 	            success: function success(data) {
-	                console.log('success, ingredient added');
+	                console.log('ingredient added');
 	                var newIngre = _.last(data);
 	                var template = "";
 	
@@ -185,6 +238,7 @@
 	    }
 	
 	    //------- FUNCTION CALLS ----------//
+	
 	});
 
 /***/ },
