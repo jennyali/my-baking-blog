@@ -36,7 +36,7 @@
                         {{#each categories}}
 
                             <label for="{{this.category}}">{{this.category}}</label>
-                            <input type="checkbox" name="category[]" value="{{this._id}}"></br>
+                            <input {{#if this.isChecked}}checked="true"{{/if}} type="checkbox" name="category[]" value="{{this._id}}"></br>
 
                         {{/each}}
 
@@ -44,15 +44,29 @@
                 </div>
             </aside> 
 
+            <div class="col-sm-12">
+                <br />
+                <input type="submit" value="Submit" class="btn btn-primary pull-left"/>
+
+                {{#if isEditPost}}
+                    <a href="/post-editor/viewPost/{{postId}}" class="btn btn-danger"> Cancel </a>
+                {{else}}
+                    <a href="/post-editor" class="btn btn-danger"> Cancel </a>
+                {{/if}}
+            </div>
+        </form>
             {{#if isEditPost}}
                 <div class="col-sm-6">
                     <h3>Ingredients</h3>
                         <ul id="ingredient-list">
+
                             {{#each prefill.ingreList}}
-                                <li>
-                                    <p>{{this.name}} {{this.quantity}} {{this.unit}}</p>
+                                <li data-id="{{this._id}}" class="ingre-li">
+                                    <p style="display: inline-block">{{this.name}} {{this.quantity}} {{this.unit}}</p>
+                                    <button class="btn btn-danger btn-sm del-btn" data-id="{{this._id}}"><span class="icon-bin-2"></span></button>
                                 </li>
                             {{/each}}
+
                         </ul>
                         <div id="sub-form-ingre" class="form-group" data-id="{{postId}}">
                             <label>Name: </label>
@@ -69,19 +83,5 @@
                     <br />
                 </div>
             {{/if}}
-
-
-
-            <div class="col-sm-12">
-                <br />
-                <input type="submit" value="Submit" class="btn btn-primary pull-left"/>
-
-                {{#if isEditPost}}
-                    <a href="/post-editor/viewPost/{{postId}}" class="btn btn-danger"> Cancel </a>
-                {{else}}
-                    <a href="/post-editor" class="btn btn-danger"> Cancel </a>
-                {{/if}}
-            </div>
-        </form>
     </div>
 </div>

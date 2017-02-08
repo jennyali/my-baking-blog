@@ -89,18 +89,23 @@
 	    // Form SELECTORS
 	    var $addIngreBtn = $('#add-ingre-btn');
 	    var $formPostDiv = $('#form-post');
+	
 	    var $inputIngreName = $('#input-ingre-name');
 	    var $inputIngreQtn = $('#input-ingre-quantity');
 	    var $inputIngreUnit = $('#input-ingre-unit');
 	    var $subFormIngre = $('#sub-form-ingre');
+	
 	    var $ingreList = $('#ingredient-list');
+	
+	    var $ingreLiDelBtn = $('.del-btn');
+	    var $ingreLi = $('.ingre-li');
 	
 	    //--------VARIABLES ----------//
 	
 	
 	    //------ TEMPLATES ---------//
 	    function ingreListItemTemplate(obj) {
-	        return '\n        <li data-id="' + obj._id + '">\n            <p>' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n        </li>\n    ';
+	        return '\n        <li data-id="' + obj._id + '">\n            <p style="display: inline-block">' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n            <button class="btn btn-warning btn-sm del-btn" data-id="' + obj._id + '"><span class="icon-bin-2"></span></button>\n        </li>\n    ';
 	    }
 	
 	    //------- EVENTS ----------//
@@ -111,6 +116,10 @@
 	        }
 	    });
 	
+	    $ingreLi.on('click', $ingreLiDelBtn, function (e) {
+	        delIngreBtnHandler(e, this);
+	    });
+	
 	    /*===========================
 	    
 	            CONTROLLER
@@ -118,6 +127,33 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
+	    function delIngreBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var postId = $subFormIngre.attr('data-id');
+	        var ingreId = $(selector).attr('data-id');
+	
+	        var ingreData = {
+	            'ingreId': ingreId
+	        };
+	
+	        //console.log(ingreId);
+	        //console.log(postId);
+	
+	        $.ajax({
+	            type: 'POST',
+	            url: './delete-ingredient/' + postId,
+	            data: ingreData,
+	            dataType: 'json',
+	            success: function success(data) {
+	                console.log('ingredient deleted');
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
+	
 	    function addIngreBtnHandler(e) {
 	        e.preventDefault();
 	

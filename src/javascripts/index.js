@@ -37,13 +37,16 @@ $(document).ready(function(){
 // Form SELECTORS
 var $addIngreBtn = $('#add-ingre-btn');
 var $formPostDiv = $('#form-post');
+
 var $inputIngreName = $('#input-ingre-name');
 var $inputIngreQtn = $('#input-ingre-quantity');
 var $inputIngreUnit = $('#input-ingre-unit');
 var $subFormIngre = $('#sub-form-ingre');
+
 var $ingreList = $('#ingredient-list');
 
-
+var $ingreLiDelBtn = $('.del-btn');
+var $ingreLi = $('.ingre-li');
 
 
 //--------VARIABLES ----------//
@@ -53,7 +56,8 @@ var $ingreList = $('#ingredient-list');
 function ingreListItemTemplate(obj){
     return `
         <li data-id="${obj._id}">
-            <p>${obj.name} ${obj.quantity} ${obj.unit}</p>
+            <p style="display: inline-block">${obj.name} ${obj.quantity} ${obj.unit}</p>
+            <button class="btn btn-warning btn-sm del-btn" data-id="${obj._id}"><span class="icon-bin-2"></span></button>
         </li>
     `
 }
@@ -66,6 +70,10 @@ $addIngreBtn.on({
     }
 });
 
+$ingreLi.on('click', $ingreLiDelBtn, function(e) {
+    delIngreBtnHandler(e, this);
+});
+
 /*===========================
 
         CONTROLLER
@@ -73,6 +81,35 @@ $addIngreBtn.on({
 =============================*/
 
 //------- FUNCTIONS ----------//
+function delIngreBtnHandler(e, selector) {
+    e.preventDefault();
+
+    var postId = $subFormIngre.attr('data-id');
+    var ingreId = $(selector).attr('data-id');
+
+    var ingreData = {
+        'ingreId' : ingreId
+    };
+
+    //console.log(ingreId);
+    //console.log(postId);
+
+    $.ajax({
+        type : 'POST',
+        url : './delete-ingredient/' + postId,
+        data : ingreData,
+        dataType : 'json',
+        success: function(data) {
+            console.log('ingredient deleted');
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+}
+
+
 function addIngreBtnHandler(e) {
     e.preventDefault();
 

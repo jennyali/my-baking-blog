@@ -133,8 +133,20 @@ exports.formRender = function(req, res) {
                     .exec()
                     .then(post => {
 
-                        //console.log(results);
-                        //console.log(post.category);
+                        results = _.map(results, category => {
+
+                            category.toObject();
+                             var matchingCategory = _.find(post.category, postCategory => {
+                                 
+                                return postCategory.toString() === category._id.toString();
+                            });
+                            
+                            if(matchingCategory !== undefined) {
+                                category.isChecked = true;
+                            }
+                            return category;
+
+                        });
 
                         res.render('postEditor', { 
                             pageTitle: "Edit Post",
@@ -145,8 +157,7 @@ exports.formRender = function(req, res) {
                             prefill: {
                                 title: post.title,
                                 body: post.body,
-                                ingreList: post.ingreList,
-                                category: post.category
+                                ingreList: post.ingreList
                             }
                         });
 
@@ -160,7 +171,9 @@ exports.formRender = function(req, res) {
 
 
 // POST = Create
-exports.createPost = function(req, res) {
+exports.createPost = function(req, res, next) {
+
+    //console.log(req.body.category);
 
     var postEntry = new Post({
         title: req.body.title,
@@ -178,6 +191,9 @@ exports.createPost = function(req, res) {
 
         })
         .catch( err => {
+
+            //console.log(err);
+
             var error = err;
 
             if(err.name === 'ValidationError') {
@@ -202,7 +218,7 @@ exports.createPost = function(req, res) {
                     });
                 })
                 .catch( err => {
-                    if (err) throw err;
+                    next(err)
                 });
             });
 };
@@ -235,12 +251,15 @@ exports.viewPost = function(req, res) {
 
 
 // POST = Using information from url and browser body, function updates post with new strings.
-exports.editPost = function(req, res) {
+exports.editPost = function(req, res, next) {
 
     var postId = req.params.id;
 
     Post
         .findById(postId, function(err, post) {
+
+            //console.log(post.category);
+            //console.log(req.body.category);
 
             post.title = req.body.title;
             post.category = req.body.category;
@@ -252,14 +271,65 @@ exports.editPost = function(req, res) {
                 .then( post => {
 
                     var message = post.title;
-                    console.log('CREATED POST: ' + post.title);
+                    console.log('EDITED POST: ' + post.title);
                     res.redirect(301, '/post-editor?update=true&alertMsg=' + message);
 
+                })
+                .catch( err => {
+
+                    //console.log(err);
+
+                    var error = err;
+
+                    if(err.name === 'ValidationError') {
+
+                       error = errorHelper(err);
+                    }
+
+                    categorySeed
+                        .categoryList()
+                        .then(function(results) {
+
+                            var bodyCategories = req.body.category; //array
+
+                            results = _.map(results, category => {
+
+                                category.toObject();
+
+                                var matchingCategory = _.find(bodyCategories, bodyCategory => {
+
+                                    return bodyCategory === category._id.toString();
+
+                                });
+
+                                if(matchingCategory !== undefined) {
+                                    category.isChecked = true;
+                                }
+
+                                return category;
+                            });
+
+                                res.render('postEditor', { 
+                                    pageTitle: "Edit Post",
+                                    hasForm: true,
+                                    isEditPost: true,
+                                    categories: results,
+                                    postId: postId,
+                                    prefill: {
+                                        title: req.body.title,
+                                        body: req.body.body,
+                                    },
+                                    failed: true,
+                                    errors: error
+                                })
+                                .catch( err => {
+                                    if (err) throw err;
                 });
-        }).catch( err => {
-            if (err) throw err;
+            });
+        });
     });
 };
+
 
 // GET = find by id and delete post
 exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING WITH TITLE, ALERT, ALERTmsg
@@ -285,8 +355,32 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
  
  ================================*/
 
-// GET = Update Post for Ajax request on inserting Ingredients
-exports.updatePost = function(req, res) {
+//POST = to delete an ingredient from the list of made Ingredients
+exports.deleteIngredient = function(req, res, next) {
+
+    var postId = req.params.id;
+    var ingreId = req.body.ingreId;
+
+    //console.log(req.body.ingreId); // ingredient to delete
+
+
+    Post
+        .findOneAndUpdate({ _id: postId}, { $pull : { ingreList : { _id : ingreId }}})
+        .exec()
+        .then( post => {
+
+            //console.log(post.ingreList);
+
+            res.send('204');
+
+        }).catch( err => {
+        if (err) throw err;
+    });
+};
+
+
+// POST = Update Post for Ajax request on inserting Ingredients
+exports.addIngredient = function(req, res) {
 
     var postId = req.params.id;
 

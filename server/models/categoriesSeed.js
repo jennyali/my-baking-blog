@@ -59,7 +59,7 @@ exports.allCategoriesWithPosts = function(req, res) {
                     .exec()
                     .then( posts => {
 
-                        postsCropped = _.slice(posts, [0], [3]);
+                        var postsCropped = _.slice(posts, [0], [3]);
 
                         category = category.toObject(); // turns into normal object
                         category.posts = posts; // adds a posts property to category object, equals the posts found
@@ -94,4 +94,5 @@ exports.oneCategoryWithPosts = function(req, res) {
         });
     });
 };
+
 
