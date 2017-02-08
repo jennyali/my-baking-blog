@@ -49,7 +49,7 @@
                 <input type="submit" value="Submit" class="btn btn-primary pull-left"/>
 
                 {{#if isEditPost}}
-                    <a href="/post-editor/viewPost/{{postId}}" class="btn btn-danger"> Cancel </a>
+                    <a href="/post-editor/viewPost/{{postId}}" class="btn btn-default"> Back </a>
                 {{else}}
                     <a href="/post-editor" class="btn btn-danger"> Cancel </a>
                 {{/if}}
@@ -64,6 +64,7 @@
                                 <li data-id="{{this._id}}" class="ingre-li">
                                     <p style="display: inline-block">{{this.name}} {{this.quantity}} {{this.unit}}</p>
                                     <button class="btn btn-danger btn-sm del-btn" data-id="{{this._id}}"><span class="icon-bin-2"></span></button>
+                                    <button class="btn btn-default btn-sm edit-btn" data-id="{{this._id}}"><span class="icon-edit-1"></span></button>
                                 </li>
                             {{/each}}
 

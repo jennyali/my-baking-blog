@@ -355,21 +355,36 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
  
  ================================*/
 
+// POST = to prep for edit of ingredient, find ingredient and fill in Ingreform
+exports.editIngredient = function(req, res, next) {
+
+    var postId = req.params.id;
+    var ingreId = req.body.ingreId;
+
+    Post
+        .findById(postId)
+        .exec()
+        .then( post => {
+
+            var ingredient = post.ingreList.id(ingreId);
+
+            res.send(ingredient);
+
+        }).catch(function(err) {
+            if (err) throw err;
+    });
+};
+
 //POST = to delete an ingredient from the list of made Ingredients
 exports.deleteIngredient = function(req, res, next) {
 
     var postId = req.params.id;
     var ingreId = req.body.ingreId;
 
-    //console.log(req.body.ingreId); // ingredient to delete
-
-
     Post
         .findOneAndUpdate({ _id: postId}, { $pull : { ingreList : { _id : ingreId }}})
         .exec()
         .then( post => {
-
-            //console.log(post.ingreList);
 
             res.send('204');
 
@@ -398,7 +413,7 @@ exports.addIngredient = function(req, res) {
 
             post.save(function(err, post) {
                 if (err) console.log(err);
-                //console.log('ingredient added');
+
                 res.send(post.ingreList);
         });          
     });
