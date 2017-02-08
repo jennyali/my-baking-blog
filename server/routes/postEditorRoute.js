@@ -34,9 +34,11 @@ router
 // AJAX ROUTES //
 router
     .route('/editPost/update-post/:id')
-    .post(postEditorController.updatePost);
+    .post(postEditorController.addIngredient);
 
-
+router
+    .route('/editPost/delete-ingredient/:id')
+    .post(postEditorController.deleteIngredient);
 
 
 module.exports = router;
