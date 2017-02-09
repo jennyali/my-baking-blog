@@ -44,5 +44,9 @@ router
     .route('/editPost/edit-ingredient/:id')
     .post(postEditorController.editIngredient);
 
+router
+    .route('/editPost/update-ingredient/:id')
+    .post(postEditorController.updateIngredient);
+
 
 module.exports = router;

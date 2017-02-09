@@ -73,15 +73,33 @@ exports.pageRender = function(req, res) {
             .allCategoriesWithPosts()
             .then( results => {
 
-                res.render('postEditor', { 
-                    pageTitle: "Post Editor",
-                    hasAllPosts: true,
-                    hasCreateBtn: true,
-                    foundPosts: results,
-                });
+                var perPage = 8;
+                var currentPage = req.query.p;
+                var page = (currentPage - 1);
+                
+                Post
+                    .find({})
+                    .skip(perPage * page)
+                    .limit(perPage)
+                    .sort({updated: 'desc'})
+                    .exec(function(err, pagiResults) {
 
-            }).catch( err => {
-                if (err) throw err;
+                        Post.count().exec(function(err, count) {
+
+                            pagesQuantity = ((count / perPage) + 1);
+
+                            res.render('postEditor', { 
+                                pageTitle: "Post Editor", 
+                                hasAllPosts: true,
+                                hasCreateBtn: true,
+                                foundPosts: results,
+                                pagiResults: pagiResults,
+                                page: currentPage,
+                                pages: pagesQuantity
+                        });
+                    });
+                });
+            
         });
     }
 };
@@ -354,6 +372,35 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
         AJAX RELATED ROUTES
  
  ================================*/
+
+ //POST = to update the ingredient with new form values
+ exports.updateIngredient = function(req, res, next) {
+
+    var postId = req.params.id;
+    var ingredientId = req.body.ingredientId;
+
+    Post
+        .findById(postId)
+        .then( post => {
+
+            var ingredient = post.ingreList.id(ingredientId);
+
+            ingredient.name = req.body.name;
+            ingredient.quantity = req.body.quantity;
+            ingredient.unit = req.body.unit;
+
+            post.save()
+                .then( post => {
+
+                    var ingredient = post.ingreList.id(ingredientId);
+
+                    res.send(ingredient);
+            });
+
+        }).catch(function(err) {
+            if (err) throw err;
+    });
+ };
 
 // POST = to prep for edit of ingredient, find ingredient and fill in Ingreform
 exports.editIngredient = function(req, res, next) {
