@@ -38,7 +38,7 @@ exports.homeRenderPagi = function(req, res) {
         .find({})
         .skip(perPage * page)
         .limit(perPage)
-        .sort({created: 'desc'})
+        .sort({updated: 'desc'})
         .exec(function(err, results) {
 
             Post.count().exec(function(err, count) {

@@ -1,7 +1,14 @@
 <div class="col-sm-9">
     <div>
         <h2> Recipe Index </h2>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#all-tab">All Recipes</a></li>
+            <li><a data-toggle="tab" href="#categories-tab">Categories</a></li>
+        </ul>
     </div>
+
+    <div class="tab-content">
+        <div id="categories-tab" class="tab-pane fade">
 
         {{#each foundPosts}}
             <div class="row">
@@ -24,5 +31,36 @@
                 </div>
             </div>
         {{/each}}
+
+        </div>
+        <div id="all-tab" class="tab-pane fade in active">
+
+            {{#each pagiResults}}
+
+                    <div class="row text-left">
+                        <div class="col-sm-6">
+                            <a href="/post-editor/viewPost/{{ this._id }}" class=""><h4>{{this.title}}</h4></a>
+                            <p class="small">{{this.updated}}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <br/>
+                            <a href="/post-editor/viewPost/{{ this._id }}" class="btn btn-sm btn-default col-sm-6">View <span class="icon-preview-1"></span></a>
+                            <a href="/post-editor/deletePost/{{ this._id }}" class="btn btn-sm btn-danger col-sm-6">Delete <span class="icon-bin-2"></span></a>
+                        </div>
+                    </div>
+
+            {{/each}}
+
+            <ul class="pagination text-center row">
+
+                    {{#times pages}}
+                        <li><a href="/post-editor?p={{this}}">{{this}}</a></li>
+                    {{/times}}
+                        
+            </ul>
+
+        </div>
+
+    </div>
 
 </div>
