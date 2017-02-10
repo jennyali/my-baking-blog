@@ -3,73 +3,42 @@
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
 var Category = require('../models/categoriesModel');
-var categorySeed = require('../models/categoriesSeed');
+var categoryHelper = require('../helpers/categoryHelpers');
 var _ = require('lodash');
 var Promise = require('bluebird');
 
+
+/*==========================
+
+            GET
+
+=============================*/
+
+// PAGE RENDERS ---------------------------------------------
+
+
 // GET to render inital page / Uses the 'findAllPosts' function
-exports.pageRender = function(req, res) {
+exports.pageRender = function(req, res, next) {
+
+    var successRes = false;
+    var updateRes = false;
+    var deleteRes = false;
 
     if(req.query.delete) {
-
-        categorySeed
-            .allCategoriesWithPosts()
-            .then( results => {
-
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasAllPosts: true,
-                hasCreateBtn: true,
-                foundPosts: results,
-                alertMsg: req.query.alertMsg,
-                delete: true
-            });
-
-        }).catch( err => {
-            if (err) throw err;
-        });
-
+        
+         deleteRes = true;
+    
     } else if(req.query.update) {
 
-        categorySeed
-            .allCategoriesWithPosts()
-            .then( results => {
-
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasAllPosts: true,
-                hasCreateBtn: true,
-                foundPosts: results,
-                alertMsg: req.query.alertMsg,
-                update: true
-            });
-
-        }).catch( err => {
-            if (err) throw err;
-        });
+        updateRes = true;
 
     } else if(req.query.success) {
 
-        categorySeed
-            .allCategoriesWithPosts()
-            .then( results => {
+        successRes = true;
 
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasAllPosts: true,
-                hasCreateBtn: true,
-                foundPosts: results,
-                alertMsg: req.query.alertMsg,
-                success: true
-            });
+    } 
 
-        }).catch( err => {
-            if (err) throw err;
-        });
-    
-    } else {
-
-        categorySeed
+        categoryHelper
             .allCategoriesWithPosts()
             .then( results => {
 
@@ -82,9 +51,12 @@ exports.pageRender = function(req, res) {
                     .skip(perPage * page)
                     .limit(perPage)
                     .sort({updated: 'desc'})
-                    .exec(function(err, pagiResults) {
+                    .exec()
+                    .then( pagiResults => {
 
-                        Post.count().exec(function(err, count) {
+                        Post
+                            .count()
+                            .then( count => {
 
                             pagesQuantity = ((count / perPage) + 1);
 
@@ -95,19 +67,23 @@ exports.pageRender = function(req, res) {
                                 foundPosts: results,
                                 pagiResults: pagiResults,
                                 page: currentPage,
-                                pages: pagesQuantity
-                        });
-                    });
+                                pages: pagesQuantity,
+                                success: successRes,
+                                update: updateRes,
+                                delete: deleteRes,
+                            }
+                    );
                 });
-            
-        });
-    }
+            });
+        }).catch( err => {
+            next(err);
+    });
 };
 
 //GET = render the page for different categories to load into
-exports.adminCategoryRender = function(req, res) {
+exports.adminCategoryRender = function(req, res, next) {
  
-    categorySeed
+    categoryHelper
         .oneCategoryWithPosts(req)
         .then( results => {
 
@@ -116,18 +92,20 @@ exports.adminCategoryRender = function(req, res) {
                 hasViewCategory: true,
                 foundPosts: results[0],
         });
+    }).catch( err => {
+        next(err);
     });
 };
 
 
 // GET = different Rendering for the Create route/page, uses category model
-exports.formRender = function(req, res) {
+exports.formRender = function(req, res, next) {
 
     if(!req.params.id) {
         
-        categorySeed
+        categoryHelper
             .categoryList()
-            .then(function(results) {
+            .then(  results => {
 
                 res.render('postEditor', { 
                     pageTitle: "Create Post",
@@ -135,36 +113,43 @@ exports.formRender = function(req, res) {
                     categories: results,
                 });
 
-            }).catch(function(err) {
-                if (err) throw err;
+            }).catch( err => {
+                next(err);
         });
 
     } else {
 
         var postId = req.params.id;
 
-        categorySeed
+        categoryHelper
             .categoryList()
-            .then(function(results) {
+            .then( results => {
 
-                return Post.findById(postId)
-                    .exec()
-                    .then(post => {
+                return Post
+                        .findById(postId)
+                        .then(post => {
 
-                        results = _.map(results, category => {
-
-                            category.toObject();
-                             var matchingCategory = _.find(post.category, postCategory => {
-                                 
-                                return postCategory.toString() === category._id.toString();
-                            });
-                            
-                            if(matchingCategory !== undefined) {
-                                category.isChecked = true;
+                            if(!post) {
+                                return next ({
+                                    status: 404,
+                                    message: 'post not found by ID'
+                                });
                             }
-                            return category;
 
-                        });
+                            results = _.map(results, category => {
+
+                                category.toObject();
+                                var matchingCategory = _.find(post.category, postCategory => {
+                                    
+                                    return postCategory.toString() === category._id.toString();
+                                });
+                                
+                                if(matchingCategory !== undefined) {
+                                    category.isChecked = true;
+                                }
+                                return category;
+
+                            });
 
                         res.render('postEditor', { 
                             pageTitle: "Edit Post",
@@ -177,21 +162,75 @@ exports.formRender = function(req, res) {
                                 body: post.body,
                                 ingreList: post.ingreList
                             }
-                        });
-
-                    });
-
-            }).catch(function(err) {
-                if (err) throw err;
+                        }
+                    );
+                });
+            }).catch( err => {
+                next(err);
         });
     }
 };
 
+//GET = Render view post page using req.params.id
+exports.viewPost = function(req, res, next) {
+
+    var postId = req.params.id;
+
+    Post
+        .findById(postId)
+        .then( post => {
+
+        if(!post) {
+
+            return next({
+                status: 404,
+                message: 'post not found by ID'
+            });
+
+        } else {
+
+            res.render('postEditor', { 
+                pageTitle: "Post Editor",
+                hasViewPost: true,
+                foundPost: post,
+            });
+        }
+    }).catch( err => {
+        next(err);
+    });
+};
+
+// END GET RENDERS -------------------------------------------------
+
+// GET = find by id and delete post
+exports.deletePost = function(req, res, next) { // TRY REDIRECTING WITH  QUERY STRING WITH TITLE, ALERT, ALERTmsg
+
+    var postId = req.params.id;
+
+    Post
+        .findByIdAndRemove(postId)
+        .then( post => {
+
+            var message =  post.title;
+
+            console.log('DELETED POST: ' + post.title);
+
+            res.redirect(301, '/post-editor?delete=true&alertMsg=' + message);
+
+    }).catch( err => {
+        next(err);
+    });
+};
+
+
+/*==========================
+
+            POST 
+
+=============================*/
 
 // POST = Create
 exports.createPost = function(req, res, next) {
-
-    //console.log(req.body.category);
 
     var postEntry = new Post({
         title: req.body.title,
@@ -210,8 +249,6 @@ exports.createPost = function(req, res, next) {
         })
         .catch( err => {
 
-            //console.log(err);
-
             var error = err;
 
             if(err.name === 'ValidationError') {
@@ -219,9 +256,9 @@ exports.createPost = function(req, res, next) {
                 error = errorHelper(err);
             }
 
-            categorySeed
+            categoryHelper
                 .categoryList()
-                .then(function(results) {
+                .then( results => {
 
                     res.render('postEditor', { 
                         pageTitle: "Create Post",
@@ -233,38 +270,12 @@ exports.createPost = function(req, res, next) {
                             body: req.body.body
                         },
                         errors: error
-                    });
-                })
-                .catch( err => {
-                    next(err)
-                });
-            });
-};
-
-
-//GET = Render view post page using req.params.id
-exports.viewPost = function(req, res) {
-
-    var postId = req.params.id;
-
-    Post.findById(postId).then( post => {
-
-        if(!post) {
-
-            console.log('no post with given id number found');
-
-        } else {
-
-            res.render('postEditor', { 
-                pageTitle: "Post Editor",
-                hasViewPost: true,
-                foundPost: post,
-            });
-        }
-    }).catch( err => {
-        if (err) throw err;
+                    }
+            );
+        }).catch( err => {
+            next(err)
+        });
     });
-
 };
 
 
@@ -274,10 +285,15 @@ exports.editPost = function(req, res, next) {
     var postId = req.params.id;
 
     Post
-        .findById(postId, function(err, post) {
+        .findById(postId)
+        .then( post => {
 
-            //console.log(post.category);
-            //console.log(req.body.category);
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
 
             post.title = req.body.title;
             post.category = req.body.category;
@@ -304,9 +320,9 @@ exports.editPost = function(req, res, next) {
                        error = errorHelper(err);
                     }
 
-                    categorySeed
+                    categoryHelper
                         .categoryList()
-                        .then(function(results) {
+                        .then( results => {
 
                             var bodyCategories = req.body.category; //array
 
@@ -339,33 +355,15 @@ exports.editPost = function(req, res, next) {
                                     },
                                     failed: true,
                                     errors: error
-                                })
-                                .catch( err => {
-                                    if (err) throw err;
-                });
+                                });  
+
+                }).catch( err => {
+                    next(err);
             });
         });
     });
 };
 
-
-// GET = find by id and delete post
-exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING WITH TITLE, ALERT, ALERTmsg
-
-    var postId = req.params.id;
-
-    Post.findByIdAndRemove(postId).then( post => {
-
-        var message =  post.title;
-
-        console.log('DELETED POST: ' + post.title);
-
-        res.redirect(301, '/post-editor?delete=true&alertMsg=' + message);
-
-    }).catch( err => {
-        if (err) throw err;
-    });
-};
 
 /*===============================
 
@@ -383,6 +381,13 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
         .findById(postId)
         .then( post => {
 
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
+
             var ingredient = post.ingreList.id(ingredientId);
 
             ingredient.name = req.body.name;
@@ -397,8 +402,8 @@ exports.deletePost = function(req, res) { // TRY REDIRECTING WITH  QUERY STRING 
                     res.send(ingredient);
             });
 
-        }).catch(function(err) {
-            if (err) throw err;
+        }).catch( err => {
+            next(err);
     });
  };
 
@@ -410,15 +415,21 @@ exports.editIngredient = function(req, res, next) {
 
     Post
         .findById(postId)
-        .exec()
         .then( post => {
+
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
 
             var ingredient = post.ingreList.id(ingreId);
 
             res.send(ingredient);
 
         }).catch(function(err) {
-            if (err) throw err;
+            next(err);
     });
 };
 
@@ -430,25 +441,31 @@ exports.deleteIngredient = function(req, res, next) {
 
     Post
         .findOneAndUpdate({ _id: postId}, { $pull : { ingreList : { _id : ingreId }}})
-        .exec()
         .then( post => {
 
             res.send('204');
 
         }).catch( err => {
-        if (err) throw err;
+        next(err);
     });
 };
 
 
 // POST = Update Post for Ajax request on inserting Ingredients
-exports.addIngredient = function(req, res) {
+exports.addIngredient = function(req, res, next) {
 
     var postId = req.params.id;
 
-    Post.findById(postId, function(err, post) {
-
-            if (err) throw err;
+    Post
+        .findById(postId)
+        .then( post => {
+            
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
 
             var list = {
                 name : req.body.name,
@@ -463,6 +480,8 @@ exports.addIngredient = function(req, res) {
 
                 res.send(post.ingreList);
         });          
+    }).catch( err => {
+        next(err);
     });
 };
 

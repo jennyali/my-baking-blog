@@ -31,7 +31,8 @@ router
     .get(postEditorController.deletePost);
 
 
-// AJAX ROUTES //
+//==============  AJAX ROUTES  ==============================//
+
 router
     .route('/editPost/update-post/:id')
     .post(postEditorController.addIngredient);

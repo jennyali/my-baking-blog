@@ -3,12 +3,19 @@
 var errorHelper = require('../util/errorHelper');
 var Post = require('../models/postModel');
 var Category = require('../models/categoriesModel');
-var categorySeed = require('../models/categoriesSeed');
+var categoryHelper = require('../helpers/categoryHelpers');
 var Promise = require('bluebird');
 var _ = require('lodash');
 
+
+/*==========================
+
+            GET
+
+=============================*/
+
 // GET = Read (view/show ONLY 5 posts)
-exports.homeRender = function(req, res) {
+exports.homeRender = function(req, res, next) {
 
     Post
         .find({})
@@ -20,15 +27,15 @@ exports.homeRender = function(req, res) {
                 pageTitle: 'Home page', 
                 homePage: true,
                 foundPosts: someResults,
-        });
-
+            }
+        );
     }).catch( err => {
-        if (err) throw err;
+        next(err);
     });
 };
 
 // GET = Read (view/show ONLY 5 posts)
-exports.homeRenderPagi = function(req, res) {
+exports.homeRenderPagi = function(req, res, next) {
 
     var perPage = 4;
     var currentPage = req.query.p;
@@ -39,9 +46,13 @@ exports.homeRenderPagi = function(req, res) {
         .skip(perPage * page)
         .limit(perPage)
         .sort({updated: 'desc'})
-        .exec(function(err, results) {
+        .exec()
+        .then( results => {
 
-            Post.count().exec(function(err, count) {
+            Post
+                .count()
+                .exec()
+                .then( count => {
 
                 pagesQuantity = ((count / perPage) + 1);
 
@@ -51,16 +62,16 @@ exports.homeRenderPagi = function(req, res) {
                     foundPosts: results,
                     page: currentPage,
                     pages: pagesQuantity
-            });
+                }
+            );
         });
-        
     }).catch( err => {
-        if (err) throw err;
+        next(err);
     });
 };
 
 // GET = Read (view/find all posts)
-exports.recipeIndexRender = function(req, res) {
+exports.recipeIndexRender = function(req, res, next) {
 
     Post
         .find({})
@@ -71,17 +82,17 @@ exports.recipeIndexRender = function(req, res) {
                 pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
-        });
-
+            }
+        );
     }).catch( err => {
-        if (err) throw err;
+        next(err);
     });
 };
 
 // GET = Read (view/find all posts)
-exports.recipeIndexCategories = function(req, res) {
+exports.recipeIndexCategories = function(req, res, next) {
 
-    categorySeed
+    categoryHelper
         .allCategoriesWithPosts()
         .then( results => {
 
@@ -89,14 +100,17 @@ exports.recipeIndexCategories = function(req, res) {
                 pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
-        });  
+            }
+        );  
+    }).catch( err => {
+        next(err);
     });
 };
 
 //GET = render the page for different categories to load into
-exports.categoryRender = function(req, res) {
+exports.categoryRender = function(req, res, next) {
  
-    categorySeed
+    categoryHelper
         .oneCategoryWithPosts(req)
         .then( results => {
 
@@ -104,12 +118,15 @@ exports.categoryRender = function(req, res) {
                 pageTitle: results[0].category,
                 viewCategoryPage: true,
                 foundPosts: results[0],
-        });
+            }
+        );
+    }).catch( err => {
+        next(err);
     });
 };
 
 // GET = Read (view/find all posts)
-exports.recipeIndexPagi = function(req, res) {
+exports.recipeIndexPagi = function(req, res, next) {
 
     var perPage = 4;
     var currentPage = req.query.p;
@@ -120,9 +137,13 @@ exports.recipeIndexPagi = function(req, res) {
         .skip(perPage * page)
         .limit(perPage)
         .sort({created: 'desc'})
-        .exec(function(err, results) {
+        .exec()
+        .then( results => {
 
-            Post.count().exec(function(err, count) {
+            Post
+                .count()
+                .exec()
+                .then( count => {
 
                 pagesQuantity = ((count / perPage) + 1);
 
@@ -132,13 +153,16 @@ exports.recipeIndexPagi = function(req, res) {
                     foundPosts: results,
                     page: currentPage,
                     pages: pagesQuantity
-            });
+                }
+            );
         });
+    }).catch( err => {
+        next(err);
     });
 };
 
 // GET = Read (view/show ONLY 1 post)
-exports.viewPostRender = function(req, res) {
+exports.viewPostRender = function(req, res, next) {
     var postId = req.params.id;
 
     Post
@@ -151,13 +175,13 @@ exports.viewPostRender = function(req, res) {
         });
 
     }).catch( err => {
-        if (err) throw err;
+        next(err);
     });
 };
 
 
 //GET = currently render simple About route/page
-exports.aboutRender = function(req, res) {
+exports.aboutRender = function(req, res, next) {
 
     res.render('main', {
         pageTitle: 'About Us',

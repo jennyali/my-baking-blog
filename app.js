@@ -1,6 +1,6 @@
-// App Start point
+// App Start point //
 
-//==== Requires
+// Requires ==================================================
 var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
@@ -12,12 +12,12 @@ var routes = require('./server/routes');
 var path = require('path');
 var morgan = require('morgan');
 
-//==== Database connection
+// Database connection ========================================
 mongoose.connect('mongodb://localhost/jentestdb', function() {
     console.log('Database connected');
 });
 
-//==== app + middleware
+// app + middleware ===========================================
 var app = express();
 
 
@@ -43,18 +43,31 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 app.use(morgan('dev'));
 
-//==== Routes
+// Routes ====================================================
 routes(app);
 
-//==== Error handler
-app.use(function(err, req, res, next) {
+// Error handler =============================================
+app.use((err, req, res, next) => {
+    
     if(err === 404) {
-        console.log(err);
+        res.render('error', { 
+            error: err,
+            msg:  'Not Found 404'
+        });
     }
-    console.log(err);
+
+    if(err.status === 404) {
+        res.render('error', { 
+            error: err.status,
+            msg:  err.message
+        });
+    }
+
+    res.status(500);
+    res.render('error', { error: err });
 });
 
-//==== End process
-app.listen(port, function() {
+// End process ================================================
+app.listen(port, () => {
     console.log('Server started');
 });
