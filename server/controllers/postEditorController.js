@@ -306,6 +306,7 @@ exports.editPost = function(req, res, next) {
             post.body= req.body.body;
             post.updated = new Date();
             post.instructions = req.body.instructions;
+            post.primaryPhoto = req.body.primaryPhoto;
 
             post
                 .save()
@@ -377,6 +378,12 @@ exports.editPost = function(req, res, next) {
         AJAX RELATED ROUTES
  
  ================================*/
+
+//GET = to get the list of photo files in public/images 
+exports.obtainPhotoFiles = function(req, res, next) {
+    res.send(imageFiles);
+};
+
 
  //POST = to update the ingredient with new form values
  exports.updateIngredient = function(req, res, next) {

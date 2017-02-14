@@ -55,10 +55,36 @@ var $ingreLi = $('.ingre-li');
 var $instructionsForm = $('#instructions-form');
 var $instructionsFormList = $('#instructions-form ol');
 
+//images sub-form
+var $imgForm = $('.img-form');
+var $primaryPhotoWrapper = $('#primary-photo-wrapper');
+var $btnPhotoPrimary = $('.btn-photo-primary');
+
 //--------VARIABLES ----------//
 
 
 //------ TEMPLATES ---------//
+function primaryPhotoInputTemplate(array) {
+    return `
+        <div class="form-group">
+
+            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
+
+            <label class="control-label">Primary Photo:</label>
+             <div class="input-group">
+                 <select id="primary-photo-select" class="form-control" name="primaryPhoto">
+                 <option value="default-placeholder.png" selected disabled>Choose from the following...</option>
+
+                </select>
+            <div class="input-group-btn">
+                <button class="btn btn-danger view-img-btn"><span class="icon-bin-2"></span></button>
+            </div>
+                </div>
+            </div>
+    `
+}
+
+
 function stepInputTemplate(obj) {
     return `
     <li>
@@ -92,6 +118,16 @@ function ingredientListItemTemplate(obj) {
         </li>`
 }
 
+// Button TEMPLATES
+
+function cancelPhotoBtnTemplate(obj) {
+    return `
+        <button class="btn btn-danger cancel-photo-btn ">
+            <span class="icon-arrow-67"></span> Cancel
+        </button>
+        `
+}
+
 function updateIngreBtnTemplate(obj) {
     return `
         <button id="update-ingredient-btn" class="btn btn-info update-btn" data-id="${obj._id}">
@@ -107,6 +143,21 @@ function addIngreBtnTemplate(obj) {
 }
 
 //------- EVENTS ----------//
+
+$imgForm.on('change', 'select#primary-photo-select', function(e){
+// on change the new value needs to update the img tag    
+    primaryPhotoSelectHandler(this);
+});
+
+$imgForm.on('click', 'button.cancel-photo-btn', function(e) {
+// removes photo input from DOM, reverts to add photo button
+    cancelPrimaryPhotoHandler(e, this);
+});
+
+$imgForm.on('click', 'button.btn-photo-primary', function(e) {
+ // btn to make select input for photo appear   
+    primaryPhotoHandler(e, this);
+});
 
 $instructionsForm.on('click', 'button.remove-step-btn', function(e) {
 // remove step from instructions 'form'
@@ -145,8 +196,59 @@ $subFormIngre.on('click', 'button#add-ingre-btn', function(e) {
 =============================*/
 
 //------- FUNCTIONS ----------//
+function primaryPhotoSelectHandler(selector) {
+    var selectValue = $(selector).val();
+
+    $($primaryPhotoWrapper).find('img').attr('src', '/assets/images/' + selectValue);
+}
+
+
+function cancelPrimaryPhotoHandler(e, selector) {
+// removes photo input from DOM
+    e.preventDefault();
+    
+    $('.cancel-photo-btn').remove();
+    $($primaryPhotoWrapper).empty().append($btnPhotoPrimary);
+}
+
+
+function primaryPhotoHandler(e, selector) {
+// adds select input to DOM  
+    e.preventDefault();
+    var postId = $subFormIngre.attr('data-id');
+
+    $.ajax({
+        type : 'GET',
+        url : './obtain-photo-files/' + postId,
+        data : postId,
+        dataType : 'json',
+        success: function(data) {
+
+            var template = "";
+            template += primaryPhotoInputTemplate(data);
+            $(template).appendTo($primaryPhotoWrapper);
+
+            data.map(function(name) {
+                $($primaryPhotoWrapper).find('#primary-photo-select').append('<option value=' + name + '>' + name + '</option>');
+            });
+
+            var btnTemplate = "";
+            btnTemplate += cancelPhotoBtnTemplate();
+            $($btnPhotoPrimary).remove();
+            $(btnTemplate).appendTo($primaryPhotoWrapper);
+            
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+
+}
+
+
 function addStepBtnHandler(e, selector) {
-    // adds input form for step
+// adds input form for step
     e.preventDefault();
     var template = "";
 
@@ -155,7 +257,7 @@ function addStepBtnHandler(e, selector) {
 }
 
 function removeStepBtnHandler(e, selector) {
-    
+//removes input from DOM
     e.preventDefault();
 
     $(selector).closest('li').remove();

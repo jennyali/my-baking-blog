@@ -13,7 +13,8 @@ var postSchema = new Schema ({
     }],
     body: { type: String, required: true },
     ingredientList: [ingredients],
-    instructions:{  type: Array },
+    instructions: {  type: Array },
+    primaryPhoto: { type: String },
     created: Date,
     updated: Date
 });
