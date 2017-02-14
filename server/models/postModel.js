@@ -12,7 +12,8 @@ var postSchema = new Schema ({
         required: true,
     }],
     body: { type: String, required: true },
-    ingreList: [ingredients],
+    ingredientList: [ingredients],
+    instructions:{  type: Array },
     created: Date,
     updated: Date
 });

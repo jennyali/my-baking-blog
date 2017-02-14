@@ -11,9 +11,12 @@
     {{/if}}
 
     <div id="post-form" class="row">
-        <form method="POST" action="" class="form-group">
+        <form method="POST" action="" class="form-group col-sm-8">
 
-            <div class="col-sm-9">
+            <div>
+
+            <!-- TITLE & DESCRIPTION EDIT SECTION -->
+
                 <div class="form-group {{#if errors.title}}has-error{{/if}}">
                     <label for="title">Title:</label>
                     <input type="text" name="title" class="form-control" value="{{#if prefill}}{{prefill.title}}{{/if}}"/>
@@ -25,7 +28,10 @@
                 </div>
             </div>
 
-            <aside class="col-sm-3">
+            <div>
+
+            <!-- CATERGORIES EDIT SECTION -->
+
                 <div class="form-group">
                     <div class="alert {{#if errors.category}}alert-danger{{/if}}">
                         Baking Categories 
@@ -35,18 +41,126 @@
 
                         {{#each categories}}
 
+                        <div class="form-group">
                             <label for="{{this.category}}">{{this.category}}</label>
-                            <input {{#if this.isChecked}}checked="true"{{/if}} type="checkbox" name="category[]" value="{{this._id}}"></br>
-
+                            <input class="checkbox-inline" {{#if this.isChecked}}checked="true"{{/if}} type="checkbox" name="category[]" value="{{this._id}}"></br>
+                        </div>
                         {{/each}}
 
                     </div>
                 </div>
-            </aside> 
+            </div> 
 
-            <div class="col-sm-12">
+          {{#if isEditPost}}
+
+            <!-- INSTRUCTIONS EDIT SECTION -->
+
+                <div id="instructions-form" class="form-group">
+                    <h3>Instructions</h3>
+                    <ol>
+
+                        {{#if prefill.instructions}}
+                            {{#each prefill.instructions}}
+                                <li>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" name="instructions[]" value="{{this}}" required/>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger remove-step-btn"><span class="icon-bin-2"></span></button>
+                                        </div>
+                                    </div>
+                                </li>
+                            {{/each}}
+                        {{/if}}
+
+                    </ol>
+                    <button id="add-step-btn" class="btn btn-primary">Add Step <span class="icon-add-1"></span></button>
+                </div>
+        {{/if}}
+
+        {{#if isEditPost}}
+
+            <!-- IMAGE EDIT SECTION -->
+
+                <div>
+                    <h3>Images</h3>
+                    <div class="row">
+                        <div class="col-sm-7">
+
+                        <button class="btn btn-primary">Add Primary Photo <span class="icon-add-1"></button>
+                        <!--<button class="btn btn-primary">Add Secondary Photo <span class="icon-add-1"></button>
+                        <button class="btn btn-primary">Add Extra Photo <span class="icon-add-1"></button>
+
+                        <div class="form-group">
+
+                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
+
+                            <label class="control-label">Primary Photo:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="primary-photo">
+                                    {{#if prefill.imageFiles}}
+                                        {{#each prefill.imageFiles}}
+                                            <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+                                    {{/if}}
+                                </select>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
+
+                            <label class="control-label">Secondary Photo:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="secondary-photo">
+                                    {{#if prefill.imageFiles}}
+                                        {{#each prefill.imageFiles}}
+                                            <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+                                    {{/if}}
+                                </select>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
+
+                            <label class="control-label">Extra Photo:</label>
+                            <div class="input-group">
+                                <select class="form-control" name="extra-photo">
+                                    {{#if prefill.imageFiles}}
+                                        {{#each prefill.imageFiles}}
+                                            <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+                                    {{/if}}
+                                </select>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>-->
+
+                    </div>
+                </div>
+            {{/if}}
+
+
+
+            <div>
+
+                <!-- BUTTONS SECTION -->
+
                 <br />
-                <input type="submit" value="Submit" class="btn btn-primary pull-left"/>
+                <input type="submit" value="Submit" class="btn btn-success pull-left"/>
 
                 {{#if isEditPost}}
                     <a href="/post-editor/viewPost/{{postId}}" class="btn btn-default"> Back </a>
@@ -55,12 +169,16 @@
                 {{/if}}
             </div>
         </form>
+
             {{#if isEditPost}}
-                <div class="col-sm-6">
+
+            <!-- INGREDIENTS EDIT SECTION -->
+
+                <div class="col-sm-4 text-center">
                     <h3>Ingredients</h3>
                         <ul id="ingredient-list">
 
-                            {{#each prefill.ingreList}}
+                            {{#each prefill.ingredientList}}
                                 <li data-id="{{this._id}}" class="ingre-li">
                                     <p style="display: inline-block">{{this.name}} {{this.quantity}} {{this.unit}}</p>
                                     <button class="btn btn-danger btn-sm del-btn" data-id="{{this._id}}"><span class="icon-bin-2"></span></button>
@@ -80,9 +198,10 @@
                                 <option value="mililitres">ml</option>
                             </select>
                             <br/><br/>
-                            <button id="add-ingre-btn" class="btn btn-primary">Add <span class="icon-add-1"></span></button>
+                            <button id="add-ingre-btn" class="btn btn-primary">Add Ingredient <span class="icon-add-1"></span></button>
                         </div>
                 </div>
             {{/if}}
+
     </div>
 </div>

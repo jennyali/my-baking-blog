@@ -6,6 +6,8 @@ var Category = require('../models/categoriesModel');
 var categoryHelper = require('../helpers/categoryHelpers');
 var _ = require('lodash');
 var Promise = require('bluebird');
+var fs = require('fs');
+var imageFiles = fs.readdirSync('../my-baking-blog/public/images');
 
 
 /*==========================
@@ -121,6 +123,8 @@ exports.formRender = function(req, res, next) {
 
         var postId = req.params.id;
 
+
+
         categoryHelper
             .categoryList()
             .then( results => {
@@ -160,7 +164,9 @@ exports.formRender = function(req, res, next) {
                             prefill: {
                                 title: post.title,
                                 body: post.body,
-                                ingreList: post.ingreList
+                                ingredientList: post.ingredientList,
+                                instructions: post.instructions,
+                                imageFiles: imageFiles
                             }
                         }
                     );
@@ -299,6 +305,7 @@ exports.editPost = function(req, res, next) {
             post.category = req.body.category;
             post.body= req.body.body;
             post.updated = new Date();
+            post.instructions = req.body.instructions;
 
             post
                 .save()
@@ -388,7 +395,7 @@ exports.editPost = function(req, res, next) {
                 });
             }
 
-            var ingredient = post.ingreList.id(ingredientId);
+            var ingredient = post.ingredientList.id(ingredientId);
 
             ingredient.name = req.body.name;
             ingredient.quantity = req.body.quantity;
@@ -397,7 +404,7 @@ exports.editPost = function(req, res, next) {
             post.save()
                 .then( post => {
 
-                    var ingredient = post.ingreList.id(ingredientId);
+                    var ingredient = post.ingredientList.id(ingredientId);
 
                     res.send(ingredient);
             });
@@ -424,7 +431,7 @@ exports.editIngredient = function(req, res, next) {
                 });
             }
 
-            var ingredient = post.ingreList.id(ingreId);
+            var ingredient = post.ingredientList.id(ingreId);
 
             res.send(ingredient);
 
@@ -440,7 +447,7 @@ exports.deleteIngredient = function(req, res, next) {
     var ingreId = req.body.ingreId;
 
     Post
-        .findOneAndUpdate({ _id: postId}, { $pull : { ingreList : { _id : ingreId }}})
+        .findOneAndUpdate({ _id: postId}, { $pull : { ingredientList : { _id : ingreId }}})
         .then( post => {
 
             res.send('204');
@@ -473,12 +480,12 @@ exports.addIngredient = function(req, res, next) {
                 unit: req.body.unit
             };
 
-            post.ingreList.push(list);
+            post.ingredientList.push(list);
 
             post.save(function(err, post) {
                 if (err) console.log(err);
 
-                res.send(post.ingreList);
+                res.send(post.ingredientList);
         });          
     }).catch( err => {
         next(err);

@@ -96,22 +96,30 @@
 	    var $inputIngreUnit = $('#input-ingre-unit');
 	    var $subFormIngre = $('#sub-form-ingre');
 	
-	    var $ingreList = $('#ingredient-list');
+	    var $ingredientList = $('#ingredient-list');
 	
 	    var $ingreLiDelBtn = $('.del-btn');
 	    var $ingreLiEditBtn = $('.edit-btn');
 	
 	    var $ingreLi = $('.ingre-li');
 	
+	    // instructions sub-form
+	    var $instructionsForm = $('#instructions-form');
+	    var $instructionsFormList = $('#instructions-form ol');
+	
 	    //--------VARIABLES ----------//
 	
 	
 	    //------ TEMPLATES ---------//
+	    function stepInputTemplate(obj) {
+	        return '\n    <li>\n        <div class="input-group">\n            <input class="form-control" type="text" name="instructions[]" required />\n            <div class="input-group-btn">\n                <button class="btn btn-danger remove-step-btn"><span class="icon-bin-2"></span></button>\n            </div>\n        </div>\n    </li>\n    ';
+	    }
+	
 	    function updatedIngredientLiTemplate(obj) {
 	        return '\n        <li data-id="' + obj._id + '" class="ingre-li">\n            <p style="display: inline-block">' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n            <button class="btn btn-danger btn-sm del-btn" data-id="' + obj._id + '"><span class="icon-bin-2"></span></button>\n            <button class="btn btn-info btn-sm edit-btn" data-id="' + obj._id + '"><span class="icon-edit-1"></span></button>\n        </li>';
 	    }
 	
-	    function ingreListItemTemplate(obj) {
+	    function ingredientListItemTemplate(obj) {
 	        return '\n        <li data-id="' + obj._id + '" class="ingre-li">\n            <p style="display: inline-block">' + obj.name + ' ' + obj.quantity + ' ' + obj.unit + '</p>\n            <button class="btn btn-danger btn-sm del-btn" data-id="' + obj._id + '"><span class="icon-bin-2"></span></button>\n            <button class="btn btn-default btn-sm edit-btn" data-id="' + obj._id + '"><span class="icon-edit-1"></span></button>\n        </li>';
 	    }
 	
@@ -125,13 +133,22 @@
 	
 	    //------- EVENTS ----------//
 	
+	    $instructionsForm.on('click', 'button.remove-step-btn', function (e) {
+	        // remove step from instructions 'form'
+	        removeStepBtnHandler(e, this);
+	    });
 	
-	    $ingreList.on('click', 'li button.del-btn', function (e) {
+	    $instructionsForm.on('click', 'button#add-step-btn', function (e) {
+	        // add step button for instructions 'form'
+	        addStepBtnHandler(e, this);
+	    });
+	
+	    $ingredientList.on('click', 'li button.del-btn', function (e) {
 	        // individual ingredient delete button
 	        delIngreBtnHandler(e, this);
 	    });
 	
-	    $ingreList.on('click', 'li button.edit-btn', function (e) {
+	    $ingredientList.on('click', 'li button.edit-btn', function (e) {
 	        // individual ingredient edit button
 	        editIngreBtnHandler(e, this);
 	    });
@@ -153,6 +170,22 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
+	    function addStepBtnHandler(e, selector) {
+	        // adds input form for step
+	        e.preventDefault();
+	        var template = "";
+	
+	        template += stepInputTemplate();
+	        $(template).appendTo($instructionsFormList);
+	    }
+	
+	    function removeStepBtnHandler(e, selector) {
+	
+	        e.preventDefault();
+	
+	        $(selector).closest('li').remove();
+	    }
+	
 	    function updateIngreBtnHandler(e, selector) {
 	        e.preventDefault();
 	
@@ -179,9 +212,9 @@
 	                //--- Edit exsisting Li via, remove & appendTo. ---//
 	
 	                //remove.
-	                var updatedIngreList = $($ingreList).children('li');
+	                var updatedingredientList = $($ingredientList).children('li');
 	
-	                var foundLi = _.find(updatedIngreList, function (li) {
+	                var foundLi = _.find(updatedingredientList, function (li) {
 	
 	                    if ($(li).attr('data-id') === ingredientId) {
 	                        return li;
@@ -195,7 +228,7 @@
 	                //appendTo.
 	                var templateLi = "";
 	                templateLi += updatedIngredientLiTemplate(ingredientObj);
-	                $(templateLi).appendTo($ingreList);
+	                $(templateLi).appendTo($ingredientList);
 	
 	                // Button change: Update -> Add.
 	                var templateBtn = "";
@@ -270,9 +303,9 @@
 	            success: function success(data) {
 	                console.log('ingredient deleted');
 	
-	                var updatedIngreList = $($ingreList).children('li');
+	                var updatedingredientList = $($ingredientList).children('li');
 	
-	                var foundLi = _.find(updatedIngreList, function (li) {
+	                var foundLi = _.find(updatedingredientList, function (li) {
 	
 	                    if ($(li).attr('data-id') === ingreId) {
 	
@@ -311,8 +344,8 @@
 	                var newIngre = _.last(data);
 	                var template = "";
 	
-	                template += ingreListItemTemplate(newIngre);
-	                $(template).appendTo($ingreList);
+	                template += ingredientListItemTemplate(newIngre);
+	                $(template).appendTo($ingredientList);
 	            },
 	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
 	                console.log('error', errorThrown);
