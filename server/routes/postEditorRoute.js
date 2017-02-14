@@ -49,5 +49,9 @@ router
     .route('/editPost/update-ingredient/:id')
     .post(postEditorController.updateIngredient);
 
+router
+    .route('/editPost/obtain-photo-files/:id')
+    .get(postEditorController.obtainPhotoFiles);
+
 
 module.exports = router;
