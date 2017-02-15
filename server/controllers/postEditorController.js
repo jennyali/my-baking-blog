@@ -166,7 +166,9 @@ exports.formRender = function(req, res, next) {
                                 body: post.body,
                                 ingredientList: post.ingredientList,
                                 instructions: post.instructions,
-                                imageFiles: imageFiles
+                                imageFiles: imageFiles,
+                                primaryPhoto: post.primaryPhoto,
+                                secondaryPhoto: post.secondaryPhoto
                             }
                         }
                     );
@@ -307,6 +309,7 @@ exports.editPost = function(req, res, next) {
             post.updated = new Date();
             post.instructions = req.body.instructions;
             post.primaryPhoto = req.body.primaryPhoto;
+            post.secondaryPhoto = req.body.secondaryPhoto;
 
             post
                 .save()
@@ -378,6 +381,61 @@ exports.editPost = function(req, res, next) {
         AJAX RELATED ROUTES
  
  ================================*/
+
+// POST to delete primaryPhoto from found recipe
+exports.deletePrimaryPhoto = function(req, res, next) {
+    var postId = req.params.id;
+
+        Post
+        .findById(postId)
+        .then( post => {
+
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
+
+            post.primaryPhoto = undefined;
+            post.save()
+                .then( post => {
+                    res.send('204');
+
+                });
+
+        }).catch( err => {
+            next(err);
+    });
+};
+
+// POST to delete secondaryPhoto from found recipe
+exports.deleteSecondaryPhoto = function(req, res, next) {
+    var postId = req.params.id;
+
+        Post
+        .findById(postId)
+        .then( post => {
+
+            if(!post) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
+
+            post.secondaryPhoto = undefined;
+            post.save()
+                .then( post => {
+                    res.send('204');
+
+                });
+
+        }).catch( err => {
+            next(err);
+    });
+};
+
 
 //GET = to get the list of photo files in public/images 
 exports.obtainPhotoFiles = function(req, res, next) {

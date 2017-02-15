@@ -15,6 +15,7 @@ var postSchema = new Schema ({
     ingredientList: [ingredients],
     instructions: {  type: Array },
     primaryPhoto: { type: String },
+    secondaryPhoto: { type: String },
     created: Date,
     updated: Date
 });

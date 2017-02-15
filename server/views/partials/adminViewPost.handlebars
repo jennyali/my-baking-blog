@@ -9,6 +9,12 @@
 
         <p>{{ foundPost.body }}</p>
 
+        {{#if foundPost.secondaryPhoto}}
+            <div class="col-sm-3">
+                <img class="img-responsive" src="/assets/images/{{foundPost.secondaryPhoto}}">
+            </div>
+        {{/if}}
+
         {{#if foundPost.ingredientList}}
         <h3>Ingredients</h3>
             <div>
@@ -34,7 +40,7 @@
             </div>
         {{/if}}
 
-        <div>
+        <div class="col-sm-12">
             <a href="/post-editor/editPost/{{foundPost._id}}" class="btn btn-default">Edit <span class="icon-edit-1"></span></a>
             <a href="/post-editor/deletePost/{{foundPost._id}}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
         </div>
