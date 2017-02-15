@@ -85,10 +85,64 @@
                     <h3>Images</h3>
                     <div class="row">
                         <div class="col-sm-7">
-                        <div id="primary-photo-wrapper">
 
+                        <div id="primary-photo-wrapper">
+                            <!-- PRIMARY PHOTO -->
+                            {{#if prefill.primaryPhoto}}
+                                
+                                <div class="form-group">
+                                    <img class="img-responsive img-thumbnail" src="/assets/images/{{prefill.primaryPhoto}}">
+                                    <label class="control-label">Primary Photo:</label>
+                                    <div class="input-group">
+                                        <select id="primary-photo-select" class="form-control" name="primaryPhoto">
+                                        <option value="{{prefill.primaryPhoto}}" selected>{{prefill.primaryPhoto}}</option>
+                                            {{#each prefill.imageFiles}}
+                                                <option value="{{this}}">{{this}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger delete-img-btn"><span class="icon-bin-2"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {{/if}}
+                            {{#if prefill.primaryPhoto}}
+
+                            {{else}}
+                                <button class="btn btn-primary btn-photo-primary">Add Primary Photo <span class="icon-add-1"></button>
+                                
+                            {{/if}}
                         </div>
-                        <button class="btn btn-primary btn-photo-primary">Add Primary Photo <span class="icon-add-1"></button>
+                        <br/>
+                        <div id="secondary-photo-wrapper">
+                            <!-- SECONDARY PHOTO -->
+                            {{#if prefill.secondaryPhoto}}
+                                
+                                <div class="form-group">
+                                    <img class="img-responsive img-thumbnail" src="/assets/images/{{prefill.secondaryPhoto}}">
+                                    <label class="control-label">Secondary Photo:</label>
+                                    <div class="input-group">
+                                        <select id="secondary-photo-select" class="form-control" name="secondaryPhoto">
+                                        <option value="{{prefill.secondaryPhoto}}" selected>{{prefill.secondaryPhoto}}</option>
+                                            {{#each prefill.imageFiles}}
+                                                <option value="{{this}}">{{this}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger delete-img-btn"><span class="icon-bin-2"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {{/if}}
+                            {{#if prefill.secondaryPhoto}}
+
+                            {{else}}
+                                <button class="btn btn-primary btn-photo-secondary">Add Secondary Photo <span class="icon-add-1"></button>
+                            {{/if}}
+                        </div>
+
                         <!--<button class="btn btn-primary">Add Secondary Photo <span class="icon-add-1"></button>
                         <button class="btn btn-primary">Add Extra Photo <span class="icon-add-1"></button>
 

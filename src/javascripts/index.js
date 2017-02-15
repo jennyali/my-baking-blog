@@ -60,25 +60,24 @@ var $imgForm = $('.img-form');
 var $primaryPhotoWrapper = $('#primary-photo-wrapper');
 var $btnPhotoPrimary = $('.btn-photo-primary');
 
+var $secondaryPhotoWrapper = $('#secondary-photo-wrapper');
+
 //--------VARIABLES ----------//
 
 
 //------ TEMPLATES ---------//
-function primaryPhotoInputTemplate(array) {
+function primaryPhotoInputTemplate(name) {
     return `
         <div class="form-group">
 
             <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
 
-            <label class="control-label">Primary Photo:</label>
+            <label class="control-label">${name} Photo:</label>
              <div class="input-group">
-                 <select id="primary-photo-select" class="form-control" name="primaryPhoto">
+                 <select id="${name}-photo-select" class="form-control" name="${name}Photo">
                  <option value="default-placeholder.png" selected disabled>Choose from the following...</option>
 
                 </select>
-            <div class="input-group-btn">
-                <button class="btn btn-danger view-img-btn"><span class="icon-bin-2"></span></button>
-            </div>
                 </div>
             </div>
     `
@@ -120,6 +119,14 @@ function ingredientListItemTemplate(obj) {
 
 // Button TEMPLATES
 
+function addPrimaryPhotoBtnTemplate(name) {
+    return `
+        <button class="btn btn-primary btn-photo-${name}">
+            Add ${name} Photo <span class="icon-add-1">
+        </button>
+    `
+}
+
 function cancelPhotoBtnTemplate(obj) {
     return `
         <button class="btn btn-danger cancel-photo-btn ">
@@ -144,21 +151,52 @@ function addIngreBtnTemplate(obj) {
 
 //------- EVENTS ----------//
 
-$imgForm.on('change', 'select#primary-photo-select', function(e){
-// on change the new value needs to update the img tag    
-    primaryPhotoSelectHandler(this);
+// ====== secondary Photo
+
+$secondaryPhotoWrapper.on('click', 'button.btn-photo-secondary', function(e) {
+ // btn to make select input for photo appear   
+    secondaryPhotoHandler(e, this);
 });
 
-$imgForm.on('click', 'button.cancel-photo-btn', function(e) {
+$secondaryPhotoWrapper.on('click', 'button.cancel-photo-btn', function(e) {
 // removes photo input from DOM, reverts to add photo button
-    cancelPrimaryPhotoHandler(e, this);
+    cancelPrimaryPhotoHandler(e, $secondaryPhotoWrapper, 'secondary');
 });
 
-$imgForm.on('click', 'button.btn-photo-primary', function(e) {
+$secondaryPhotoWrapper.on('change', 'select#secondary-photo-select', function(e){
+// on change the new value needs to update the img tag    
+    primaryPhotoSelectHandler(this, $secondaryPhotoWrapper);
+});
+
+$secondaryPhotoWrapper.on('click', 'button.delete-img-btn', function(e) {
+// uses AJAX to delete current image from recipe    
+    primaryPhotoDeleteBtnHandler(e, $secondaryPhotoWrapper, 'secondary');
+});
+//-----------------------------------------------------------
+// ====== Primary Photo
+
+$primaryPhotoWrapper.on('click', 'button.delete-img-btn', function(e) {
+// uses AJAX to delete current image from recipe    
+    primaryPhotoDeleteBtnHandler(e, $primaryPhotoWrapper, 'primary');
+});
+
+$primaryPhotoWrapper.on('change', 'select#primary-photo-select', function(e){
+// on change the new value needs to update the img tag    
+    primaryPhotoSelectHandler(this, $primaryPhotoWrapper);
+});
+
+$primaryPhotoWrapper.on('click', 'button.cancel-photo-btn', function(e) {
+// removes photo input from DOM, reverts to add photo button
+    cancelPrimaryPhotoHandler(e, $primaryPhotoWrapper, 'primary');
+});
+
+$primaryPhotoWrapper.on('click', 'button.btn-photo-primary', function(e) {
  // btn to make select input for photo appear   
     primaryPhotoHandler(e, this);
 });
 
+
+//=======  instructions subform 
 $instructionsForm.on('click', 'button.remove-step-btn', function(e) {
 // remove step from instructions 'form'
     removeStepBtnHandler(e, this);
@@ -196,19 +234,88 @@ $subFormIngre.on('click', 'button#add-ingre-btn', function(e) {
 =============================*/
 
 //------- FUNCTIONS ----------//
-function primaryPhotoSelectHandler(selector) {
-    var selectValue = $(selector).val();
 
-    $($primaryPhotoWrapper).find('img').attr('src', '/assets/images/' + selectValue);
+// ======== secondary photo functions
+
+function secondaryPhotoHandler(e, selector) {
+// adds select input to DOM  
+    e.preventDefault();
+    var postId = $subFormIngre.attr('data-id');
+
+    $.ajax({
+        type : 'GET',
+        url : './obtain-photo-files/' + postId,
+        data : postId,
+        dataType : 'json',
+        success: function(data) {
+
+            var template = "";
+            template += primaryPhotoInputTemplate('secondary');
+
+            $secondaryPhotoWrapper.empty();
+            $(template).appendTo($secondaryPhotoWrapper);
+
+            data.map(function(name) {
+                $($secondaryPhotoWrapper).find('#secondary-photo-select').append('<option value=' + name + '>' + name + '</option>');
+            });
+
+            var btnTemplate = "";
+            btnTemplate += cancelPhotoBtnTemplate();
+            $(btnTemplate).appendTo($secondaryPhotoWrapper);
+            
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+
 }
 
 
-function cancelPrimaryPhotoHandler(e, selector) {
+// ======== primary photo functions
+function primaryPhotoDeleteBtnHandler(e, selector, name) {
+    e.preventDefault();
+
+    var postId = $subFormIngre.attr('data-id');
+
+    $.ajax({
+        type : 'POST',
+        url : './delete-' + name +'-photo/' + postId,
+        data : postId,
+        dataType : 'json',
+        success: function(data) {
+            var template = "";
+            template += addPrimaryPhotoBtnTemplate(name);
+
+            selector.empty();
+            $(template).appendTo(selector);
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+}
+
+
+
+function primaryPhotoSelectHandler(that, selector) {
+    var selectValue = $(that).val();
+
+    $(selector).find('img').attr('src', '/assets/images/' + selectValue);
+}
+
+
+function cancelPrimaryPhotoHandler(e, selector, name) {
 // removes photo input from DOM
     e.preventDefault();
+    var template = "";
+    template += addPrimaryPhotoBtnTemplate(name);
     
-    $('.cancel-photo-btn').remove();
-    $($primaryPhotoWrapper).empty().append($btnPhotoPrimary);
+    selector.find('.cancel-photo-btn').remove();
+    selector.empty();
+    $(template).appendTo(selector);
 }
 
 
@@ -225,7 +332,9 @@ function primaryPhotoHandler(e, selector) {
         success: function(data) {
 
             var template = "";
-            template += primaryPhotoInputTemplate(data);
+            template += primaryPhotoInputTemplate('primary');
+
+            $primaryPhotoWrapper.empty();
             $(template).appendTo($primaryPhotoWrapper);
 
             data.map(function(name) {
@@ -234,7 +343,6 @@ function primaryPhotoHandler(e, selector) {
 
             var btnTemplate = "";
             btnTemplate += cancelPhotoBtnTemplate();
-            $($btnPhotoPrimary).remove();
             $(btnTemplate).appendTo($primaryPhotoWrapper);
             
 

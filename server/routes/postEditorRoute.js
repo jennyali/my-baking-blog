@@ -53,5 +53,13 @@ router
     .route('/editPost/obtain-photo-files/:id')
     .get(postEditorController.obtainPhotoFiles);
 
+router
+    .route('/editPost/delete-primary-photo/:id')
+    .post(postEditorController.deletePrimaryPhoto);
+
+router
+    .route('/editPost/delete-secondary-photo/:id')
+    .post(postEditorController.deleteSecondaryPhoto);
+
 
 module.exports = router;

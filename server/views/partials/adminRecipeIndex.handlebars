@@ -17,7 +17,12 @@
   
                 {{#each this.postsCropped}}
                     <div class="col-sm-3 text-center">
-                        <a href="/post-editor/viewPost/{{ this._id }}" class="col-sm-12"><h4>{{this.title}}</h4></a>
+                        <a href="/post-editor/viewPost/{{ this._id }}" class="col-sm-12">
+                            {{#if this.primaryPhoto}}
+                                <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
+                            {{/if}}
+                        <h4>{{this.title}}</h4>
+                        </a>
                         <p class="col-sm-12 small">{{this.updated}}</p>
                         <a href="/post-editor/viewPost/{{ this._id }}" class="btn btn-sm btn-default col-sm-6">View <span class="icon-preview-1"></span></a>
                         <a href="/post-editor/deletePost/{{ this._id }}" class="btn btn-sm btn-danger col-sm-6">Delete <span class="icon-bin-2"></span></a>

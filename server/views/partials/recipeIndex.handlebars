@@ -7,7 +7,12 @@
   
                 {{#each this.postsCropped}}
                     <div class="col-sm-3 text-center">
-                        <a href="/view-post/{{this._id}}" class="col-sm-12">{{this.title}}</a>
+                        <a href="/view-post/{{this._id}}" class="col-sm-12">
+                            {{#if this.primaryPhoto}}
+                                <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
+                            {{/if}}
+                        {{this.title}}
+                        </a>
                     </div>
                 {{/each}}
 
