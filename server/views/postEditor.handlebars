@@ -1,23 +1,23 @@
 <main class="container">
     <section class="row">
         <div class="col-sm-12">
-            <h1>
+            <h1 class="jumbotron">
                 {{ pageTitle }}   
             </h1>
             <h3>
                 {{ subTitle }}
             </h3>
-            {{#if prefill}}
+            <!--{{#if prefill}}
                 <h3>
                     {{prefill.title}}
                 </h3>
-            {{/if}}
+            {{/if}}-->
         </div>
 
         {{#if hasCreateBtn}}
             <div class="col-sm-12">
                 <a href="/post-editor/createPost" class="btn btn-default">
-                    <h3>Create Post <span class="icon-edit-3"></span></h3>
+                    <h3>Create Recipe <span class="icon-edit-3"></span></h3>
                 </a>
             </div>
         {{/if}}
@@ -80,6 +80,13 @@
 
         {{#if hasPrefilledForm }}
             {{> formPrefilled }}
+        {{/if}}
+
+    </section>
+    <section class="row">
+
+        {{#if hasLogin}}
+            {{> loginForm }}
         {{/if}}
 
     </section>
