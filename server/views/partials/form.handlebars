@@ -13,6 +13,13 @@
     <div id="post-form" class="row">
         <form method="POST" action="" class="form-group col-sm-8">
 
+        <div class="panel panel-default col-sm-12">
+
+            {{#if prefill}}
+                <h2 class="panel-heading">
+                    {{prefill.title}}
+                </h2>
+            {{/if}}
             <div>
 
             <!-- TITLE & DESCRIPTION EDIT SECTION -->
@@ -24,7 +31,7 @@
 
                 <div class="form-group {{#if errors.body}}has-error{{/if}}">
                     <label for="body">Description:</label>
-                    <textarea type="text" name="body" class="form-control">{{#if prefill}}{{prefill.body}}{{/if}}</textarea>
+                    <textarea type="text" name="body" class="form-control" rows="8">{{#if prefill}}{{prefill.body}}{{/if}}</textarea>
                 </div>
             </div>
 
@@ -50,14 +57,15 @@
                     </div>
                 </div>
             </div> 
+        </div>
 
           {{#if isEditPost}}
 
             <!-- INSTRUCTIONS EDIT SECTION -->
 
-                <div id="instructions-form" class="form-group">
-                    <h3>Instructions</h3>
-                    <ol>
+                <div id="instructions-form" class="form-group panel panel-default col-sm-12">
+                    <h3 class="panel-heading">Instructions</h3>
+                    <ol class="panel-body">
 
                         {{#if prefill.instructions}}
                             {{#each prefill.instructions}}
@@ -73,17 +81,21 @@
                         {{/if}}
 
                     </ol>
-                    <button id="add-step-btn" class="btn btn-primary">Add Step <span class="icon-add-1"></span></button>
+                    <div class="panel-footer">
+                        <button id="add-step-btn" class="btn btn-primary">Add Step <span class="icon-add-1"></span></button>
+                    </div>
                 </div>
         {{/if}}
+
+        
 
         {{#if isEditPost}}
 
             <!-- IMAGE EDIT SECTION -->
 
-                <div class="img-form">
-                    <h3>Images</h3>
-                    <div class="row">
+                <div class="img-form panel panel-default col-sm-12">
+                    <h3 class="panel-heading">Images</h3>
+                    <div class="row panel-body">
                         <div class="col-sm-7">
 
                         <div id="primary-photo-wrapper">
@@ -115,6 +127,7 @@
                             {{/if}}
                         </div>
                         <br/>
+
                         <div id="secondary-photo-wrapper">
                             <!-- SECONDARY PHOTO -->
                             {{#if prefill.secondaryPhoto}}
@@ -143,65 +156,35 @@
                             {{/if}}
                         </div>
 
-                        <!--<button class="btn btn-primary">Add Secondary Photo <span class="icon-add-1"></button>
-                        <button class="btn btn-primary">Add Extra Photo <span class="icon-add-1"></button>
+                        </br>
 
-                        <div class="form-group">
-
-                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
-
-                            <label class="control-label">Primary Photo:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="primary-photo">
-                                    {{#if prefill.imageFiles}}
-                                        {{#each prefill.imageFiles}}
-                                            <option value="{{this}}">{{this}}</option>
-                                        {{/each}}
-                                    {{/if}}
-                                </select>
-                                <div class="input-group-btn">
-                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
+                        <div id="extra-photo-wrapper">
+                            <!-- EXTRA PHOTO -->
+                            {{#if prefill.extraPhoto}}
+                                
+                                <div class="form-group">
+                                    <img class="img-responsive img-thumbnail" src="/assets/images/{{prefill.extraPhoto}}">
+                                    <label class="control-label">Extra Photo:</label>
+                                    <div class="input-group">
+                                        <select id="extra-photo-select" class="form-control" name="extraPhoto">
+                                        <option value="{{prefill.extraPhoto}}" selected>{{prefill.extraPhoto}}</option>
+                                            {{#each prefill.imageFiles}}
+                                                <option value="{{this}}">{{this}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger delete-img-btn"><span class="icon-bin-2"></span></button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                            {{/if}}
+                            {{#if prefill.extraPhoto}}
+
+                            {{else}}
+                                <button class="btn btn-primary btn-photo-extra">Add Extra Photo <span class="icon-add-1"></button>
+                            {{/if}}
                         </div>
-
-                        <div class="form-group">
-
-                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
-
-                            <label class="control-label">Secondary Photo:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="secondary-photo">
-                                    {{#if prefill.imageFiles}}
-                                        {{#each prefill.imageFiles}}
-                                            <option value="{{this}}">{{this}}</option>
-                                        {{/each}}
-                                    {{/if}}
-                                </select>
-                                <div class="input-group-btn">
-                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">
-
-                            <label class="control-label">Extra Photo:</label>
-                            <div class="input-group">
-                                <select class="form-control" name="extra-photo">
-                                    {{#if prefill.imageFiles}}
-                                        {{#each prefill.imageFiles}}
-                                            <option value="{{this}}">{{this}}</option>
-                                        {{/each}}
-                                    {{/if}}
-                                </select>
-                                <div class="input-group-btn">
-                                    <button class="btn btn-info view-img-btn"><span class="icon-preview-1"></span></button>
-                                </div>
-                            </div>
-                        </div>-->
 
                         </div>
 
@@ -230,30 +213,34 @@
 
             <!-- INGREDIENTS EDIT SECTION -->
 
-                <div class="col-sm-4 text-center">
-                    <h3>Ingredients</h3>
-                        <ul id="ingredient-list">
+                <div class="col-sm-4 panel panel-default">
+                    <h3 class="panel-heading">Ingredients</h3>
+                        <div class="panel-body">
+                            <ul id="ingredient-list">
 
-                            {{#each prefill.ingredientList}}
-                                <li data-id="{{this._id}}" class="ingre-li">
-                                    <p style="display: inline-block">{{this.name}} {{this.quantity}} {{this.unit}}</p>
-                                    <button class="btn btn-danger btn-sm del-btn" data-id="{{this._id}}"><span class="icon-bin-2"></span></button>
-                                    <button class="btn btn-default btn-sm edit-btn" data-id="{{this._id}}"><span class="icon-edit-1"></span></button>
-                                </li>
-                            {{/each}}
+                                {{#each prefill.ingredientList}}
+                                    <li data-id="{{this._id}}" class="ingre-li">
+                                        <p style="display: inline-block">{{this.name}} {{this.quantity}} {{this.unit}}</p>
+                                        <button class="btn btn-danger btn-sm del-btn" data-id="{{this._id}}"><span class="icon-bin-2"></span></button>
+                                        <button class="btn btn-default btn-sm edit-btn" data-id="{{this._id}}"><span class="icon-edit-1"></span></button>
+                                    </li>
+                                {{/each}}
 
-                        </ul>
-                        <div id="sub-form-ingre" class="form-group" data-id="{{postId}}">
-                            <label>Name: </label>
-                            <input id="input-ingre-name" type="text" class="form-control" name="ingredient[]">
-                            <label>Quantity: </label>
-                            <input id="input-ingre-quantity" type="number" class="input-sm" name="ingredient[]">
-                            <select id="input-ingre-unit" name="ingredient[]">
-                                <option value="grams">g</option>
-                                <option value="kilograms">kg</option>
-                                <option value="mililitres">ml</option>
-                            </select>
-                            <br/><br/>
+                            </ul>
+                            <div id="sub-form-ingre" class="form-group" data-id="{{postId}}">
+                                <label>Name: </label>
+                                <input id="input-ingre-name" type="text" class="form-control" name="ingredient[]">
+                                <label>Quantity: </label>
+                                <input id="input-ingre-quantity" type="number" class="input-sm" name="ingredient[]">
+                                <select id="input-ingre-unit" name="ingredient[]">
+                                    <option value="grams">g</option>
+                                    <option value="kilograms">kg</option>
+                                    <option value="mililitres">ml</option>
+                                </select>
+                                <br/><br/>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
                             <button id="add-ingre-btn" class="btn btn-primary">Add Ingredient <span class="icon-add-1"></span></button>
                         </div>
                 </div>

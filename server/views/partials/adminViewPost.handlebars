@@ -1,48 +1,67 @@
-<div class="col-sm-12">
+<div class="col-sm-8 panel panel-default">
     <article>
-        <p class="small">{{foundPost.created}}</p> 
-        <h2>{{ foundPost.title }}</h2>
-
-        {{#if foundPost.primaryPhoto}}
-            <img class="img-responsive" src="/assets/images/{{foundPost.primaryPhoto}}">
-        {{/if}}
-
-        <p>{{ foundPost.body }}</p>
-
-        {{#if foundPost.secondaryPhoto}}
-            <div class="col-sm-3">
-                <img class="img-responsive" src="/assets/images/{{foundPost.secondaryPhoto}}">
+        <h2 class="panel-heading">{{ foundPost.title }}</h2> 
+        <div class="panel-body">
+            <p class="small pull-right">{{foundPost.created}}</p>
+            <div class="row">
+                <div class="col-sm-8">
+                    {{#if foundPost.primaryPhoto}}
+                        <img class="img-responsive" src="/assets/images/{{foundPost.primaryPhoto}}">
+                    {{/if}}
+                </div>
+                <div class="col-sm-4">
+                    {{#if foundPost.secondaryPhoto}}
+                        <div class="row">
+                            <img class="img-responsive col-sm-12" src="/assets/images/{{foundPost.secondaryPhoto}}">
+                        </div>
+                    {{/if}}
+                    {{#if foundPost.extraPhoto}}
+                        <div class="row">
+                            <img class="img-responsive col-sm-12" src="/assets/images/{{foundPost.extraPhoto}}">
+                        </div>
+                    {{/if}}
+                </div>
             </div>
-        {{/if}}
 
-        {{#if foundPost.ingredientList}}
-        <h3>Ingredients</h3>
-            <div>
-                {{#each foundPost.ingredientList}}
-                    <ul>
-                        <li>
-                            <p style="display: inline-block">{{this.name}}</p>
-                            <p style="display: inline-block">{{this.quantity}}</p>
-                            <p style="display: inline-block">{{this.unit}}</p></li>
-                    </ul>
-                {{/each}}
+            <p>{{ foundPost.body }}</p>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    {{#if foundPost.ingredientList}}
+                    <h3>Ingredients</h3>
+                        <div>
+                            {{#each foundPost.ingredientList}}
+                                <ul>
+                                    <li>
+                                        <p style="display: inline-block">{{this.name}}</p>
+                                        <p style="display: inline-block">{{this.quantity}}</p>
+                                        <p style="display: inline-block">{{this.unit}}</p></li>
+                                </ul>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+
+                <div class="col-sm-6">
+                    {{#if foundPost.instructions}}
+                        <h3>Instructions</h3>
+                        <div>
+                            <ol>
+                                {{#each foundPost.instructions}}
+                                    <li>
+                                        <p>{{this}}</p>
+                                    </li>
+                                {{/each}}
+                            </ol>
+                        </div>
+                    {{/if}}
+                </div>
             </div>
-        {{/if}}
 
-        {{#if foundPost.instructions}}
-            <h3>Instructions</h3>
-            <div>
-                <ol>
-                    {{#each foundPost.instructions}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ol>
-            </div>
-        {{/if}}
-
-        <div class="col-sm-12">
+        <div class="col-sm-12 panel-footer">
             <a href="/post-editor/editPost/{{foundPost._id}}" class="btn btn-default">Edit <span class="icon-edit-1"></span></a>
             <a href="/post-editor/deletePost/{{foundPost._id}}" class="btn btn-danger">Delete <span class="icon-bin-2"></span></a>
+        </div>
         </div>
     </article>
 </div>

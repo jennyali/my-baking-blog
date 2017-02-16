@@ -16,6 +16,7 @@ var postSchema = new Schema ({
     instructions: {  type: Array },
     primaryPhoto: { type: String },
     secondaryPhoto: { type: String },
+    extraPhoto: { type: String },
     created: Date,
     updated: Date
 });

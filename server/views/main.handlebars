@@ -1,9 +1,11 @@
 <main class="container">
     <section class="row">
         <div class="col-sm-12">
-            <h1>
-                {{ pageTitle }}
-            </h1>
+            {{#if pageTitle }}
+                <h1 class="jumbotron">
+                    {{ pageTitle }}
+                </h1>
+            {{/if}}
         </div>
     </section>
     <section class="row">

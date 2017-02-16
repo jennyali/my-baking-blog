@@ -63,7 +63,7 @@ exports.pageRender = function(req, res, next) {
                             pagesQuantity = ((count / perPage) + 1);
 
                             res.render('postEditor', { 
-                                pageTitle: "Post Editor", 
+                                pageTitle: "Recipe Editor", 
                                 hasAllPosts: true,
                                 hasCreateBtn: true,
                                 foundPosts: results,
@@ -90,7 +90,7 @@ exports.adminCategoryRender = function(req, res, next) {
         .then( results => {
 
             res.render('postEditor', { 
-                pageTitle: "Post Editor",
+                pageTitle: "Recipe Editor",
                 hasViewCategory: true,
                 foundPosts: results[0],
         });
@@ -110,7 +110,7 @@ exports.formRender = function(req, res, next) {
             .then(  results => {
 
                 res.render('postEditor', { 
-                    pageTitle: "Create Post",
+                    pageTitle: "Create Recipe",
                     hasForm: true,
                     categories: results,
                 });
@@ -156,7 +156,7 @@ exports.formRender = function(req, res, next) {
                             });
 
                         res.render('postEditor', { 
-                            pageTitle: "Edit Post",
+                            pageTitle: "Edit Recipe",
                             hasForm: true,
                             isEditPost: true,
                             categories: results,
@@ -168,7 +168,8 @@ exports.formRender = function(req, res, next) {
                                 instructions: post.instructions,
                                 imageFiles: imageFiles,
                                 primaryPhoto: post.primaryPhoto,
-                                secondaryPhoto: post.secondaryPhoto
+                                secondaryPhoto: post.secondaryPhoto,
+                                extraPhoto: post.extraPhoto
                             }
                         }
                     );
@@ -198,7 +199,7 @@ exports.viewPost = function(req, res, next) {
         } else {
 
             res.render('postEditor', { 
-                pageTitle: "Post Editor",
+                pageTitle: "Recipe Editor",
                 hasViewPost: true,
                 foundPost: post,
             });
@@ -310,6 +311,7 @@ exports.editPost = function(req, res, next) {
             post.instructions = req.body.instructions;
             post.primaryPhoto = req.body.primaryPhoto;
             post.secondaryPhoto = req.body.secondaryPhoto;
+            post.extraPhoto = req.body.extraPhoto;
 
             post
                 .save()
