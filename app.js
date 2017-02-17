@@ -11,15 +11,24 @@ var port =  process.env.PORT || 3000;
 var routes = require('./server/routes');
 var path = require('path');
 var morgan = require('morgan');
+var passport = require('passport');
+var session = require('express-session');
+var flash = require("connect-flash");
+var cookieParser = require('cookie-parser');
+var connectMongo = require('connect-mongo');
+require('./server/util/passportConfig')(passport);
+
 
 // Database connection ========================================
 mongoose.connect('mongodb://localhost/jentestdb', function() {
     console.log('Database connected');
 });
 
+var MongoStore = connectMongo(session);
+var sessionStore = new MongoStore({mongooseConnection:mongoose.connections[0]});
+
 // app + middleware ===========================================
 var app = express();
-
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -42,6 +51,16 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars');
 app.use(morgan('dev'));
+app.use(session({ 
+    secret: 'cake',
+    resave: true,
+    saveUninitialized: true,
+    store: sessionStore
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // Routes ====================================================
 routes(app);

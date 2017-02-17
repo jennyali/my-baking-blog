@@ -18,7 +18,8 @@ var _ = require('lodash');
 
 exports.pageRender = function(req, res, next) {
     res.render('postEditor', {
-        hasLogin: true
+        hasLogin: true,
+        message: req.flash('message')
     });
 };
 

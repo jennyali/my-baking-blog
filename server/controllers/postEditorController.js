@@ -22,6 +22,8 @@ var imageFiles = fs.readdirSync('../my-baking-blog/public/images');
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res, next) {
 
+    console.log(req.user);
+
     var successRes = false;
     var updateRes = false;
     var deleteRes = false;

@@ -4,6 +4,14 @@
 var router = require('express').Router();
 var postEditorController = require('../controllers/postEditorController');
 
+router.use(function(req, res, next) {
+    console.log(req.isAuthenticated());
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+});
+
 router
     .route('/')
     .get(postEditorController.pageRender);
