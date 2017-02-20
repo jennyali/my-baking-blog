@@ -1,0 +1,37 @@
+<div class="col-sm-9">
+
+    <div class="row">
+
+        {{#if foundPosts }}
+
+            {{#each foundPosts }}
+
+                {{#if this.primaryPhoto}}
+
+                    <div class="col-sm-3">
+
+                        <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
+
+                    </div>
+
+                {{/if}}
+
+            {{/each}}
+
+        {{else}}
+
+            <h3> Sorry No Photos Availible </h3>
+
+        {{/if}}
+
+    </div>
+
+    <ul class="pagination text-center row">
+
+        {{#times pages}}
+            <li><a href="/gallery?p={{this}}">{{this}}</a></li>
+        {{/times}}
+        
+    </ul>
+
+</div>

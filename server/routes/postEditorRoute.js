@@ -3,14 +3,17 @@
 
 var router = require('express').Router();
 var postEditorController = require('../controllers/postEditorController');
+var viewController = require('../controllers/viewController');
 
-router.use(function(req, res, next) {
-    console.log(req.isAuthenticated());
+router.use(function(req, res, next) { // this code applies to all the routers on page and projects them from non logged in users
+    //console.log(req.isAuthenticated());
     if(req.isAuthenticated()) {
         return next();
     }
     res.redirect('/login');
 });
+
+//=== Admin seen Views
 
 router
     .route('/')
@@ -38,6 +41,9 @@ router
     .route('/deletePost/:id')
     .get(postEditorController.deletePost);
 
+router
+    .route('/log-out')
+    .get(postEditorController.logout);
 
 //==============  AJAX ROUTES  ==============================//
 

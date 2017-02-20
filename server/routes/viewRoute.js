@@ -27,5 +27,21 @@ router
     .route('/about')
     .get(viewController.aboutRender);
 
+router
+    .route('/search-results')
+    .get(viewController.searchRender);
+
+router
+    .route('/gallery')
+    .get(viewController.galleryRender);
+
+
+//==============  AJAX ROUTES  ==============================//
+
+router
+    .route('/fill-categories')
+    .get(viewController.fillCategoryPanel);
+
+
 
 module.exports = router;

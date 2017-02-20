@@ -22,11 +22,12 @@ var imageFiles = fs.readdirSync('../my-baking-blog/public/images');
 // GET to render inital page / Uses the 'findAllPosts' function
 exports.pageRender = function(req, res, next) {
 
-    console.log(req.user);
+    //console.log(req.user);
 
     var successRes = false;
     var updateRes = false;
     var deleteRes = false;
+    var loggedIn = false;
 
     if(req.query.delete) {
         
@@ -40,7 +41,7 @@ exports.pageRender = function(req, res, next) {
 
         successRes = true;
 
-    } 
+    }
 
         categoryHelper
             .allCategoriesWithPosts()
@@ -75,6 +76,7 @@ exports.pageRender = function(req, res, next) {
                                 success: successRes,
                                 update: updateRes,
                                 delete: deleteRes,
+                                isAdmin: true
                             }
                     );
                 });
@@ -95,6 +97,7 @@ exports.adminCategoryRender = function(req, res, next) {
                 pageTitle: "Recipe Editor",
                 hasViewCategory: true,
                 foundPosts: results[0],
+                isAdmin: true
         });
     }).catch( err => {
         next(err);
@@ -115,6 +118,7 @@ exports.formRender = function(req, res, next) {
                     pageTitle: "Create Recipe",
                     hasForm: true,
                     categories: results,
+                    isAdmin: true
                 });
 
             }).catch( err => {
@@ -163,6 +167,7 @@ exports.formRender = function(req, res, next) {
                             isEditPost: true,
                             categories: results,
                             postId: postId,
+                            isAdmin: true,
                             prefill: {
                                 title: post.title,
                                 body: post.body,
@@ -204,6 +209,7 @@ exports.viewPost = function(req, res, next) {
                 pageTitle: "Recipe Editor",
                 hasViewPost: true,
                 foundPost: post,
+                isAdmin: true,
             });
         }
     }).catch( err => {
@@ -212,6 +218,12 @@ exports.viewPost = function(req, res, next) {
 };
 
 // END GET RENDERS -------------------------------------------------
+
+// GET log out the user
+exports.logout = function(req, res, next) {
+    req.logOut();
+    res.redirect('/login');
+};
 
 // GET = find by id and delete post
 exports.deletePost = function(req, res, next) { // TRY REDIRECTING WITH  QUERY STRING WITH TITLE, ALERT, ALERTmsg
@@ -280,11 +292,12 @@ exports.createPost = function(req, res, next) {
                             title: req.body.title,
                             body: req.body.body
                         },
-                        errors: error
+                        errors: error,
+                        isAdmin: true
                     }
             );
         }).catch( err => {
-            next(err)
+            next(err);
         });
     });
 };
@@ -369,7 +382,8 @@ exports.editPost = function(req, res, next) {
                                         body: req.body.body,
                                     },
                                     failed: true,
-                                    errors: error
+                                    errors: error,
+                                    isAdmin: true
                                 });  
 
                 }).catch( err => {

@@ -115,10 +115,18 @@
 	    var $secondaryPhotoWrapper = $('#secondary-photo-wrapper');
 	    var $extraPhotoWrapper = $('#extra-photo-wrapper');
 	
+	    // aside categories panel 
+	    var $catergoriesPanel = $('#category-panel ul');
+	
 	    //--------VARIABLES ----------//
 	
 	
 	    //------ TEMPLATES ---------//
+	
+	    function categoryLiTemplate(data) {
+	        return '\n        <li><a href="/recipe-index/' + data._id + '">' + data.category + '</a></li>\n    ';
+	    }
+	
 	    function primaryPhotoInputTemplate(name) {
 	        return '\n        <div class="form-group">\n\n            <img class="img-responsive img-thumbnail" src="/assets/images/default-placeholder.png">\n\n            <label class="control-label">' + name + ' Photo:</label>\n             <div class="input-group">\n                 <select id="' + name + '-photo-select" class="form-control" name="' + name + 'Photo">\n                 <option value="default-placeholder.png" selected disabled>Choose from the following...</option>\n\n                </select>\n                </div>\n            </div>\n    ';
 	    }
@@ -550,8 +558,30 @@
 	        });
 	    }
 	
-	    //------- FUNCTION CALLS ----------//
+	    function fillCategoryPanel() {
 	
+	        $.ajax({
+	            type: 'GET',
+	            url: '/fill-categories',
+	            dataType: 'json',
+	            success: function success(data) {
+	
+	                var template = "";
+	
+	                _.each(data, function (category) {
+	                    template += categoryLiTemplate(category);
+	                });
+	
+	                $(template).appendTo($catergoriesPanel);
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
+	
+	    //------- FUNCTION CALLS ----------//
+	    fillCategoryPanel();
 	});
 
 /***/ },

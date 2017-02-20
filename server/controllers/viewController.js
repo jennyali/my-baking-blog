@@ -6,6 +6,8 @@ var Category = require('../models/categoriesModel');
 var categoryHelper = require('../helpers/categoryHelpers');
 var Promise = require('bluebird');
 var _ = require('lodash');
+var fs = require('fs');
+var imageFiles = fs.readdirSync('../my-baking-blog/public/images');
 
 
 /*==========================
@@ -27,10 +29,13 @@ exports.homeRender = function(req, res, next) {
                 pageTitle: 'Home page', 
                 homePage: true,
                 foundPosts: someResults,
+                isAdmin: !!req.user
             }
         );
     }).catch( err => {
+
         next(err);
+
     });
 };
 
@@ -61,14 +66,57 @@ exports.homeRenderPagi = function(req, res, next) {
                     homePage: true,
                     foundPosts: results,
                     page: currentPage,
-                    pages: pagesQuantity
+                    pages: pagesQuantity,
+                    isAdmin: !!req.user
                 }
             );
         });
     }).catch( err => {
+
         next(err);
+
     });
 };
+
+// GET = Renders the gallery page inc pagination
+
+exports.galleryRender = function(req, res, next) {
+
+    var perPage = 4;
+    var currentPage = req.query.p;
+    var page = (currentPage - 1);
+    
+    Post
+        .find('primaryPhoto')
+        .skip(perPage * page)
+        .limit(perPage)
+        .sort({updated: 'desc'})
+        .exec()
+        .then( results => {
+
+                var count = results.length;
+
+                pagesQuantity = ((count / perPage) + 1);
+
+                //console.log(pagesQuantity);
+
+                res.render('main', { 
+                    pageTitle: 'Gallery', 
+                    galleryPage: true,
+                    foundPosts: results,
+                    page: currentPage,
+                    pages: pagesQuantity,
+                    isAdmin: !!req.user
+                }
+            );
+
+    }).catch( err => {
+
+        next(err);
+
+    });
+};
+
 
 // GET = Read (view/find all posts)
 exports.recipeIndexRender = function(req, res, next) {
@@ -82,10 +130,13 @@ exports.recipeIndexRender = function(req, res, next) {
                 pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
+                isAdmin: !!req.user
             }
         );
     }).catch( err => {
+
         next(err);
+
     });
 };
 
@@ -100,10 +151,13 @@ exports.recipeIndexCategories = function(req, res, next) {
                 pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
+                isAdmin: !!req.user
             }
         );  
     }).catch( err => {
+
         next(err);
+
     });
 };
 
@@ -118,10 +172,13 @@ exports.categoryRender = function(req, res, next) {
                 pageTitle: results[0].category,
                 viewCategoryPage: true,
                 foundPosts: results[0],
+                isAdmin: !!req.user
             }
         );
     }).catch( err => {
+
         next(err);
+
     });
 };
 
@@ -152,12 +209,15 @@ exports.recipeIndexPagi = function(req, res, next) {
                     recipeIndexPage: true,
                     foundPosts: results,
                     page: currentPage,
-                    pages: pagesQuantity
+                    pages: pagesQuantity,
+                    isAdmin: !!req.user
                 }
             );
         });
     }).catch( err => {
+
         next(err);
+
     });
 };
 
@@ -172,10 +232,12 @@ exports.viewPostRender = function(req, res, next) {
             res.render('main', {
                 viewPostPage: true,
                 foundPost: post[0],
+                isAdmin: !!req.user
         });
 
     }).catch( err => {
         next(err);
+
     });
 };
 
@@ -186,5 +248,59 @@ exports.aboutRender = function(req, res, next) {
     res.render('main', {
         pageTitle: 'About Us',
         aboutPage: true,
+        isAdmin: !!req.user
+    });
+};
+
+// GET = for aside search bar
+
+exports.searchRender = function(req, res, next) {
+
+    filter = {};
+
+    if(req.query.search) {
+        filter.title = {$regex : new RegExp(req.query.search, 'i')};
+    
+        Post.find(filter)
+            .then( recipes => {
+
+                //console.log(recipes); // is an array
+
+                    res.render('main', {
+                        pageTitle: 'Search Results',
+                        searchResultsPage: true,
+                        isAdmin: !!req.user,
+                        results: recipes
+                    });
+
+            }).catch( err => {
+
+                next(err);
+
+        });
+    } else {
+
+        var errMsg = "Sorry no matching results found!";
+
+        res.render('main', {
+            pageTitle: 'Search Results',
+            searchResultsPage: true,
+            isAdmin: !!req.user,
+            errMsg: errMsg
+        });
+    }
+
+};
+
+exports.fillCategoryPanel = function(req, res, next) {
+
+    Category.find({})
+            .then( categories => {
+                
+                res.send(categories);
+
+            }).catch( err => {
+                
+                next(err);
     });
 };

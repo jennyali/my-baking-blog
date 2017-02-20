@@ -16,26 +16,26 @@
         <div class="jumbotron">
             <h1 class="text-center">My Baking Blog</h1>
         </div>
-        {{#if hasLogin}}
-
-        {{else}}
-            <nav class="navbar">
-                <div class="container">
-                    <ul class="nav nav-tabs nav-justified">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/recipe-index">Recipes</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/post-editor">Post Editor</a></li>
-                    </ul>
-                </div>
-            </nav>
-        {{/if}}
+            {{#if isAdmin}}
+                {{> adminNav }}
+            {{else}}
+                <nav class="navbar">
+                    <div class="container">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/recipe-index">Recipes</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/gallery">Gallery</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {{/if}}
     </header>
 
 
     {{{ body }}}
 
- <!--   
+ 
     <footer class="navbar-inverse">
         <div class="container">
             <div class="row">
@@ -49,7 +49,7 @@
             </div>
         </div>
     </footer>
--->
+
 
 
     <script src="/assets/javascripts/bootstrap.js"></script>
