@@ -1,0 +1,30 @@
+<div class="col-sm-9">
+    <div class="row">
+
+        {{#if errMsg}}
+
+            <div class="panel panel-danger">
+                <h3 class="panel-body">{{ errMsg }}</h3>
+            </div>
+
+        {{/if}}
+
+        {{#if results}}
+
+            {{#each results}}
+
+                <div class="col-sm-4">
+                    <a href="/view-post/{{this._id}}">
+                    {{#if this.primaryPhoto}}                 
+                        <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
+                    {{/if}}
+                    <h4 class="text-center">{{this.title}}</h4>
+                    </a>
+                </div>
+
+            {{/each}}
+
+        {{/if}}
+
+    </div>
+</div>

@@ -63,10 +63,20 @@ var $btnPhotoPrimary = $('.btn-photo-primary');
 var $secondaryPhotoWrapper = $('#secondary-photo-wrapper');
 var $extraPhotoWrapper = $('#extra-photo-wrapper');
 
+// aside categories panel 
+var $catergoriesPanel = $('#category-panel ul');
+
 //--------VARIABLES ----------//
 
 
 //------ TEMPLATES ---------//
+
+function categoryLiTemplate(data) {
+    return `
+        <li><a href="/recipe-index/${data._id}">${data.category}</a></li>
+    `
+}
+
 function primaryPhotoInputTemplate(name) {
     return `
         <div class="form-group">
@@ -574,8 +584,32 @@ function addIngreBtnHandler(e) {
 
 }
 
-//------- FUNCTION CALLS ----------//
+function fillCategoryPanel() {
 
+    $.ajax({
+        type : 'GET',
+        url : '/fill-categories',
+        dataType : 'json',
+        success: function(data) {
+
+            var template = "";
+
+            _.each(data, function(category) {
+                template += categoryLiTemplate(category);
+            });
+
+            $(template).appendTo($catergoriesPanel);
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+
+}
+
+//------- FUNCTION CALLS ----------//
+fillCategoryPanel();
 
 
 });

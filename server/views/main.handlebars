@@ -8,28 +8,40 @@
             {{/if}}
         </div>
     </section>
-    <section class="row">
+    <div class="row">
+        <section>
 
-            {{#if homePage }}
-                {{> recentPosts }}
-            {{/if}}
+                {{#if homePage }}
+                    {{> recentPosts }}
+                {{/if}}
 
-            {{#if recipeIndexPage}}
-                {{> recipeIndex }}
-            {{/if}}
+                {{#if recipeIndexPage}}
+                    {{> recipeIndex }}
+                {{/if}}
 
-            {{#if viewPostPage }}
-                {{> viewPost }}
-            {{/if}}
+                {{#if viewPostPage }}
+                    {{> viewPost }}
+                {{/if}}
 
-            {{#if viewCategoryPage}}
-                {{> viewCategory }}
-            {{/if}}
+                {{#if viewCategoryPage}}
+                    {{> viewCategory }}
+                {{/if}}
 
-            {{#if aboutPage }}
-                {{> about }}
-            {{/if}}
+                {{#if aboutPage }}
+                    {{> about }}
+                {{/if}}
 
-        </div>
-    </section>
+                {{#if searchResultsPage }}
+                    {{> searchResults }}
+                {{/if}}
+
+                {{#if galleryPage }}
+                    {{> gallery }}
+                {{/if}}
+
+        </section>
+        <aside>
+            {{> aside}}
+        </aside>
+    </div>
 </main>

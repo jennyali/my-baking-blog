@@ -24,7 +24,7 @@ module.exports = function(passport) {
     passport.use(new LocalStrategy ({
         passReqToCallback: true
     }, function(req, username, password, done) {
-        console.log(username);
+
         User.findOne({ name: username }, function (err, user) {
 
             if(err) {
