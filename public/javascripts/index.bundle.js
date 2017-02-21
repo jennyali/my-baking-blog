@@ -118,10 +118,24 @@
 	    // aside categories panel 
 	    var $catergoriesPanel = $('#category-panel ul');
 	
+	    // Category form
+	    var $categoryForm = $('#category-create-form');
+	    var $categoryEditList = $('#category-edit-list');
+	
+	    var $categoryEditBtn = $('.category-edit-btn');
+	
 	    //--------VARIABLES ----------//
 	
 	
 	    //------ TEMPLATES ---------//
+	
+	    function editCategoryInputTemplate(data) {
+	        return '\n        <div class="input-group">\n            <input class="form-control" type="text" value="' + data + '">\n            <div class="input-group-btn">\n                <button class="btn btn-info category-update-btn">Update <span class="icon-edit-1"></button>\n                <button class="btn btn-danger category-delete-btn"><span class="icon-bin-2"></span></button>\n            </div>\n        </div>\n    ';
+	    }
+	
+	    function newCategoryLiTemplate(data) {
+	        return '\n        <li data-id="' + data._id + '">\n            <h4>' + data.category + '</h4>\n            <button class="btn btn-sm btn-default">Edit <span class="icon-edit-1"></button>\n            <button class="btn btn-sm btn-danger">Delete <span class="icon-bin-2"></span></button>\n        </li>\n    ';
+	    }
 	
 	    function categoryLiTemplate(data) {
 	        return '\n        <li><a href="/recipe-index/' + data._id + '">' + data.category + '</a></li>\n    ';
@@ -230,6 +244,7 @@
 	    });
 	
 	    //=======  instructions subform 
+	
 	    $instructionsForm.on('click', 'button.remove-step-btn', function (e) {
 	        // remove step from instructions 'form'
 	        removeStepBtnHandler(e, this);
@@ -260,6 +275,21 @@
 	        addIngreBtnHandler(e);
 	    });
 	
+	    //=========== Edit Category page
+	
+	    $categoryForm.on('click', 'button', function (e) {
+	        // add a new Category into the DB
+	        addCategoryBtnHandler(e, this);
+	    });
+	
+	    $categoryEditList.on('click', 'button.category-edit-btn', function (e) {
+	        editCategoryBtnHandler(e, this);
+	    });
+	
+	    $categoryEditList.on('click', 'button.category-update-btn', function (e) {
+	        updateCategoryBtnHandler(e, this);
+	    });
+	
 	    /*===========================
 	    
 	            CONTROLLER
@@ -267,6 +297,67 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
+	
+	    function updateCategoryBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var inputVal = $(selector).closest('li').find('input').val();
+	
+	        var liDataId = $(selector).closest('li').attr('data-id');
+	
+	        var formData = {
+	            'inputVal': inputVal,
+	            'categoryId': liDataId
+	        };
+	
+	        $.ajax({
+	            type: 'POST',
+	            url: './update-category',
+	            data: formData,
+	            dataType: 'json',
+	            success: function success(data) {
+	                console.log('success');
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
+	
+	    function editCategoryBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var liText = $(selector).closest('li').find('h4').text();
+	        var template = "";
+	
+	        template += editCategoryInputTemplate(liText);
+	
+	        $(selector).closest('li').empty().append(template);
+	    }
+	
+	    function addCategoryBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var inputVal = $categoryForm.find('input').val();
+	
+	        $.ajax({
+	            type: 'POST',
+	            url: './create-category',
+	            data: { 'input': inputVal },
+	            dataType: 'json',
+	            success: function success(data) {
+	                //console.log('success');
+	                var template = "";
+	
+	                template = newCategoryLiTemplate(data);
+	
+	                $(template).appendTo($categoryEditList);
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
 	
 	    // ======== secondary photo functions
 	

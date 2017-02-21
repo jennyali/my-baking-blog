@@ -69,6 +69,7 @@ exports.pageRender = function(req, res, next) {
                                 pageTitle: "Recipe Editor", 
                                 hasAllPosts: true,
                                 hasCreateBtn: true,
+                                hasEditCategoriesBtn: true,
                                 foundPosts: results,
                                 pagiResults: pagiResults,
                                 page: currentPage,
@@ -81,6 +82,26 @@ exports.pageRender = function(req, res, next) {
                     );
                 });
             });
+        }).catch( err => {
+            next(err);
+    });
+};
+
+//GET = render page to proform CRUD ops with categories model
+exports.categoryFormRender = function(req, res, next) {
+
+    categoryHelper
+        .categoryList()
+        .then( results => {
+
+            res.render('postEditor', {
+                pageTitle: "Edit Categories",
+                hasEditCategoriesForm: true,
+                isAdmin: true,
+                categories: results
+
+            });
+
         }).catch( err => {
             next(err);
     });
@@ -399,6 +420,44 @@ exports.editPost = function(req, res, next) {
         AJAX RELATED ROUTES
  
  ================================*/
+
+ // POST to update an exsisting category
+ exports.updateCategory = function(req, res, next) {
+
+    Category.findById({ _id : req.body.categoryId })
+            .then( foundCategory => {
+
+                //console.log(foundCategory);
+
+                foundCategory.category = req.body.inputVal;
+
+                foundCategory.save()
+                             .then( savedCategory => {
+                                res.send(savedCategory);
+                            });
+
+            }).catch( err => {
+                next(err);
+        });
+ };
+
+// POST to create a new category in DB via Category DB
+exports.createCategory = function(req, res, next) {
+
+    var entry = new Category({
+        category : req.body.input
+    });
+
+    entry.save()
+        .then( newCategory => {
+
+            res.send(newCategory);
+
+        }).catch( err => {
+            next(err);
+    });
+};
+
 
 // POST to delete primaryPhoto from found recipe
 exports.deletePrimaryPhoto = function(req, res, next) {
