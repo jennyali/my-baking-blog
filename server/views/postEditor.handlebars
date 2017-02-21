@@ -7,11 +7,7 @@
             <h3>
                 {{ subTitle }}
             </h3>
-            <!--{{#if prefill}}
-                <h3>
-                    {{prefill.title}}
-                </h3>
-            {{/if}}-->
+
         </div>
 
         {{#if hasCreateBtn}}
@@ -19,9 +15,16 @@
                 <a href="/post-editor/createPost" class="btn btn-default">
                     <h3>Create Recipe <span class="icon-edit-3"></span></h3>
                 </a>
+
+            {{#if hasEditCategoriesBtn}}
+                    <a href="/post-editor/editCategories" class="btn btn-default">
+                        <h3>Edit Categories <span class="icon-edit-3"></span></h3>
+                    </a>
+            {{/if}}
+
             </div>
         {{/if}}
-        
+
     </section>
     <section class="row">
 
@@ -43,6 +46,13 @@
             </div>
         {{/if}}
 
+    </section>
+    <section class="row">
+
+        {{#if hasEditCategoriesForm }}
+            {{> categoryForm }}
+        {{/if}}
+    
     </section>
     <section class="row col-sm-12">
 

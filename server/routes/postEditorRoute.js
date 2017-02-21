@@ -20,6 +20,10 @@ router
     .get(postEditorController.pageRender);
 
 router
+    .route('/editCategories')
+    .get(postEditorController.categoryFormRender);
+
+router
     .route('/createPost')
     .get(postEditorController.formRender)
     .post(postEditorController.createPost);
@@ -46,6 +50,14 @@ router
     .get(postEditorController.logout);
 
 //==============  AJAX ROUTES  ==============================//
+
+router
+    .route('/create-category')
+    .post(postEditorController.createCategory);
+
+router 
+    .route('/update-category')
+    .post(postEditorController.updateCategory);
 
 router
     .route('/editPost/update-post/:id')
