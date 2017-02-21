@@ -421,6 +421,21 @@ exports.editPost = function(req, res, next) {
  
  ================================*/
 
+//POST to delete category from DB
+exports.deleteCategory = function(req, res, next) {
+
+    Category.findByIdAndRemove(req.body.categoryId)
+            .then( removedPost => {
+
+                res.send(removedPost);
+
+            }).catch( err => {
+                next(err);
+        });
+};
+
+
+
  // POST to update an exsisting category
  exports.updateCategory = function(req, res, next) {
 

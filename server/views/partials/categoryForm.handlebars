@@ -1,32 +1,44 @@
 <div class="col-sm-8">
 
-    <div class="row col-sm-12">
-        <ul id="category-edit-list">
 
-            {{#each categories}}
 
-                <li data-id="{{this._id}}">
-                    <h4>{{this.category}}</h4>
-                    <button class="btn btn-sm btn-default category-edit-btn">Edit <span class="icon-edit-1"></button>
-                    <button class="btn btn-sm btn-danger category-delete-btn">Delete <span class="icon-bin-2"></span></button>
-                </li>
+        <div class="row col-sm-12">
+            <ul id="category-edit-list">
 
-            {{/each}}
 
-        </ul>
-    </div>
-    <div class="row col-sm-12">
-        <div class="panel panel-default">
-            <form id="category-create-form" class="panel-body">
-                <label for="category">New Category</label>
-                <div class="input-group">
-                    <input class="form-control" type="text" name="category">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary">Add <span class="icon-add-1"></button>
-                    </div>
-                </div>
-            </form>
+                {{#each categories}}
+
+                    <li data-id="{{this._id}}" class="list-unstyled">  
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="{{this.category}}" value="{{this.category}}" readonly>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default category-edit-btn">Edit <span class="icon-edit-1"></button>
+                                <button class="btn btn-danger category-delete-btn">Delete <span class="icon-bin-2"></span></button>
+                            </div>
+                        </div>
+                        </br>
+                    </li>
+                    
+                {{/each}}
+
+            </ul>
         </div>
+
+
+    <div class="row col-sm-12">    
+        <form id="category-create-form" class="">
+            <label for="category">New Category</label>
+            <div class="input-group">
+                <input class="form-control" type="text" name="category">
+                <div class="input-group-btn">
+                    <button class="btn btn-primary">Add <span class="icon-add-1"></button>
+                </div>
+            </div>
+        </form>
     </div>
+
+</div>
+
+
 
 </div>

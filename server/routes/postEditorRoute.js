@@ -52,6 +52,10 @@ router
 //==============  AJAX ROUTES  ==============================//
 
 router
+    .route('/delete-category')
+    .post(postEditorController.deleteCategory);
+
+router
     .route('/create-category')
     .post(postEditorController.createCategory);
 

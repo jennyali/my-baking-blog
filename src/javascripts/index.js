@@ -77,24 +77,44 @@ var $categoryEditBtn = $('.category-edit-btn');
 
 //------ TEMPLATES ---------//
 
+function editCategoryLiTemplate(data) {
+    return `
+            <div class="input-group">
+                <input class="form-control" type="text" name="${data.category}" value="${data.category}" readonly>
+                <div class="input-group-btn">
+                    <button class="btn btn-default category-edit-btn">Edit <span class="icon-edit-1"></button>
+                    <button class="btn btn-danger category-delete-btn">Delete <span class="icon-bin-2"></span></button>
+                </div>
+            </div>
+            </br>
+    `
+}
+
+
 function editCategoryInputTemplate(data) {
     return `
         <div class="input-group">
             <input class="form-control" type="text" value="${data}">
             <div class="input-group-btn">
-                <button class="btn btn-info category-update-btn">Update <span class="icon-edit-1"></button>
-                <button class="btn btn-danger category-delete-btn"><span class="icon-bin-2"></span></button>
+                <button class="btn btn-default category-update-btn">Update <span class="icon-edit-1"></button>
+                <button class="btn btn-primary category-cancel-btn"><span class="icon-delete-1"></span></button>
             </div>
         </div>
+        </br>
     `
 }
 
 function newCategoryLiTemplate(data) {
     return `
-        <li data-id="${data._id}">
-            <h4>${data.category}</h4>
-            <button class="btn btn-sm btn-default">Edit <span class="icon-edit-1"></button>
-            <button class="btn btn-sm btn-danger">Delete <span class="icon-bin-2"></span></button>
+        <li data-id="${data._id}" class="list-unstyled">
+            <div class="input-group">
+                <input class="form-control" type="text" name="${data.category}" value="${data.category}" readonly>
+                <div class="input-group-btn">
+                    <button class="btn btn-default category-edit-btn">Edit <span class="icon-edit-1"></button>
+                    <button class="btn btn-danger category-delete-btn">Delete <span class="icon-bin-2"></span></button>
+                </div>
+            </div>
+            </br>
         </li>
     `
 }
@@ -297,11 +317,28 @@ $categoryForm.on('click', 'button', function(e) {
 });
 
 $categoryEditList.on('click', 'button.category-edit-btn', function(e) {
+// edit an exsisting category    
+    editCategoryBtnHandler(e, this);
+});
+
+$categoryEditList.on('click', 'input', function(e) {
+// edit an exsisting category    
     editCategoryBtnHandler(e, this);
 });
 
 $categoryEditList.on('click', 'button.category-update-btn', function(e) {
+// update name of category    
     updateCategoryBtnHandler(e, this);
+});
+
+$categoryEditList.on('click', 'button.category-cancel-btn', function(e) {
+// cancel edit/update action    
+    cancelEditCategoryBtnHandler(e, this);
+});
+
+$categoryEditList.on('click', 'button.category-delete-btn', function(e) {
+// delete category from DB 
+    deleteCategoryBtnHandler(e, this);
 });
 
 /*===========================
@@ -311,6 +348,44 @@ $categoryEditList.on('click', 'button.category-update-btn', function(e) {
 =============================*/
 
 //------- FUNCTIONS ----------//
+
+function deleteCategoryBtnHandler(e, selector) {
+    e.preventDefault();
+
+    var categoryId = $(selector).closest('li').attr('data-id');
+
+    $.ajax({
+        type : 'POST',
+        url : './delete-category',
+        data : { 'categoryId' : categoryId },
+        dataType : 'json',
+        success: function(data) {
+            console.log('success');
+
+            $(selector).closest('li').remove();
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log('error', errorThrown);
+        }
+    });
+}
+
+function cancelEditCategoryBtnHandler(e, selector) {
+    e.preventDefault();
+
+    var data = {
+        category: $(selector).closest('li').find('input').val()
+    };
+
+    var template = "";
+
+        template += editCategoryLiTemplate(data);
+        
+        $(selector).closest('li')
+                    .empty()
+                    .append(template);
+}
 
 function updateCategoryBtnHandler(e, selector) {
     e.preventDefault();
@@ -335,7 +410,14 @@ function updateCategoryBtnHandler(e, selector) {
         data : formData,
         dataType : 'json',
         success: function(data) {
-            console.log('success');
+            //console.log('success');
+            var template = "";
+
+            template += editCategoryLiTemplate(data);
+        
+            $(selector).closest('li')
+                       .empty()
+                       .append(template);
 
 
         },
@@ -349,7 +431,7 @@ function updateCategoryBtnHandler(e, selector) {
 function editCategoryBtnHandler(e, selector) {
     e.preventDefault();
 
-    var liText = $(selector).closest('li').find('h4').text();
+    var liText = $(selector).closest('li').find('input').val();
     var template = "";
 
 
