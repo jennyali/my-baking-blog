@@ -1,0 +1,90 @@
+/*===========================
+        GLOBAL VARIABLES
+=============================*/
+
+/* color
+-----------------------*/
+
+$colors : (
+    primary: #F98A93,
+    secondary: #000000,
+    contrast: #6ACAD6,
+    //extra: #FF9B71,
+    light: #FFFFFF,
+    dark: lighten(#000000, 40%),
+);
+
+$primary-color: map-get($map: $colors, $key: primary);
+$secondary-color: map-get($map: $colors, $key: secondary);
+$contrast-color: map-get($map: $colors, $key: contrast);
+//$extra-color: map-get($map: $colors, $key: extra);
+$dark: map-get($map: $colors, $key: dark);
+$light: map-get($map: $colors, $key: light);
+$grey: lighten(map-get($map: $colors, $key: dark), 10%);
+
+
+/* font-families
+-----------------------*/
+
+$font-family-heading: 'Mogra', cursive;
+$font-family-sub-heading: 'Oswald', sans-serif;
+$font-family-paragraph: 'Open Sans', sans-serif;
+
+
+/* font-size
+-----------------------*/
+// BS default = 14px
+
+$font-size: (
+    xxxlg: 42px,
+    xxlg: 36px,
+    xlg: 28px,
+    lg: 24px,
+    md: 16px,
+    base: 14px,
+    sm: 12px,
+    xs: 10px,
+);
+
+$font-size-xxxlg:  map-get($map: $font-size, $key: xxxlg);
+$font-size-xxlg:  map-get($map: $font-size, $key: xxlg);
+$font-size-xlg:  map-get($map: $font-size, $key: xlg);
+$font-size-lg:  map-get($map: $font-size, $key: lg);
+$font-size-md:  map-get($map: $font-size, $key: md);
+$font-size-base:  map-get($map: $font-size, $key: base);
+$font-size-sm:  map-get($map: $font-size, $key: sm);
+$font-size-xs:  map-get($map: $font-size, $key: xs);
+
+
+/* margin/padding sizing
+-----------------------*/
+// BS default = 15px
+// mp = margin/padding
+
+$mp-sm: 10px;
+$mp-default: 15px;
+$mp-lg: 20px;
+$mp-double: 30px;
+$mp-triple: 60px;
+
+/* breakpoints
+-----------------------*/
+// bp = breakpoint
+
+$breakpoints: (
+    xs: 420px,
+    sm: 768px,
+    md: 992px,
+    lg: 1200px,
+);
+
+$bp-xs: map-get($map: $breakpoints, $key: xs);
+$bp-sm: map-get($map: $breakpoints, $key: sm);
+$bp-md: map-get($map: $breakpoints, $key: md);
+$bp-lg: map-get($map: $breakpoints, $key: lg);
+
+/*===========================================
+
+            ELEMENT VARIABLES
+
+==============================================*/

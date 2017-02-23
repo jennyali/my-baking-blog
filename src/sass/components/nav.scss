@@ -1,0 +1,25 @@
+
+
+#site-body {
+
+
+    .header-navbar {
+        //background-color: $contrast-color;
+
+        .navbar {}
+
+        .container {}
+
+        .nav {}
+
+        li {}
+
+        a {
+            font-family: $font-family-sub-heading;
+            color: $dark;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid $primary-color;
+        }
+    }
+}

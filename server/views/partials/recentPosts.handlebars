@@ -1,17 +1,20 @@
-<div class="col-sm-9">
+<div class="col-sm-8 col-md-9">
 
     {{#each foundPosts}}
 
         <article class="row panel panel-default">
             <div class="col-sm-12">
-                <h2 class="panel-heading">{{this.title}}</h2>
+                
                 <div class="panel-body">
-                    <p class="small pull-right">{{this.created}}</p>
-
+                
                     {{#if this.primaryPhoto}}
                         <img class="img-responsive" src="/assets/images/{{this.primaryPhoto}}">
                     {{/if}}
                     
+                    <p>{{this.created}}</p>
+
+                    <h2>{{this.title}}</h2>
+
                     <p>{{this.body}}</p>
             
                     <div>

@@ -1,0 +1,15 @@
+
+#site-body {
+
+    footer {
+        background-color: $contrast-color;
+        padding: $mp-default;
+
+        a {
+            font-family: $font-family-sub-heading;
+            color: $light;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+    }
+}

@@ -4,3 +4,13 @@ $icon-font-path: "~/../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 //===================================================================//
 
 
+// main.scss (styles.scss)
+
+@import 'utils/module';
+@import 'base/module';
+@import "components/module";
+@import "layout/module";
+@import "pages/module";
+@import "themes/module";
+
+

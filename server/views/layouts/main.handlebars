@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/lib/bower_components/normalize-css/normalize.css" rel="stylesheet" type="text/css">
     <link href="https://file.myfontastic.com/ncjQH3qL3iqtxPyrLNBQDo/icons.css" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Mogra|Oswald|Raleway|Roboto|Open+Sans" rel="stylesheet">    
     <link href="/assets/stylesheets/main.css" rel="stylesheet" type="text/css">
     <script src='/assets/lib/bower_components/jquery/dist/jquery.min.js'></script>
 
     <title>My Baking Blog</title>
 </head>
-<body>
+<body id="site-body">
     <header>
-        <div class="jumbotron">
-            <h1 class="text-center">My Baking Blog</h1>
+        <div class="jumbotron site-logo__block">
+            <div class="site-logo-wrapper">
+                <img src="/assets/images/site-logo.jpg" class="site-logo-wrapper__img">
+                <h3>Baking Explorers</h3>
+            </div>
         </div>
+        <div class="header-navbar">
             {{#if isAdmin}}
                 {{> adminNav }}
             {{else}}
@@ -30,6 +34,7 @@
                     </div>
                 </nav>
             {{/if}}
+        </div>
     </header>
 
 

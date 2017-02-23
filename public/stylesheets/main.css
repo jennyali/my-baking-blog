@@ -5047,4 +5047,143 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/*===========================
+        GLOBAL VARIABLES
+=============================*/
+/* color
+-----------------------*/
+/* font-families
+-----------------------*/
+/* font-size
+-----------------------*/
+/* margin/padding sizing
+-----------------------*/
+/* breakpoints
+-----------------------*/
+/*===========================================
+
+            ELEMENT VARIABLES
+
+==============================================*/
+/*===========================
+        MIXINS
+=============================*/
+body {
+  background-color: #FFFFFF;
+  background-image: url("/assets/images/oven.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom right; }
+  body h1 {
+    font-family: "Oswald", sans-serif; }
+  body h2 {
+    font-family: "Mogra", cursive; }
+  body h4 {
+    font-family: "Oswald", sans-serif; }
+  body p {
+    font-family: "Open Sans", sans-serif; }
+  body li {
+    font-family: "Open Sans", sans-serif; }
+  body a {
+    font-family: "Open Sans", sans-serif; }
+  @media (min-width: 992px) {
+    body .container {
+      width: 1000px; } }
+
+#site-body .site-logo__block {
+  background-image: url("/assets/images/bg-left-side.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0; }
+  #site-body .site-logo__block h3 {
+    margin: 0;
+    text-transform: uppercase; }
+
+#site-body .site-logo-wrapper {
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  color: #666666; }
+
+#site-body .site-logo-wrapper__img {
+  max-width: 500px; }
+
+#site-body .btn-primary {
+  background-color: #F98A93;
+  color: #FFFFFF;
+  border: 1px solid #F98A93; }
+
+#site-body .header-navbar a {
+  font-family: "Oswald", sans-serif;
+  color: #666666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #F98A93; }
+
+#site-body .section--aside {
+  text-align: center; }
+  #site-body .section--aside article {
+    margin-bottom: 60px; }
+
+#site-body footer {
+  background-color: #6ACAD6;
+  padding: 15px; }
+  #site-body footer a {
+    font-family: "Oswald", sans-serif;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-transform: uppercase; }
+
+#site-body .article p {
+  color: #666666; }
+
+#site-body .article--aside h4 {
+  text-transform: uppercase;
+  color: #000000; }
+
+#site-body .article--aside div {
+  margin: 15px 0; }
+
+#site-body .article__form--aside form {
+  margin: 30px 0; }
+
+#site-body .article__form--aside .form-control {
+  height: 33px;
+  border: 1px solid #F98A93; }
+
+#site-body .article__gallery--aside {
+  position: relative; }
+  #site-body .article__gallery--aside img {
+    border: 1px solid #6ACAD6;
+    margin-bottom: 20px; }
+  #site-body .article__gallery--aside div {
+    position: absolute;
+    background: #6ACAD6;
+    padding: 10px 30px;
+    outline: 1px solid #FFFFFF;
+    outline-offset: -5px;
+    margin: 0px;
+    left: 50%;
+    top: 39%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); }
+  #site-body .article__gallery--aside h4 {
+    color: #FFFFFF;
+    letter-spacing: 1px; }
+
+#site-body .article__categories--aside h4 {
+  border-bottom: 2px solid #6ACAD6;
+  padding-bottom: 5px; }
+
+#site-body .article__categories--aside li {
+  padding: 15px 0; }
+
+#site-body .article__categories--aside a {
+  color: #666666;
+  text-transform: capitalize; }
+
 /*# sourceMappingURL=main.css.map*/

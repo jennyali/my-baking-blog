@@ -1,0 +1,30 @@
+
+
+#site-body {
+
+    .site-logo__block {
+        background-image: url('/assets/images/bg-left-side.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+
+        h3 {
+            margin: 0;
+            text-transform: uppercase;
+        }
+    }
+
+    .site-logo-wrapper {
+        text-align: center;
+        font-family: $font-family-sub-heading;
+        color: $dark;
+
+    }
+
+    .site-logo-wrapper__img {
+        max-width: 500px;
+    }
+
+}
