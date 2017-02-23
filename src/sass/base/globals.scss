@@ -1,0 +1,18 @@
+// Global body Styling
+//----------------------------------//
+
+body {
+    background-color: $light;
+    background-image: url('/assets/images/oven.jpg');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+
+        @include font-family-main;
+
+        .container {
+            @include mediaQ--min($bp-md){
+                width: 1000px;
+            }
+        }
+}
+

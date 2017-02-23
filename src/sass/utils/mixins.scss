@@ -1,0 +1,51 @@
+/*===========================
+        MIXINS
+=============================*/
+
+
+// media queries
+@mixin mediaQ--min($bp){
+    @media (min-width: $bp) {
+        @content
+    }
+};
+
+@mixin mediaQ--max($bp){
+    @media (max-width: $bp) {
+        @content
+    }
+};
+
+// Font-Family
+
+@mixin font-family-main {
+
+    h1 {
+        font-family: $font-family-sub-heading;
+    }
+
+    h2 {
+        font-family: $font-family-heading;
+    }
+
+    h3 {
+
+    }
+
+    h4 {
+        font-family: $font-family-sub-heading;
+    }
+
+    p {
+        font-family: $font-family-paragraph;
+    }
+
+    li {
+        font-family: $font-family-paragraph;
+    }
+
+    a {
+        font-family: $font-family-paragraph;
+    }
+
+}
