@@ -1,0 +1,14 @@
+#site-body {
+
+    .section--aside {
+        text-align: center;
+
+            article {
+                margin-bottom: $mp-triple;
+                
+                    p {
+                        color: $dark;
+            }
+        }
+    }
+}

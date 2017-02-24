@@ -1,9 +1,14 @@
-<div class="col-sm-8 col-md-9">
+<div class="col-sm-8 col-md-9 section__recipe-panel">
+
+    <div class="recipe-banner">
+        <h4>Latest Recipe</h4>
+    </div>
 
     {{#each foundPosts}}
 
-        <article class="row panel panel-default">
-            <div class="col-sm-12">
+        <article class="row recipe__article">
+
+            <div class="panel panel-default">
                 
                 <div class="panel-body">
                 
@@ -18,20 +23,23 @@
                     <p>{{this.body}}</p>
             
                     <div>
-                        <a href="/view-post/{{this._id}}" class="btn btn-primary">Read More >></a>
+                        <a href="/view-post/{{this._id}}" class="btn btn-primary pull-right">Read More >></a>
                     </div>
                 </div>
             </div>
+
         </article>
 
     {{/each}}
 
-    <ul class="pagination text-center row">
+    <div class="row recipe-pagination">
+        <ul class="pagination text-center">
 
-        {{#times pages}}
-            <li><a href="/?p={{this}}">{{this}}</a></li>
-        {{/times}}
-        
-    </ul>
+            {{#times pages}}
+                <li><a href="/?p={{this}}">{{this}}</a></li>
+            {{/times}}
+            
+        </ul>
+    </div>
 
 </div>

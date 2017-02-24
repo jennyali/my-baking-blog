@@ -1,6 +1,7 @@
 // layout/module.scss
 
 @import 'header';
-@import "section";
 @import "footer";
-@import "article";
+@import 'main';
+@import "./articles/index";
+@import "./sections/index";

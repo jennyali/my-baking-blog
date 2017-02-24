@@ -1,0 +1,35 @@
+#site-body {
+
+    .recipe__article {
+        padding: $mp-lg;
+
+        .panel-default {
+            border: $border-primary-thin;
+            border-radius: 0;
+        }
+
+        img {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        p {
+            color: $dark;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: $secondary-color;
+            font-size: $font-size-xlg;
+            margin: $mp-double-row;
+        }
+
+        .btn-primary {
+            margin: $mp-double 0 0 0;
+            border-radius: 0;
+        }
+
+    }
+
+}

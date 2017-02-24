@@ -2,6 +2,20 @@
         MIXINS
 =============================*/
 
+// color theme 
+
+@mixin theme-primary-inverse {
+    background-color: $primary-color;
+    color: $light;
+    border: $border-primary-thin;
+}
+
+@mixin theme-contrast-inverse {
+    background-color: $contrast-color;
+    color: $light;
+    border: $border-contrast-thin;
+}
+
 
 // media queries
 @mixin mediaQ--min($bp){

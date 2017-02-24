@@ -2,8 +2,8 @@
 #site-body {
 
     .btn-primary {
-        background-color: $primary-color;
-        color: $light;
-        border: 1px solid $primary-color;
+        @include theme-primary-inverse;
+        font-family: $font-family-sub-heading;
+        letter-spacing: 1px;
     }
 }

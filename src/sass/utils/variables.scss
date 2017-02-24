@@ -38,7 +38,7 @@ $font-family-paragraph: 'Open Sans', sans-serif;
 $font-size: (
     xxxlg: 42px,
     xxlg: 36px,
-    xlg: 28px,
+    xlg: 30px,
     lg: 24px,
     md: 16px,
     base: 14px,
@@ -88,3 +88,20 @@ $bp-lg: map-get($map: $breakpoints, $key: lg);
             ELEMENT VARIABLES
 
 ==============================================*/
+
+// Border styles
+
+$border-primary-thin: 1px solid $primary-color;
+$border-primary-thick: 2px solid $primary-color;
+
+$border-contrast-thin: 1px solid $contrast-color;
+$border-contrast-thick: 2px solid $contrast-color;
+
+// Outline styles
+
+$outline-light-thin: 1px solid $light;
+
+// Margin & padding
+
+$mp-default-row: $mp-default 0;
+$mp-double-row: $mp-double 0;
