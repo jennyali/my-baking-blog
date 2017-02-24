@@ -3,17 +3,28 @@
 #site-body {
 
     .site-logo__block {
-        background-image: url('/assets/images/bg-left-side.jpg');
-        background-repeat: no-repeat;
-        background-size: contain;
+        
         display: flex;
         justify-content: center;
         margin: 0;
 
-        h3 {
-            margin: 0;
-            text-transform: uppercase;
-        }
+            @include mediaQ--min($bp-sm) {
+                background-image: url('/assets/images/bowl.jpg'), url('/assets/images/flour.jpg');
+                background-repeat: no-repeat, no-repeat;
+                background-size: 140px, 140px;
+                background-position: top left, bottom right;
+            }
+
+            @include mediaQ--min($bp-lg) {
+                background-image: url('/assets/images/bg-left-side.jpg');
+                background-size: contain;
+                background-position: left;
+            }
+
+            h3 {
+                margin: 0;
+                text-transform: uppercase;
+            }
     }
 
     .site-logo-wrapper {

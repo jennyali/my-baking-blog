@@ -4,7 +4,8 @@
 
 
     .header-navbar {
-        //background-color: $contrast-color;
+        background-color: $primary-color;
+
 
         .navbar {}
 
@@ -16,8 +17,8 @@
 
         a {
             font-family: $font-family-sub-heading;
-            color: $dark;
-            letter-spacing: 1px;
+            color: $light;
+            letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: 1px solid $primary-color;
         }
