@@ -9,7 +9,7 @@ $colors : (
     primary: #F98A93,
     secondary: #000000,
     contrast: #6ACAD6,
-    //extra: #FF9B71,
+    extra: lighten(#F98A93, 10%),
     light: #FFFFFF,
     dark: lighten(#000000, 40%),
 );
@@ -17,7 +17,7 @@ $colors : (
 $primary-color: map-get($map: $colors, $key: primary);
 $secondary-color: map-get($map: $colors, $key: secondary);
 $contrast-color: map-get($map: $colors, $key: contrast);
-//$extra-color: map-get($map: $colors, $key: extra);
+$extra-color: map-get($map: $colors, $key: extra);
 $dark: map-get($map: $colors, $key: dark);
 $light: map-get($map: $colors, $key: light);
 $grey: lighten(map-get($map: $colors, $key: dark), 10%);

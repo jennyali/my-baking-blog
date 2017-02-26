@@ -1,0 +1,62 @@
+#site-body {
+
+    section {
+
+        h4 {
+            font-family: $font-family-sub-heading;
+            text-transform: uppercase;
+            color: $light;
+        }
+
+        h2 {
+            color: $primary-color;
+            font-size: $font-size-xlg;
+            margin: $mp-double-row;
+        }
+
+        h3 {
+            color: $primary-color;
+            font-size: $font-size-lg;
+            font-family: $font-family-heading;
+            padding: 0;
+            text-transform: capitalize;
+            //margin: $mp-double-row;
+        }
+
+        p {
+            color: $dark;
+            line-height: 1.6;
+        }
+
+        a {}
+
+    }
+
+    .section__recipe-panel {
+        position: relative;
+
+        article {
+            padding: $mp-lg;
+        }
+    }
+
+    .section__recipe-index {
+        padding-right: 60px;
+     
+        article {
+            margin-bottom: 15px;
+        }
+    }
+
+    .section__aside {
+        text-align: center;
+
+        article {
+            margin-bottom: $mp-triple;
+                
+                p {
+                    color: $dark;
+            }
+        }
+    }
+}

@@ -1,29 +1,21 @@
 #site-body {
 
-    .section__recipe-panel {
-        position: relative;
-    }
-
     .recipe-banner {
         @include theme-contrast-inverse;
-        position: absolute;
+        position: relative;
         width: 100%;
         text-align: center;
-        top: 50px;
         transform: translateX(-15px);
         font-family: $font-family-sub-heading;
         letter-spacing: 2px;
         text-transform: uppercase;
         z-index: 10;
-    }
+        left: 15px;
 
-    .recipe-pagination {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-
-            ul, a {
-                @include theme-primary-inverse;
+        @include mediaQ--min($bp-md) {
+            position: absolute;
+            top: 50px;
         }
     }
+
 }

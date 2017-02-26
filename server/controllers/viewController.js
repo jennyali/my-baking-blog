@@ -127,7 +127,7 @@ exports.recipeIndexRender = function(req, res, next) {
         .then( results => {
 
             res.render('main', { 
-                pageTitle: "Recipe Index",
+                //pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
                 isAdmin: !!req.user
@@ -148,7 +148,7 @@ exports.recipeIndexCategories = function(req, res, next) {
         .then( results => {
 
             res.render('main', { 
-                pageTitle: "Recipe Index",
+                //pageTitle: "Recipe Index",
                 recipeIndexPage: true,
                 foundPosts: results,
                 isAdmin: !!req.user
@@ -205,7 +205,7 @@ exports.recipeIndexPagi = function(req, res, next) {
                 pagesQuantity = ((count / perPage) + 1);
 
                 res.render('main', { 
-                    pageTitle: "Recipe Index",
+                    //pageTitle: "Recipe Index",
                     recipeIndexPage: true,
                     foundPosts: results,
                     page: currentPage,

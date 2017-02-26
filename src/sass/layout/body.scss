@@ -1,0 +1,21 @@
+body {
+    
+    background-color: $light;
+    background-image: url('/assets/images/oven.jpg');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 250px;
+
+}
+
+#site-body {
+    @extend %bg-gradient;
+
+    @include font-family-main;
+
+        .container {
+            @include mediaQ--min($bp-md){
+                width: 1000px;
+        }
+    }
+}
