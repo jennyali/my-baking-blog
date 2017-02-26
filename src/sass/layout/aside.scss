@@ -1,6 +1,6 @@
 #site-body {
 
-    .aside__article {
+    .aside {
         h4 {
             text-transform: uppercase;
             color: $secondary-color;
@@ -16,7 +16,7 @@
         }
     }
 
-    .aside__article__form {
+    .aside__form {
         form {
             margin: $mp-double-row;
         }
@@ -27,7 +27,7 @@
         }
     }
 
-    .aside__article__gallery {
+    .aside__gallery {
         position: relative;
 
         img{
@@ -53,7 +53,7 @@
         }
     }
 
-    .aside__article__list {
+    .aside__list {
         h4 {
             border-bottom: $border-contrast-thick;
             padding-bottom: 5px; 
@@ -68,5 +68,4 @@
             text-transform: capitalize;
         }
     }
-
 }

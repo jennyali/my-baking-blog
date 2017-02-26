@@ -1,0 +1,12 @@
+#site-body {
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+
+            ul, a {
+                @include theme-primary-inverse;
+        }
+    }
+}

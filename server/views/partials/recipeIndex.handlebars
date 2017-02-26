@@ -1,27 +1,31 @@
-<div class="col-sm-8 col-md-9">
+<section class="col-sm-8 col-md-9 section__recipe-index">
 
         {{#each foundPosts}}
-            <div class="row">
+            <article class="article">
+                <div class="row">
 
-                <h2 class="col-sm-12">{{this.category}}</h2>
-  
-                {{#each this.postsCropped}}
-                    <div class="col-sm-3 text-center">
-                        <a href="/view-post/{{this._id}}" class="col-sm-12">
-                            {{#if this.primaryPhoto}}
-                                <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
-                            {{/if}}
-                        {{this.title}}
+                    <h3 class="col-sm-12">{{this.category}}</h3>
+    
+                    {{#each this.postsCropped}}
+                        <div class="col-sm-3 article__category-col">
+                            <a href="/view-post/{{this._id}}" class="col-sm-12 ">
+                                {{#if this.primaryPhoto}}
+                                    <img class="img-responsive img-thumbnail " src="/assets/images/{{this.primaryPhoto}}">
+                                {{/if}}
+                                <p>
+                                    {{this.title}}
+                                </p>
+                            </a>
+                        </div>
+                    {{/each}}
+
+                    <div class="col-sm-3 article__category-col article__category-col--last-child">
+                        <a href="/recipe-index/{{this._id}}">
+                            <h4>More</h4>
                         </a>
                     </div>
-                {{/each}}
-
-                <div class="col-sm-3">
-                    <a href="/recipe-index/{{this._id}}">
-                        <h3>More <span class="icon-arrow-68"></span></h3>
-                    </a>
                 </div>
-            </div>
+            </article>
         {{/each}}
 
         <ul class="pagination text-center">
@@ -32,4 +36,4 @@
         
         </ul>
 
-</div>
+</section>

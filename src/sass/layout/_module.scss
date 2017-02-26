@@ -2,6 +2,7 @@
 
 @import 'header';
 @import "footer";
-@import 'main';
-@import "./articles/index";
-@import "./sections/index";
+@import 'body';
+@import 'article';
+@import 'aside';
+@import 'section';
