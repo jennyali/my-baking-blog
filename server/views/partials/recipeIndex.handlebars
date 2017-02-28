@@ -1,13 +1,13 @@
-<section class="col-sm-8 col-md-9 section__recipe-index">
+<section class="col-sm-8 col-md-9 section-recipe-index">
 
         {{#each foundPosts}}
-            <article class="article">
+            <article class="category-block">
                 <div class="row">
 
                     <h3 class="col-sm-12">{{this.category}}</h3>
     
                     {{#each this.postsCropped}}
-                        <div class="col-sm-3 article__category-col">
+                        <div class="col-sm-3 category-block__inner-section">
                             <a href="/view-post/{{this._id}}" class="col-sm-12 ">
                                 {{#if this.primaryPhoto}}
                                     <img class="img-responsive img-thumbnail " src="/assets/images/{{this.primaryPhoto}}">
@@ -19,7 +19,7 @@
                         </div>
                     {{/each}}
 
-                    <div class="col-sm-3 article__category-col article__category-col--last-child">
+                    <div class="col-sm-3 category-block__inner-section category-block__inner-section--last-child">
                         <a href="/recipe-index/{{this._id}}">
                             <h4>More</h4>
                         </a>

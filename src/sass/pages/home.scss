@@ -1,0 +1,40 @@
+/*-----------------------
+
+    Home page Partial
+
+------------------------*/
+
+.section-home {
+    position: relative;
+
+        article {
+            padding: $mp-lg;
+        }
+
+        .panel-body{
+            padding: $mp-double;
+        }
+
+        img {
+            max-height: 600px;
+        }
+}
+
+// Div that signals 'latest post'
+.recipe-banner {
+    @include theme-contrast-inverse;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transform: translateX(-15px);
+    font-family: $font-family-sub-heading;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 10;
+    left: 15px;
+
+        @include mediaQ--min($bp-md) {
+            position: absolute;
+            top: 50px;
+    }
+}

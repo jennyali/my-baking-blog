@@ -1,54 +1,6 @@
 #site-body {
 
-    .article {
-        h4 {
-            letter-spacing: 2px;
-            font-size: 24px;
-            margin: 0;
-        }
-    }
 
-    .article__category-col {
-        height: 180px;
-        text-align: center;
-        padding: 2px;
-            
-            a {
-                padding: 0;
-            }
-
-            img {
-                max-height: 120px;
-                border-radius: 0;
-                border: none;
-                padding: 0;
-                width: 100%;
-            }
-
-            p {
-                margin: $mp-default-row;
-        }
-    }
-
-        .article__category-col--last-child {
-            height: 100%;
-            display: flex;
-            min-height: 180px;
-
-            a {
-                width: 100%;
-                background: $contrast-color;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            h4 {
-                //background: $contrast-color;
-                color: $light;
-                margin: 0;
-        }
-    }
 }
 
 

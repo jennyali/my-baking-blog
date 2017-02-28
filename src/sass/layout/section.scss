@@ -31,32 +31,4 @@
         a {}
 
     }
-
-    .section__recipe-panel {
-        position: relative;
-
-        article {
-            padding: $mp-lg;
-        }
-    }
-
-    .section__recipe-index {
-        padding-right: 60px;
-     
-        article {
-            margin-bottom: 15px;
-        }
-    }
-
-    .section__aside {
-        text-align: center;
-
-        article {
-            margin-bottom: $mp-triple;
-                
-                p {
-                    color: $dark;
-            }
-        }
-    }
 }

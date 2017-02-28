@@ -1,9 +1,17 @@
-<div class="col-sm-8 col-md-9">
+<div class="col-sm-8 col-md-9 section-category">
 
-    <div>
+    <div class="category-title">
+        {{#if pageTitle }}
+            <h2>
+                {{ pageTitle }}
+            </h2>
+        {{/if}}
+    </div>
+
+    <div class="category-list">
         {{#each foundPosts.posts}}
             <a href="/view-post/{{this._id}}">
-                <h4>{{ this.title }}</h4>
+                <p>{{ this.title }}</p>
             </a>
         {{/each}}
 

@@ -1,5 +1,17 @@
 #site-body {
 
+    .section__aside {
+        text-align: center;
+
+        article {
+            margin-bottom: $mp-triple;
+                
+                p {
+                    color: $dark;
+            }
+        }
+    }
+
     .aside {
         h4 {
             text-transform: uppercase;
@@ -10,10 +22,6 @@
             margin: $mp-default-row;
         }
 
-        img {
-            //border: $border-primary-thin;
-            //border-radius: 50%;
-        }
     }
 
     .aside__form {
@@ -33,6 +41,8 @@
         img{
             border: $border-contrast-thin;
             margin-bottom: $mp-lg;
+            background: $contrast-color;
+            border-radius: 0;
         }
 
         div {

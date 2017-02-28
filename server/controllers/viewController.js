@@ -59,7 +59,9 @@ exports.homeRenderPagi = function(req, res, next) {
                 .exec()
                 .then( count => {
 
-                pagesQuantity = ((count / perPage) + 1);
+
+                pagesQuantity = ((count / perPage));
+                pagesQuantity = Math.ceil(pagesQuantity);
 
                 res.render('main', { 
                     pageTitle: 'Home page', 
@@ -94,21 +96,23 @@ exports.galleryRender = function(req, res, next) {
         .exec()
         .then( results => {
 
-                var count = results.length;
+            Post
+                .find({'primaryPhoto': { $exists: true }})       
+                .then( count => {
 
-                pagesQuantity = ((count / perPage) + 1);
+                    pagesQuantity = ((count.length / perPage));
+                    pagesQuantity = Math.ceil(pagesQuantity);
 
-                //console.log(pagesQuantity);
-
-                res.render('main', { 
-                    pageTitle: 'Gallery', 
-                    galleryPage: true,
-                    foundPosts: results,
-                    page: currentPage,
-                    pages: pagesQuantity,
-                    isAdmin: !!req.user
+                    res.render('main', { 
+                        pageTitle: 'Gallery', 
+                        galleryPage: true,
+                        foundPosts: results,
+                        page: currentPage,
+                        pages: pagesQuantity,
+                        isAdmin: !!req.user
                 }
             );
+        });
 
     }).catch( err => {
 
