@@ -1,0 +1,28 @@
+/*-----------------------
+
+    view-recipe Partial
+
+------------------------*/
+
+#site-body {
+
+    .section-view-recipe {
+        padding-right: $mp-double;
+
+            @include mediaQ--min($bp-lg) {
+                padding-right: $mp-triple;
+            }
+    }
+
+    .view-recipe__text-block {
+        margin: $mp-double-row;
+    }
+
+    .view-recipe__list {
+        padding: 0 $mp-default;
+    }
+
+    .view-recipe__panel {
+        padding: $mp-default;
+    }
+}

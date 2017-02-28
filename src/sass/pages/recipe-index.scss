@@ -1,21 +1,65 @@
-#site-body {
+/*-----------------------
 
-    .recipe-banner {
-        @include theme-contrast-inverse;
-        position: relative;
-        width: 100%;
-        text-align: center;
-        transform: translateX(-15px);
-        font-family: $font-family-sub-heading;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        z-index: 10;
-        left: 15px;
+    Recipe index Partial
 
-        @include mediaQ--min($bp-md) {
-            position: absolute;
-            top: 50px;
+------------------------*/
+
+
+    .section-recipe-index {
+        padding-right: 60px;
+     
+        article {
+            margin-bottom: 15px;
         }
     }
 
-}
+    .category-block {
+        h4 {
+            letter-spacing: 2px;
+            font-size: 24px;
+            margin: 0;
+        }
+    }
+
+
+        .category-block__inner-section {
+        height: 180px;
+        text-align: center;
+        padding: 2px;
+            
+            a {
+                padding: 0;
+            }
+
+            img {
+                max-height: 120px;
+                border-radius: 0;
+                border: none;
+                padding: 0;
+                width: 100%;
+            }
+
+            p {
+                margin: $mp-default-row;
+        }
+    }
+
+        .category-block__inner-section--last-child {
+            height: 100%;
+            display: flex;
+            min-height: 180px;
+
+            a {
+                width: 100%;
+                background: $contrast-color;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            h4 {
+                //background: $contrast-color;
+                color: $light;
+                margin: 0;
+        }
+    }

@@ -5091,6 +5091,8 @@ body {
     font-family: "Oswald", sans-serif; }
   body h2 {
     font-family: "Mogra", cursive; }
+  body h3 {
+    font-family: "Oswald", sans-serif; }
   body h4 {
     font-family: "Oswald", sans-serif; }
   body p {
@@ -5139,7 +5141,8 @@ body {
   color: #FFFFFF;
   border: 1px solid #F98A93;
   font-family: "Oswald", sans-serif;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  border-radius: 0; }
 
 #site-body .header-navbar {
   background-color: #F98A93; }
@@ -5173,7 +5176,15 @@ body {
   #site-body .pagination ul, #site-body .pagination a {
     background-color: #F98A93;
     color: #FFFFFF;
-    border: 1px solid #F98A93; }
+    border: 1px solid #F98A93;
+    border-radius: 0; }
+
+#site-body .jumbotron {
+  background-color: none;
+  text-transform: capitalize; }
+
+#site-body .form-control {
+  border-radius: 0; }
 
 #site-body footer {
   background-color: #6ACAD6;
@@ -5197,6 +5208,9 @@ body {
 #site-body h2 {
   font-family: "Mogra", cursive; }
 
+#site-body h3 {
+  font-family: "Oswald", sans-serif; }
+
 #site-body h4 {
   font-family: "Oswald", sans-serif; }
 
@@ -5213,48 +5227,12 @@ body {
   #site-body .container {
     width: 1000px; } }
 
-#site-body .article h4 {
-  letter-spacing: 2px;
-  font-size: 24px;
-  margin: 0; }
-
-#site-body .article__category-col {
-  height: 180px;
-  text-align: center;
-  padding: 2px; }
-  #site-body .article__category-col a {
-    padding: 0; }
-  #site-body .article__category-col img {
-    max-height: 120px;
-    border-radius: 0;
-    border: none;
-    padding: 0;
-    width: 100%; }
-  #site-body .article__category-col p {
-    margin: 15px 0; }
-
-#site-body .article__category-col--last-child {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  min-height: 180px; }
-  #site-body .article__category-col--last-child a {
-    width: 100%;
-    background: #6ACAD6;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column; }
-  #site-body .article__category-col--last-child h4 {
-    color: #FFFFFF;
-    margin: 0; }
+#site-body .section__aside {
+  text-align: center; }
+  #site-body .section__aside article {
+    margin-bottom: 60px; }
+    #site-body .section__aside article p {
+      color: #666666; }
 
 #site-body .aside h4 {
   text-transform: uppercase;
@@ -5274,7 +5252,9 @@ body {
   position: relative; }
   #site-body .aside__gallery img {
     border: 1px solid #6ACAD6;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    background: #6ACAD6;
+    border-radius: 0; }
   #site-body .aside__gallery div {
     position: absolute;
     background: #6ACAD6;
@@ -5322,24 +5302,74 @@ body {
   color: #666666;
   line-height: 1.6; }
 
-#site-body .section__recipe-panel {
-  position: relative; }
-  #site-body .section__recipe-panel article {
-    padding: 20px; }
+/*-----------------------
 
-#site-body .section__recipe-index {
+    Recipe index Partial
+
+------------------------*/
+.section-recipe-index {
   padding-right: 60px; }
-  #site-body .section__recipe-index article {
+  .section-recipe-index article {
     margin-bottom: 15px; }
 
-#site-body .section__aside {
-  text-align: center; }
-  #site-body .section__aside article {
-    margin-bottom: 60px; }
-    #site-body .section__aside article p {
-      color: #666666; }
+.category-block h4 {
+  letter-spacing: 2px;
+  font-size: 24px;
+  margin: 0; }
 
-#site-body .recipe-banner {
+.category-block__inner-section {
+  height: 180px;
+  text-align: center;
+  padding: 2px; }
+  .category-block__inner-section a {
+    padding: 0; }
+  .category-block__inner-section img {
+    max-height: 120px;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    width: 100%; }
+  .category-block__inner-section p {
+    margin: 15px 0; }
+
+.category-block__inner-section--last-child {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 180px; }
+  .category-block__inner-section--last-child a {
+    width: 100%;
+    background: #6ACAD6;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+  .category-block__inner-section--last-child h4 {
+    color: #FFFFFF;
+    margin: 0; }
+
+/*-----------------------
+
+    Home page Partial
+
+------------------------*/
+.section-home {
+  position: relative; }
+  .section-home article {
+    padding: 20px; }
+  .section-home .panel-body {
+    padding: 30px; }
+  .section-home img {
+    max-height: 600px; }
+
+.recipe-banner {
   background-color: #6ACAD6;
   color: #FFFFFF;
   border: 1px solid #6ACAD6;
@@ -5354,8 +5384,66 @@ body {
   z-index: 10;
   left: 15px; }
   @media (min-width: 992px) {
-    #site-body .recipe-banner {
+    .recipe-banner {
       position: absolute;
       top: 50px; } }
+
+/*-----------------------
+
+    About us Partial
+
+------------------------*/
+#site-body .section-about {
+  padding-right: 30px; }
+  @media (min-width: 1200px) {
+    #site-body .section-about {
+      padding-right: 60px; } }
+  #site-body .section-about p, #site-body .section-about figure {
+    margin: 30px 0; }
+
+/*-----------------------
+
+    Gallery Partial
+
+------------------------*/
+.section-gallery .pagination {
+  margin: 60px 0; }
+
+.gallery-img-block div:nth-child(even) img {
+  background-color: #F98A93; }
+
+.gallery-img-block div:nth-child(odd) img {
+  background-color: #fbbbc0; }
+
+.gallery-img-block__thumbnail img {
+  border-radius: 0; }
+
+/*-----------------------
+
+    Catergory Partial
+
+------------------------*/
+.section-category h2 {
+  text-transform: capitalize; }
+
+/*-----------------------
+
+    view-recipe Partial
+
+------------------------*/
+#site-body .section-view-recipe {
+  padding-right: 30px; }
+  @media (min-width: 1200px) {
+    #site-body .section-view-recipe {
+      padding-right: 60px; } }
+
+#site-body .view-recipe__text-block {
+  margin: 30px 0; }
+
+#site-body .view-recipe__list {
+  padding: 0 15px; }
+
+#site-body .view-recipe__panel {
+  padding: 15px; }
 
 /*# sourceMappingURL=main.css.map*/

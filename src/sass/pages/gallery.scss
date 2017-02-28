@@ -1,0 +1,38 @@
+/*-----------------------
+
+    Gallery Partial
+
+------------------------*/
+
+.section-gallery {
+
+    .pagination {
+        margin: $mp-triple 0;
+    }
+
+}
+
+.gallery-img-block {
+
+    div:nth-child(even) {
+
+        img {
+            background-color: $primary-color;
+        }
+    }
+
+    div:nth-child(odd) {
+
+        img {
+            background-color: $extra-color;
+        }
+    }
+
+}
+
+.gallery-img-block__thumbnail {
+
+    img {
+        border-radius: 0;
+    }
+}

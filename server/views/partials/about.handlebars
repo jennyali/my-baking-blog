@@ -1,5 +1,14 @@
-<div class="col-sm-8 col-md-9">
-    <article>
+<div class="col-sm-8 col-md-9 section-about">
+
+    <div class="about-title">
+        {{#if pageTitle }}
+            <h2 class="jumbotron">
+                {{ pageTitle }}
+            </h2>
+        {{/if}}
+    </div>
+
+    <article class="about-text-block">
         <p>
             In non elementum nulla. Sed non tortor et eros placerat blandit. 
             Etiam lacinia dolor consequat tellus rhoncus, semper tristique velit 
@@ -9,7 +18,8 @@
             per conubia nostra, per inceptos himenaeos. Curabitur non metus pharetra,
              tempus diam eu, malesuada mauris. Nulla facilisi. Cras vitae ex eget 
              ante faucibus varius. Suspendisse potenti.
-
+        </br>
+        </br>
             Duis tempus sed leo non vulputate. Nunc semper, nibh nec fringilla pretium, 
             purus quam luctus urna, non ornare diam ex sed mauris. Phasellus eget turpis
             dapibus felis maximus condimentum. Phasellus porttitor mattis tortor vitae
@@ -18,4 +28,8 @@
             at dui venenatis ullamcorper.
         </p>
     </article>
+
+    <figure class="about-img-block">
+        <img src="/assets/images/cup-of-chocolate.jpg" class="img-responsive">
+    </figure>
 </div>

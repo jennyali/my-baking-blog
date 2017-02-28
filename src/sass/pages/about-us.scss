@@ -1,0 +1,20 @@
+/*-----------------------
+
+    About us Partial
+
+------------------------*/
+
+#site-body {
+
+    .section-about {
+        padding-right: $mp-double;
+
+            @include mediaQ--min($bp-lg) {
+                padding-right: $mp-triple;
+            }
+        
+            p, figure {
+                margin: $mp-double-row;
+        }
+    }
+}
