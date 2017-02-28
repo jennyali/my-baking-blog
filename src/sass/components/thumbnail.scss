@@ -1,0 +1,9 @@
+#site-body {
+
+    .img-thumbnail {
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

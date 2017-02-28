@@ -5186,6 +5186,81 @@ body {
 #site-body .form-control {
   border-radius: 0; }
 
+.gallery-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 20;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  display: none; }
+
+.modal__cancel-btn {
+  text-align: right;
+  padding: 60px; }
+  .modal__cancel-btn button {
+    height: 50px;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 30px; }
+
+.modal__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.modal__content__prev-btn, .modal__content__next-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .modal__content__prev-btn button, .modal__content__next-btn button {
+    height: 50px;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 36px; }
+
+.modal__content__next-btn {
+  text-align: left; }
+
+.modal__content__prev-btn {
+  text-align: right; }
+
+.modal__content__img figure {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%); }
+
+.modal__content__img img {
+  max-width: 80%;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%); }
+
+.modal__content__img figcaption {
+  margin: 30px 0;
+  color: #FFFFFF; }
+
+#site-body .img-thumbnail:hover {
+  opacity: 0.8; }
+
 #site-body footer {
   background-color: #6ACAD6;
   padding: 15px; }
@@ -5415,8 +5490,10 @@ body {
 .gallery-img-block div:nth-child(odd) img {
   background-color: #fbbbc0; }
 
-.gallery-img-block__thumbnail img {
-  border-radius: 0; }
+.gallery-img-block__thumbnail {
+  cursor: pointer; }
+  .gallery-img-block__thumbnail img {
+    border-radius: 0; }
 
 /*-----------------------
 

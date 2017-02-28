@@ -31,7 +31,8 @@
 }
 
 .gallery-img-block__thumbnail {
-
+    cursor: pointer;
+    
     img {
         border-radius: 0;
     }
