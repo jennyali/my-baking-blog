@@ -124,6 +124,11 @@
 	
 	    var $categoryEditBtn = $('.category-edit-btn');
 	
+	    // Gallery Page 
+	    var $galleryPage = $('#gallery-page');
+	    var $galleryThumbnailImg = $('.gallery-img-block__thumbnail');
+	    var $galleryModal = $('#gallery-modal');
+	
 	    //--------VARIABLES ----------//
 	
 	
@@ -180,6 +185,27 @@
 	    }
 	
 	    //------- EVENTS ----------//
+	
+	    //====== Gallery Page
+	    $galleryPage.on('click', 'div.gallery-img-block__thumbnail img', function (e) {
+	        // click thumbnail to make model 'lightbox' appear
+	        galleryPhotoHandler(this);
+	    });
+	
+	    $galleryPage.on('click', 'button.icon-delete-1', function (e) {
+	        // to remove model from screen
+	        galleryCancelModalHandler(this);
+	    });
+	
+	    $galleryPage.on('click', 'button.icon-arrow-68', function (e) {
+	        // to click to the next photo in the gallery
+	        galleryModalNextBtnHandler(e, this);
+	    });
+	
+	    $galleryPage.on('click', 'button.icon-arrow-67', function (e) {
+	        // to click to the previous photo in the gallery
+	        galleryModalPreviousBtnHandler(e, this);
+	    });
 	
 	    // ====== Extra Photo
 	
@@ -318,6 +344,208 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
+	
+	    function galleryModalPreviousBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        var currentPhotoId = $galleryModal.find('.modal__content__img figure img').attr('data-id');
+	        var imgArray = $galleryPage.find('.img-thumbnail');
+	        var currentPhotoIndex = "";
+	        var nextPhotoIndex = 0;
+	        var imgArrayLength = imgArray.length - 1;
+	        var nextPhoto = "";
+	
+	        _.each(imgArray, function (image, index) {
+	
+	            var thisPhotoId = $(image).attr('data-id');
+	
+	            if (thisPhotoId === currentPhotoId) {
+	
+	                currentPhotoIndex = index;
+	            }
+	        });
+	
+	        if (currentPhotoIndex === 0) {
+	
+	            nextPhotoIndex = imgArrayLength;
+	            nextPhoto = imgArray[nextPhotoIndex];
+	
+	            var firstPhotoId = $(nextPhoto).attr('data-id');
+	
+	            $.ajax({
+	                type: 'POST',
+	                url: '/find-gallery-photo',
+	                data: { 'recipeId': firstPhotoId },
+	                dataType: 'json',
+	                success: function success(data) {
+	
+	                    $galleryPage.find('.modal__content__img figure img').attr({
+	                        'src': '/assets/images/' + data.primaryPhoto,
+	                        'data-id': data._id
+	                    });
+	
+	                    $galleryPage.find('.modal__content__img figure figcaption').text(data.title);
+	                },
+	                error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                    console.log('error', errorThrown);
+	                }
+	            });
+	        } else if (currentPhotoIndex <= imgArrayLength) {
+	
+	            nextPhotoIndex = currentPhotoIndex - 1;
+	            nextPhoto = imgArray[nextPhotoIndex];
+	
+	            var nextPhotoId = $(nextPhoto).attr('data-id');
+	
+	            $.ajax({
+	                type: 'POST',
+	                url: '/find-gallery-photo',
+	                data: { 'recipeId': nextPhotoId },
+	                dataType: 'json',
+	                success: function success(data) {
+	
+	                    $galleryPage.find('.modal__content__img figure img').attr({
+	                        'src': '/assets/images/' + data.primaryPhoto,
+	                        'data-id': data._id
+	                    });
+	
+	                    $galleryPage.find('.modal__content__img figure figcaption').text(data.title);
+	                },
+	                error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                    console.log('error', errorThrown);
+	                }
+	            });
+	        }
+	    }
+	
+	    function galleryModalNextBtnHandler(e, selector) {
+	        e.preventDefault();
+	
+	        //console.log(selector);
+	        //console.log($galleryModal.find('.modal__content__img figure img'));
+	
+	        var currentPhotoId = $galleryModal.find('.modal__content__img figure img').attr('data-id');
+	        //console.log(currentPhotoId);
+	
+	        var imgArray = $galleryPage.find('.img-thumbnail');
+	
+	        //console.log(imgArray);
+	        //console.log(imgArray[0]);
+	        //console.log(imgArray.length);
+	
+	        var currentPhotoIndex = "";
+	
+	        _.each(imgArray, function (image, index) {
+	            //console.log(image);
+	            //console.log(index);
+	            var thisPhotoId = $(image).attr('data-id');
+	
+	            //console.log(thisPhotoId);
+	            //console.log(currentPhotoId);
+	
+	            if (thisPhotoId === currentPhotoId) {
+	
+	                currentPhotoIndex = index;
+	                //console.log(index);
+	            }
+	        });
+	
+	        //console.log(currentPhotoIndex);
+	
+	        var nextPhotoIndex = 0;
+	
+	        var imgArrayLength = imgArray.length - 1;
+	
+	        var nextPhoto = "";
+	
+	        if (currentPhotoIndex === imgArrayLength) {
+	            // 3 & 3 go to 0
+	            //console.log('go to first img');
+	            nextPhotoIndex = 0;
+	            nextPhoto = imgArray[nextPhotoIndex];
+	
+	            //console.log($(nextPhoto).attr('data-id'));
+	
+	            var firstPhotoId = $(nextPhoto).attr('data-id');
+	
+	            $.ajax({
+	                type: 'POST',
+	                url: '/find-gallery-photo',
+	                data: { 'recipeId': firstPhotoId },
+	                dataType: 'json',
+	                success: function success(data) {
+	
+	                    $galleryPage.find('.modal__content__img figure img').attr({
+	                        'src': '/assets/images/' + data.primaryPhoto,
+	                        'data-id': data._id
+	                    });
+	
+	                    $galleryPage.find('.modal__content__img figure figcaption').text(data.title);
+	                },
+	                error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                    console.log('error', errorThrown);
+	                }
+	            });
+	        } else if (currentPhotoIndex < imgArrayLength) {
+	
+	            //console.log('go to next img');
+	            nextPhotoIndex = currentPhotoIndex + 1;
+	            nextPhoto = imgArray[nextPhotoIndex];
+	
+	            //console.log($(nextPhoto).attr('data-id'));
+	
+	            var nextPhotoId = $(nextPhoto).attr('data-id');
+	
+	            $.ajax({
+	                type: 'POST',
+	                url: '/find-gallery-photo',
+	                data: { 'recipeId': nextPhotoId },
+	                dataType: 'json',
+	                success: function success(data) {
+	
+	                    $galleryPage.find('.modal__content__img figure img').attr({
+	                        'src': '/assets/images/' + data.primaryPhoto,
+	                        'data-id': data._id
+	                    });
+	
+	                    $galleryPage.find('.modal__content__img figure figcaption').text(data.title);
+	                },
+	                error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                    console.log('error', errorThrown);
+	                }
+	            });
+	        }
+	    }
+	
+	    function galleryCancelModalHandler(selector) {
+	        $galleryModal.removeClass('gallery-show');
+	    }
+	
+	    function galleryPhotoHandler(selector) {
+	
+	        var recipeId = $(selector).attr('data-id');
+	
+	        $.ajax({
+	            type: 'POST',
+	            url: '/find-gallery-photo',
+	            data: { 'recipeId': recipeId },
+	            dataType: 'json',
+	            success: function success(data) {
+	
+	                $galleryPage.find('.modal__content__img figure img').attr({
+	                    'src': '/assets/images/' + data.primaryPhoto,
+	                    'data-id': data._id
+	                });
+	
+	                $galleryPage.find('.modal__content__img figure figcaption').text(data.title);
+	
+	                $galleryModal.addClass('gallery-show');
+	            },
+	            error: function error(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log('error', errorThrown);
+	            }
+	        });
+	    }
 	
 	    function deleteCategoryBtnHandler(e, selector) {
 	        e.preventDefault();

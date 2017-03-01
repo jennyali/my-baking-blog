@@ -1,4 +1,4 @@
-<div class="col-sm-8 col-md-9 section-gallery">
+<div class="col-sm-8 col-md-9 section-gallery" id="gallery-page">
 
     <div class="gallery-title">
         {{#if pageTitle }}
@@ -18,7 +18,7 @@
 
                     <div class="col-sm-3 gallery-img-block__thumbnail">
 
-                        <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}">
+                        <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}" data-id="{{this._id}}">
 
                     </div>
 
@@ -42,7 +42,7 @@
         
     </ul>
 
-    <div class="gallery-modal">
+    <div class="gallery-modal" id="gallery-modal">
         <div class="modal__cancel-btn row">
             <div class="col-md-12">
                 <button class="icon-delete-1"></button>
