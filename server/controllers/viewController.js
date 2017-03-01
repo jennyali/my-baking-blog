@@ -256,6 +256,12 @@ exports.aboutRender = function(req, res, next) {
     });
 };
 
+/* ============================
+
+        Ajax requests
+
+=============================== */
+
 // GET = for aside search bar
 
 exports.searchRender = function(req, res, next) {
@@ -306,5 +312,25 @@ exports.fillCategoryPanel = function(req, res, next) {
             }).catch( err => {
                 
                 next(err);
+    });
+};
+
+exports.findGalleryPhoto = function(req, res, next) {
+    var recipeId = req.body.recipeId;
+
+    Post.findById(recipeId)
+        .then( recipe => {
+
+            if(!recipe) {
+                return next({
+                    status: 404,
+                    message: 'post not found by ID'
+                });
+            }
+
+            res.send(recipe);
+
+        }).catch ( err => {
+            next(err);
     });
 };

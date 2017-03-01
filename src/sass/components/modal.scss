@@ -16,6 +16,7 @@
 .modal__cancel-btn {
     text-align: right;
     padding: $mp-triple;
+    padding-bottom: 0;
 
     button {
         height: 50px;
@@ -28,6 +29,7 @@
 
 .modal__content {
     display: flex;
+    height: 100%;
 }
 
 .modal__content__prev-btn,

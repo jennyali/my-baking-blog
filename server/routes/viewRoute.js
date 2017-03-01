@@ -42,6 +42,9 @@ router
     .route('/fill-categories')
     .get(viewController.fillCategoryPanel);
 
+router 
+    .route('/find-gallery-photo')
+    .post(viewController.findGalleryPhoto);
 
 
 module.exports = router;

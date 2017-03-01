@@ -5205,7 +5205,8 @@ body {
 
 .modal__cancel-btn {
   text-align: right;
-  padding: 60px; }
+  padding: 60px;
+  padding-bottom: 0; }
   .modal__cancel-btn button {
     height: 50px;
     background: none;
@@ -5216,7 +5217,8 @@ body {
 .modal__content {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  height: 100%; }
 
 .modal__content__prev-btn, .modal__content__next-btn {
   display: -webkit-box;
@@ -5494,6 +5496,11 @@ body {
   cursor: pointer; }
   .gallery-img-block__thumbnail img {
     border-radius: 0; }
+
+.gallery-show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
 
 /*-----------------------
 
