@@ -6,5 +6,18 @@
         font-family: $font-family-sub-heading;
         letter-spacing: 1px;
         border-radius: 0;
+        text-transform: uppercase;
+        padding: $mp-sm $mp-lg;
+        opacity: 1;
+        transition: opacity 0.25s;
+    
+                
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .btn-primary--icon {
+        padding: 6px 12px;
     }
 }

@@ -68,12 +68,11 @@ exports.homeRenderPagi = function(req, res, next) {
                     pageTitle: 'Home page', 
                     homePage: true,
                     foundPosts: results,
-                    page: currentPage,
-                    pages: pagesQuantity,
                     isAdmin: !!req.user,
                     pageData: {
                         page: currentPage,
                         pages: pagesQuantity,
+                        pageName: "",
                     }
                 }
             );
@@ -89,8 +88,8 @@ exports.homeRenderPagi = function(req, res, next) {
 
 exports.galleryRender = function(req, res, next) {
 
-    var perPage = 4;
-    var currentPage = req.query.p;
+    var perPage = 8;
+    var currentPage = req.query.p || 1;
     var page = (currentPage - 1);
     
     Post
@@ -112,9 +111,12 @@ exports.galleryRender = function(req, res, next) {
                         pageTitle: 'Gallery', 
                         galleryPage: true,
                         foundPosts: results,
-                        page: currentPage,
-                        pages: pagesQuantity,
-                        isAdmin: !!req.user
+                        isAdmin: !!req.user,
+                        pageData: {
+                            page: currentPage,
+                            pages: pagesQuantity,
+                            pageName: "gallery",
+                    }
                 }
             );
         });
@@ -195,7 +197,7 @@ exports.categoryRender = function(req, res, next) {
 exports.recipeIndexPagi = function(req, res, next) {
 
     var perPage = 4;
-    var currentPage = req.query.p;
+    var currentPage = req.query.p || 1;
     var page = (currentPage - 1);
     
     Post
@@ -217,9 +219,12 @@ exports.recipeIndexPagi = function(req, res, next) {
                     //pageTitle: "Recipe Index",
                     recipeIndexPage: true,
                     foundPosts: results,
-                    page: currentPage,
-                    pages: pagesQuantity,
-                    isAdmin: !!req.user
+                    isAdmin: !!req.user,
+                    pageData: {
+                        page: currentPage,
+                        pages: pagesQuantity,
+                        pageName: "/recipe-index/page",
+                    }
                 }
             );
         });
