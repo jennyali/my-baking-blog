@@ -29,7 +29,8 @@ exports.homeRender = function(req, res, next) {
                 pageTitle: 'Home page', 
                 homePage: true,
                 foundPosts: someResults,
-                isAdmin: !!req.user
+                isAdmin: !!req.user,
+                isHomePage: true,
             }
         );
     }).catch( err => {
@@ -43,7 +44,7 @@ exports.homeRender = function(req, res, next) {
 exports.homeRenderPagi = function(req, res, next) {
 
     var perPage = 4;
-    var currentPage = req.query.p;
+    var currentPage = req.query.p || 1;
     var page = (currentPage - 1);
     
     Post
@@ -69,7 +70,11 @@ exports.homeRenderPagi = function(req, res, next) {
                     foundPosts: results,
                     page: currentPage,
                     pages: pagesQuantity,
-                    isAdmin: !!req.user
+                    isAdmin: !!req.user,
+                    pageData: {
+                        page: currentPage,
+                        pages: pagesQuantity,
+                    }
                 }
             );
         });

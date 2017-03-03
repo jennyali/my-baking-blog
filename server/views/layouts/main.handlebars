@@ -19,17 +19,17 @@
                 <h3>Baking Explorers</h3>
             </div>
         </div>
-        <div class="header-navbar">
+        <div class="header-navbar" data-spy="affix" data-offset-top="360">
             {{#if isAdmin}}
                 {{> adminNav }}
             {{else}}
                 <nav class="navbar">
                     <div class="container">
                         <ul class="nav nav-tabs nav-justified">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/recipe-index">Recipes</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/gallery">Gallery</a></li>
+                            <li {{#if homePage}} class="active" {{/if}}><a href="/">Home</a></li>
+                            <li {{#if recipeIndexPage}} class="active" {{/if}}><a href="/recipe-index">Recipes</a></li>
+                            <li {{#if aboutPage}} class="active" {{/if}}><a href="/about">About</a></li>
+                            <li {{#if galleryPage}} class="active" {{/if}}><a href="/gallery">Gallery</a></li>
                         </ul>
                     </div>
                 </nav>

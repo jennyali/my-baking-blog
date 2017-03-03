@@ -6,8 +6,15 @@
         margin-bottom: $mp-double;
 
             ul, a {
-                @include theme-primary-inverse;
+                //@include theme-primary-inverse;
                 border-radius: 0;
+                color: $primary-color;
+                background: $light;
+        }
+
+        li.active > a{
+            @include theme-primary-inverse;
+            cursor: pointer;
         }
     }
 }

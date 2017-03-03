@@ -4,16 +4,31 @@
 
 
     .header-navbar {
-        background-color: $primary-color;
+        //background-color: $primary-color;
+        position: relative;
 
 
-        .navbar {}
+        .navbar {
+            background-color: $primary-color;
+            min-height: 0;
+        }
 
         .container {}
 
         .nav {}
 
-        li {}
+        li {
+ 
+        }
+
+        li.active > a{
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            transform: scale(1.2);
+            color: $dark;
+            cursor: pointer;
+        }
 
         a {
             font-family: $font-family-sub-heading;
@@ -21,6 +36,24 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: 1px solid $primary-color;
+
+            &:hover {
+                background: transparent;
+                border-radius: 0;
+                border: none;
+                transform: scale(1.2);
+                transition: transform 0.2s;
+            }
+
+            &:focus {
+                background: transparent;
+                border-radius: 0;
+                border: none;
+                transform: scale(1.2);
+                color: $extra-color;
+                cursor: pointer;
+            }
+
         }
     }
 }
