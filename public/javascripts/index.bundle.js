@@ -133,6 +133,10 @@
 	    var $galleryThumbnailImg = $('.gallery-img-block__thumbnail');
 	    var $galleryModal = $('#gallery-modal');
 	
+	    //Recipe Index page
+	    var $categoryThumbnailLink = $('.category-block__inner-section');
+	    var $categoryThumbnailLinkLast = $('.category-block__inner-section--last-child');
+	
 	    //--------VARIABLES ----------//
 	
 	
@@ -189,6 +193,26 @@
 	    }
 	
 	    //------- EVENTS ----------//
+	
+	    // ==== Recipe index page
+	    $categoryThumbnailLink.on({
+	        'mouseenter': function mouseenter() {
+	            $(this).find('p').addClass('primary-hover-link');
+	        },
+	        'mouseleave': function mouseleave() {
+	            $(this).find('p').removeClass('primary-hover-link');
+	        }
+	    });
+	
+	    $categoryThumbnailLinkLast.on({
+	        'mouseenter': function mouseenter() {
+	            $(this).find('h4').addClass('scale-bg-link');
+	        },
+	        'mouseleave': function mouseleave() {
+	            $(this).find('h4').removeClass('scale-bg-link');
+	        }
+	
+	    });
 	
 	    //===== header navbar 
 	    $headerNavbar.on('click', 'li', function () {

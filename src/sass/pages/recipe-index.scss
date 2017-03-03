@@ -26,9 +26,11 @@
         height: 180px;
         text-align: center;
         padding: 2px;
+
             
             a {
                 padding: 0;
+                text-decoration: none;
             }
 
             img {
@@ -41,6 +43,7 @@
 
             p {
                 margin: $mp-default-row;
+                color: inherit;
         }
     }
 
@@ -55,6 +58,7 @@
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
+
             }
 
             h4 {

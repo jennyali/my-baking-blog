@@ -17,4 +17,23 @@ body {
         }
 }
 
+// a link hover styles 
+#site-body {
+    .primary-hover-link {
+        text-decoration: none;
+        color: $primary-color;
+        transition: color 0.25s;
+    }
 
+    .extra-hover-link {
+        text-decoration: none;
+        color: $extra-color;
+        transition: color 0.25s;
+    }
+
+
+    .scale-bg-link {
+        transform: scale(1.2);
+        transition: transform 0.2s;
+    }
+}

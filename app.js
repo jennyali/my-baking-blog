@@ -56,6 +56,7 @@ app.engine('handlebars', exphbs({
 
             var pages = pageData.pages;
             var currentPage = pageData.page;
+            var pageName = pageData.pageName;
             var paginator = '<ul class="paginator pagination text-center row">';
 
             _.times(pages, page => {
@@ -64,7 +65,7 @@ app.engine('handlebars', exphbs({
                 page = page + 1;
                 paginator += (
                     `<li class="${page === currentPage ? 'active': ''}">
-                            <a href=" /?p=${page}">${page}</a>
+                            <a href="/${pageName}?p=${page}">${page}</a>
                         </li>`
                 );
             });

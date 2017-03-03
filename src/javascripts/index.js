@@ -82,6 +82,12 @@ var $galleryPage = $('#gallery-page');
 var $galleryThumbnailImg = $('.gallery-img-block__thumbnail');
 var $galleryModal = $('#gallery-modal');
 
+//Recipe Index page
+var $categoryThumbnailLink = $('.category-block__inner-section');
+var $categoryThumbnailLinkLast = $('.category-block__inner-section--last-child');
+
+
+
 //--------VARIABLES ----------//
 
 
@@ -219,6 +225,26 @@ function addIngreBtnTemplate(obj) {
 }
 
 //------- EVENTS ----------//
+
+// ==== Recipe index page
+$categoryThumbnailLink.on({
+    'mouseenter': function() {
+        $(this).find('p').addClass('primary-hover-link');
+    },
+    'mouseleave' : function() {
+        $(this).find('p').removeClass('primary-hover-link');
+    }
+});
+
+$categoryThumbnailLinkLast.on({
+    'mouseenter': function() {
+        $(this).find('h4').addClass('scale-bg-link');
+    },
+    'mouseleave' : function() {
+        $(this).find('h4').removeClass('scale-bg-link');
+    }
+
+});
 
 //===== header navbar 
 $headerNavbar.on('click', 'li', function() {

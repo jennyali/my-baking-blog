@@ -16,7 +16,7 @@
 
                 {{#if this.primaryPhoto}}
 
-                    <div class="col-sm-3 gallery-img-block__thumbnail">
+                    <div class="col-sm-3 gallery-img-block__thumbnail text-center">
 
                         <img class="img-responsive img-thumbnail" src="/assets/images/{{this.primaryPhoto}}" data-id="{{this._id}}">
 
@@ -36,9 +36,8 @@
 
     <ul class="pagination text-center row">
 
-        {{#times pages}}
-            <li><a href="/gallery?p={{this}}">{{this}}</a></li>
-        {{/times}}
+        {{#paginator pageData}} {{/paginator}}
+
         
     </ul>
 

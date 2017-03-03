@@ -4,12 +4,17 @@
     footer {
         background-color: $contrast-color;
         padding: $mp-default;
+        padding-bottom: $mp-double;
 
         a {
             font-family: $font-family-sub-heading;
             color: $light;
             letter-spacing: 1px;
             text-transform: uppercase;
+
+            &:hover {
+                @extend .extra-hover-link;
+            }
         }
     }
 }
