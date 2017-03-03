@@ -16,6 +16,7 @@ var session = require('express-session');
 var flash = require("connect-flash");
 var cookieParser = require('cookie-parser');
 var connectMongo = require('connect-mongo');
+var _ = require('lodash');
 require('./server/util/passportConfig')(passport);
 
 
@@ -40,11 +41,39 @@ app.engine('handlebars', exphbs({
     partialsDir: './server/views/partials',
     defaultLayout: 'main',
     helpers: {
-        times: function(n, block) {
+        /*times: function(n, block) {
+            console.log(block);
+            console.log(n);
+
             var accum = '';
             for(var i = 1; i <= n; ++i)
                 accum += block.fn(i);
+
+            console.log(accum);
             return accum;
+        }*/
+        paginator: function(pageData) {
+
+            var pages = pageData.pages;
+            var currentPage = pageData.page;
+            var paginator = '<ul class="paginator pagination text-center row">';
+
+            _.times(pages, page => {
+
+                currentPage = parseInt(currentPage);
+                page = page + 1;
+                paginator += (
+                    `<li class="${page === currentPage ? 'active': ''}">
+                            <a href=" /?p=${page}">${page}</a>
+                        </li>`
+                );
+            });
+
+            paginator += "</ul>";
+
+            console.log(paginator);
+
+            return paginator;                
         }
     }
 }));

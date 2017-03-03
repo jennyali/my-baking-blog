@@ -33,13 +33,11 @@
     {{/each}}
 
     <div class="row pagination">
-        <ul class="pagination text-center">
+        
 
-            {{#times pages}}
-                <li><a href="/?p={{this}}">{{this}}</a></li>
-            {{/times}}
+        {{#paginator pageData}} {{/paginator}}
             
-        </ul>
+        
     </div>
 
 </section>

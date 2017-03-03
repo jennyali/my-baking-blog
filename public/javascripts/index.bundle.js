@@ -86,6 +86,10 @@
 	
 	    //------- SELECTORS ----------//
 	
+	    // site navbar
+	    var $headerNavbar = $('.header-navbar');
+	    var $header = $('header');
+	
 	    // Form SELECTORS
 	    var $addIngreBtn = $('#add-ingre-btn');
 	    var $updateIngredientBtn = $('#update-ingredient-btn');
@@ -185,6 +189,12 @@
 	    }
 	
 	    //------- EVENTS ----------//
+	
+	    //===== header navbar 
+	    $headerNavbar.on('click', 'li', function () {
+	        // change styles of li on click
+	        headerLiHandler(this);
+	    });
 	
 	    //====== Gallery Page
 	    $galleryPage.on('click', 'div.gallery-img-block__thumbnail img', function (e) {
@@ -345,6 +355,13 @@
 	
 	    //------- FUNCTIONS ----------//
 	
+	    function headerLiHandler(selector) {
+	
+	        $headerNavbar.find('li').removeClass('active');
+	        $(this).addClass('active');
+	        console.log('clicked');
+	    }
+	
 	    function galleryModalPreviousBtnHandler(e, selector) {
 	        e.preventDefault();
 	
@@ -421,50 +438,27 @@
 	    function galleryModalNextBtnHandler(e, selector) {
 	        e.preventDefault();
 	
-	        //console.log(selector);
-	        //console.log($galleryModal.find('.modal__content__img figure img'));
-	
 	        var currentPhotoId = $galleryModal.find('.modal__content__img figure img').attr('data-id');
-	        //console.log(currentPhotoId);
-	
 	        var imgArray = $galleryPage.find('.img-thumbnail');
-	
-	        //console.log(imgArray);
-	        //console.log(imgArray[0]);
-	        //console.log(imgArray.length);
-	
 	        var currentPhotoIndex = "";
+	        var nextPhotoIndex = 0;
+	        var imgArrayLength = imgArray.length - 1;
+	        var nextPhoto = "";
 	
 	        _.each(imgArray, function (image, index) {
-	            //console.log(image);
-	            //console.log(index);
-	            var thisPhotoId = $(image).attr('data-id');
 	
-	            //console.log(thisPhotoId);
-	            //console.log(currentPhotoId);
+	            var thisPhotoId = $(image).attr('data-id');
 	
 	            if (thisPhotoId === currentPhotoId) {
 	
 	                currentPhotoIndex = index;
-	                //console.log(index);
 	            }
 	        });
 	
-	        //console.log(currentPhotoIndex);
-	
-	        var nextPhotoIndex = 0;
-	
-	        var imgArrayLength = imgArray.length - 1;
-	
-	        var nextPhoto = "";
-	
 	        if (currentPhotoIndex === imgArrayLength) {
-	            // 3 & 3 go to 0
-	            //console.log('go to first img');
+	
 	            nextPhotoIndex = 0;
 	            nextPhoto = imgArray[nextPhotoIndex];
-	
-	            //console.log($(nextPhoto).attr('data-id'));
 	
 	            var firstPhotoId = $(nextPhoto).attr('data-id');
 	
@@ -488,11 +482,8 @@
 	            });
 	        } else if (currentPhotoIndex < imgArrayLength) {
 	
-	            //console.log('go to next img');
 	            nextPhotoIndex = currentPhotoIndex + 1;
 	            nextPhoto = imgArray[nextPhotoIndex];
-	
-	            //console.log($(nextPhoto).attr('data-id'));
 	
 	            var nextPhotoId = $(nextPhoto).attr('data-id');
 	

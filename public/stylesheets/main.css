@@ -5136,6 +5136,9 @@ body {
 #site-body .site-logo-wrapper__img {
   max-width: 500px; }
 
+.addBottomPadding {
+  padding-bottom: 98px; }
+
 #site-body .btn-primary {
   background-color: #F98A93;
   color: #FFFFFF;
@@ -5145,13 +5148,42 @@ body {
   border-radius: 0; }
 
 #site-body .header-navbar {
-  background-color: #F98A93; }
+  position: relative; }
+  #site-body .header-navbar .navbar {
+    background-color: #F98A93;
+    min-height: 0; }
+  #site-body .header-navbar li.active > a {
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    color: #666666;
+    cursor: pointer; }
   #site-body .header-navbar a {
     font-family: "Oswald", sans-serif;
     color: #FFFFFF;
     letter-spacing: 2px;
     text-transform: uppercase;
     border-bottom: 1px solid #F98A93; }
+    #site-body .header-navbar a:hover {
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2);
+      -webkit-transition: -webkit-transform 0.2s;
+      transition: -webkit-transform 0.2s;
+      transition: transform 0.2s;
+      transition: transform 0.2s, -webkit-transform 0.2s; }
+    #site-body .header-navbar a:focus {
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2);
+      color: #fbbbc0;
+      cursor: pointer; }
 
 #site-body .panel-default {
   border: 1px solid #F98A93;
@@ -5174,10 +5206,14 @@ body {
           justify-content: center;
   margin-bottom: 30px; }
   #site-body .pagination ul, #site-body .pagination a {
+    border-radius: 0;
+    color: #F98A93;
+    background: #FFFFFF; }
+  #site-body .pagination li.active > a {
     background-color: #F98A93;
     color: #FFFFFF;
     border: 1px solid #F98A93;
-    border-radius: 0; }
+    cursor: pointer; }
 
 #site-body .jumbotron {
   background-color: none;
@@ -5262,6 +5298,13 @@ body {
 
 #site-body .img-thumbnail:hover {
   opacity: 0.8; }
+
+#site-body .affix {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999; }
 
 #site-body footer {
   background-color: #6ACAD6;
