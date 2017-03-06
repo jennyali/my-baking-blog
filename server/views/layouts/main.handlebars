@@ -13,7 +13,7 @@
 </head>
 <body id="site-body">
     <header>
-        <div class="jumbotron site-logo__block">
+        <div class="site-logo__block">
             <div class="site-logo-wrapper">
                 <img src="/assets/images/site-logo.png" class="site-logo-wrapper__img">
                 <h3>Baking Explorers</h3>
@@ -53,6 +53,11 @@
                 </ul>
             </div>
         </div>
+        {{#if homePage}}
+            <div class="bg-illustration">
+                <img src="/assets/images/oven.jpg">
+            </div>
+        {{/if}}
     </footer>
 
 

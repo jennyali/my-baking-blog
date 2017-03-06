@@ -16,19 +16,6 @@
     display: flex;
     flex-wrap: wrap;
 
-    div:nth-child(even) {
-
-        img {
-            background-color: $primary-color;
-        }
-    }
-
-    div:nth-child(odd) {
-
-        img {
-            background-color: $extra-color;
-        }
-    }
 
 }
 
@@ -39,6 +26,7 @@
         border-radius: 0;
         max-height: 120px;
         margin-bottom: 15px;
+        padding: 0;
     }
 }
 

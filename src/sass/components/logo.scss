@@ -7,6 +7,8 @@
         display: flex;
         justify-content: center;
         margin: 0;
+        padding-bottom: $mp-double;
+        background-color: $light;
 
             @include mediaQ--min($bp-sm) {
                 background-image: url('/assets/images/bowl.jpg'), url('/assets/images/flour.jpg');

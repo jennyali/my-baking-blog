@@ -8,6 +8,7 @@
 
     .section-view-recipe {
         padding-right: $mp-double;
+        padding-top: $mp-double;
 
             @include mediaQ--min($bp-lg) {
                 padding-right: $mp-triple;

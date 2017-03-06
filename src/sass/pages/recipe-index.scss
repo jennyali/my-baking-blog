@@ -13,14 +13,19 @@
         }
     }
 
+#site-body {
     .category-block {
         h4 {
             letter-spacing: 2px;
             font-size: 24px;
             margin: 0;
         }
-    }
 
+        h3 {
+            color: $contrast-color;
+        }
+    }
+}
 
         .category-block__inner-section {
         height: 180px;

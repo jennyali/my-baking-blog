@@ -1,20 +1,52 @@
 <div class="col-sm-8 col-md-9 section-category">
 
-    <div class="category-title">
+        {{#if foundPosts.posts}}
+
+            <div id="search-results-carousel" class="carousel slide col-sm-12" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+
+                    <div class="item active" role="listbox">                 
+                        <img class="" src="/assets/images/cake-img2.jpg">
+                    </div>
+
+                {{#each foundPosts.posts}}
+
+                    {{#if this.primaryPhoto}}
+
+                        <div class="item" role="listbox">
+                            <a href="/view-post/{{this._id}}">                 
+                                <img class="" src="/assets/images/{{this.primaryPhoto}}">
+                            </a>
+                        </div>
+
+                    {{/if}}
+
+                {{/each}}
+
+                </div>
+            </div>
+
+        {{/if}}
+
+    <div class="category-title col-sm-12 jumbotron">
         {{#if pageTitle }}
+ 
             <h2>
                 {{ pageTitle }}
             </h2>
+
         {{/if}}
     </div>
 
-    <div class="category-list">
-        {{#each foundPosts.posts}}
-            <a href="/view-post/{{this._id}}">
-                <p>{{ this.title }}</p>
-            </a>
-        {{/each}}
+        <ul class="list-unstyled category-list col-sm-12">
+            {{#each foundPosts.posts}}
+                <li>
+                    <a href="/view-post/{{this._id}}">
+                        {{ this.title }}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
 
-    </div>
 
 </div>

@@ -290,7 +290,9 @@ exports.searchRender = function(req, res, next) {
                         pageTitle: 'Search Results',
                         searchResultsPage: true,
                         isAdmin: !!req.user,
-                        results: recipes
+                        results: recipes,
+                        searchText: req.query.search,
+                        searchAmount: recipes.length,
                     });
 
             }).catch( err => {

@@ -5,9 +5,34 @@
 ------------------------*/
 
 .section-category {
+    padding: $mp-double;
 
     h2 {
         text-transform: capitalize;
+    }
+
+
+    a {
+        font-family: $font-family-paragraph;
+        color: $dark;
+
+        &:hover {
+            @extend .primary-hover-link;
+        }
+    }
+
+    .jumbotron {
+        padding: $mp-default 0;
+        margin: 0;
+    }
+
+    .category-list {
+        padding: 0;
+
+        li {
+            margin: $mp-default 0;
+            text-transform: capitalize;
+        }
     }
 
 }

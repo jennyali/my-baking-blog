@@ -34,6 +34,13 @@ $(document).ready(function(){
 
 //------- SELECTORS ----------//
 
+// divs with scroll EVENTS
+var $bgImgOven = $('.bg-illustration');
+
+// Window 
+var windowWidth = window.innerWidth;
+var $window = $(window);
+
 // site navbar
 var $headerNavbar = $('.header-navbar');
 var $header = $('header');
@@ -226,6 +233,15 @@ function addIngreBtnTemplate(obj) {
 
 //------- EVENTS ----------//
 
+// ==== window EVENTS
+$window.on('resize', function(event){         
+    windowWidth = window.innerWidth;
+});
+
+$window.on('scroll', ifDivInView); //---- scroll event 
+
+$window.trigger('scroll');
+
 // ==== Recipe index page
 $categoryThumbnailLink.on({
     'mouseenter': function() {
@@ -413,6 +429,26 @@ $categoryEditList.on('click', 'button.category-delete-btn', function(e) {
 =============================*/
 
 //------- FUNCTIONS ----------//
+function ifDivInView(){
+    var window_height = $window.height();
+    var window_top_position = $window.scrollTop();
+    var window_bottom_position = (window_top_position + window_height);
+
+    $.each($bgImgOven, function(){
+        var $element = $(this);
+        var element_height = $element.outerHeight();
+        var element_top_position = $element.offset().top;
+        var element_bottom_position = (element_top_position + element_height);
+
+        if ((element_bottom_position >= window_top_position) && (element_top_position <= window_bottom_position)){
+            $element.addClass('in-view');
+        } else {
+            $element.removeClass('in-view');
+        }
+    });
+}
+
+
 
 function headerLiHandler(selector) {
 
