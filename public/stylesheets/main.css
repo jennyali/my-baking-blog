@@ -5065,6 +5065,9 @@ button.close {
             ELEMENT VARIABLES
 
 ==============================================*/
+#site-body .bg-illustration.in-view {
+  bottom: 40px; }
+
 /*===========================
         MIXINS
 =============================*/
@@ -5073,20 +5076,8 @@ button.close {
     Placeholders
 
 =====================*/
-#site-body {
-  background: #fdd8db;
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, #fdd8db), color-stop(50%, rgba(255, 255, 255, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
-  background: -webkit-linear-gradient(-45deg, #fdd8db 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
-  background: -webkit-linear-gradient(315deg, #fdd8db 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
-  background: linear-gradient(135deg, #fdd8db 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdd8db', endColorstr='#ffffff', GradientType=1 ); }
-
 body {
-  background-color: #FFFFFF;
-  background-image: url("/assets/images/oven.jpg");
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 250px; }
+  background-color: #FFFFFF; }
   body h1 {
     font-family: "Oswald", sans-serif; }
   body h2 {
@@ -5105,7 +5096,7 @@ body {
     body .container {
       width: 1000px; } }
 
-#site-body .primary-hover-link, #site-body .aside__list a:hover {
+#site-body .primary-hover-link, #site-body .aside__list a:hover, #site-body .section-category a:hover, .section-category #site-body a:hover, #site-body .section-search-results a:hover, .section-search-results #site-body a:hover {
   text-decoration: none;
   color: #F98A93;
   -webkit-transition: color 0.25s;
@@ -5132,7 +5123,9 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 0; }
+  margin: 0;
+  padding-bottom: 30px;
+  background-color: #FFFFFF; }
   @media (min-width: 768px) {
     #site-body .site-logo__block {
       background-image: url("/assets/images/bowl.jpg"), url("/assets/images/flour.jpg");
@@ -5247,7 +5240,9 @@ body {
 
 #site-body .jumbotron {
   background-color: none;
-  text-transform: capitalize; }
+  text-transform: capitalize;
+  padding-left: 0;
+  background: none; }
 
 #site-body .form-control {
   border-radius: 0; }
@@ -5339,19 +5334,21 @@ body {
 #site-body footer {
   background-color: #6ACAD6;
   padding: 15px;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  position: relative; }
   #site-body footer a {
     font-family: "Oswald", sans-serif;
     color: #FFFFFF;
     letter-spacing: 1px;
     text-transform: uppercase; }
 
-body {
-  background-color: #FFFFFF;
-  background-image: url("/assets/images/oven.jpg");
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 250px; }
+#site-body .bg-illustration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  -webkit-transition: bottom 0.5s;
+  transition: bottom 0.5s; }
 
 #site-body h1 {
   font-family: "Oswald", sans-serif; }
@@ -5451,10 +5448,13 @@ body {
   .section-recipe-index article {
     margin-bottom: 15px; }
 
-.category-block h4 {
+#site-body .category-block h4 {
   letter-spacing: 2px;
   font-size: 24px;
   margin: 0; }
+
+#site-body .category-block h3 {
+  color: #6ACAD6; }
 
 .category-block__inner-section {
   height: 180px;
@@ -5559,17 +5559,14 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-  .gallery-img-block div:nth-child(even) img {
-    background-color: #F98A93; }
-  .gallery-img-block div:nth-child(odd) img {
-    background-color: #fbbbc0; }
 
 .gallery-img-block__thumbnail {
   cursor: pointer; }
   .gallery-img-block__thumbnail img {
     border-radius: 0;
     max-height: 120px;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    padding: 0; }
 
 .gallery-show {
   display: -webkit-box;
@@ -5581,8 +5578,21 @@ body {
     Catergory Partial
 
 ------------------------*/
-.section-category h2 {
-  text-transform: capitalize; }
+.section-category {
+  padding: 30px; }
+  .section-category h2 {
+    text-transform: capitalize; }
+  .section-category a {
+    font-family: "Open Sans", sans-serif;
+    color: #666666; }
+  .section-category .jumbotron {
+    padding: 15px 0;
+    margin: 0; }
+  .section-category .category-list {
+    padding: 0; }
+    .section-category .category-list li {
+      margin: 15px 0;
+      text-transform: capitalize; }
 
 /*-----------------------
 
@@ -5590,7 +5600,8 @@ body {
 
 ------------------------*/
 #site-body .section-view-recipe {
-  padding-right: 30px; }
+  padding-right: 30px;
+  padding-top: 30px; }
   @media (min-width: 1200px) {
     #site-body .section-view-recipe {
       padding-right: 60px; } }
@@ -5603,5 +5614,40 @@ body {
 
 #site-body .view-recipe__panel {
   padding: 15px; }
+
+/*-----------------------
+
+    Search Results Partial
+
+------------------------*/
+#site-body .section-search-results h4 {
+  color: #666666; }
+
+.section-search-results {
+  padding-right: 30px;
+  padding-top: 30px; }
+  .section-search-results h4 {
+    color: #666666; }
+  .section-search-results a {
+    font-family: "Open Sans", sans-serif;
+    color: #666666; }
+  .section-search-results .jumbotron {
+    padding: 15px 0;
+    margin: 0; }
+  .section-search-results .search-results-ul {
+    padding: 0; }
+    .section-search-results .search-results-ul li {
+      margin: 15px 0;
+      text-transform: capitalize; }
+
+#search-results-carousel {
+  padding: 15px;
+  border: 1px solid #F98A93; }
+  #search-results-carousel .carousel-inner {
+    max-height: 250px;
+    position: relative; }
+  #search-results-carousel .item img {
+    max-height: 250px;
+    margin: auto; }
 
 /*# sourceMappingURL=main.css.map*/

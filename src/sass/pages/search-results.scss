@@ -1,0 +1,61 @@
+/*-----------------------
+
+    Search Results Partial
+
+------------------------*/
+
+#site-body .section-search-results h4 {
+    color: $dark;
+}
+
+.section-search-results {
+    padding-right: $mp-double;
+    padding-top: $mp-double;
+
+        h4 {
+            color: $dark;
+        }
+
+        a {
+            font-family: $font-family-paragraph;
+            color: $dark;
+
+            &:hover {
+                @extend .primary-hover-link;
+            }
+        }
+
+        .jumbotron {
+            padding: $mp-default 0;
+            margin: 0;
+        }
+
+        .search-results-ul {
+            padding: 0;
+
+            li {
+                margin: $mp-default 0;
+                text-transform: capitalize;
+        }
+    }
+}
+
+
+#search-results-carousel {
+    padding: $mp-default;
+    border: $border-primary-thin;
+
+    .carousel-inner {
+        max-height: 250px;
+        position: relative;
+    }
+
+    .item {
+        
+        img {
+            max-height: 250px;
+            margin: auto;
+        }
+    }
+}
+

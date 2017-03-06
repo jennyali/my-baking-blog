@@ -5,6 +5,7 @@
         background-color: $contrast-color;
         padding: $mp-default;
         padding-bottom: $mp-double;
+        position: relative;
 
         a {
             font-family: $font-family-sub-heading;
@@ -16,5 +17,14 @@
                 @extend .extra-hover-link;
             }
         }
+    }
+
+    .bg-illustration {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+        transition: bottom 0.5s;
+        
     }
 }
