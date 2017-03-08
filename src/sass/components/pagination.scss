@@ -4,12 +4,14 @@
         display: flex;
         justify-content: center;
         margin-bottom: $mp-double;
+        
 
             ul, a {
                 //@include theme-primary-inverse;
                 border-radius: 0;
                 color: $primary-color;
                 background: $light;
+                border: transparent;
         }
 
         li.active > a{

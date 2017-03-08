@@ -1,17 +1,20 @@
-body {
-    
-
-
-}
 
 #site-body {
-   // @extend %bg-gradient;
 
     @include font-family-main;
 
         .container {
             @include mediaQ--min($bp-md){
                 width: 1000px;
+        }
+    }
+
+    main {
+        background: white;
+        padding: $mp-default $mp-triple;
+
+        @include mediaQ--max($bp-sm) { 
+            padding: $mp-default;
         }
     }
 }

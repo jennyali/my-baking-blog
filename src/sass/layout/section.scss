@@ -12,6 +12,12 @@
             color: $primary-color;
             font-size: $font-size-xlg;
             margin: $mp-double-row;
+            text-transform: capitalize;
+
+            @include mediaQ--max($bp-sm) {
+                font-size: $font-size-lg;
+                margin: $mp-default 0;
+            }
         }
 
         h3 {

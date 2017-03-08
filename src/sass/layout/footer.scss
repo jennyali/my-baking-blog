@@ -2,9 +2,6 @@
 #site-body {
 
     footer {
-        background-color: $contrast-color;
-        padding: $mp-default;
-        padding-bottom: $mp-double;
         position: relative;
 
         a {
@@ -19,12 +16,26 @@
         }
     }
 
+    .footer-inner {
+        background-color: $contrast-color;
+        padding: 15px 30px 30px 30px;
+        position: relative;
+        z-index: 4;
+    }
+
     .bg-illustration {
         position: absolute;
         bottom: 0;
         right: 0;
-        z-index: -1;
+        z-index: 0;
         transition: bottom 0.5s;
+
+
+        img {
+            @include mediaQ--max($bp-sm) {
+                height: 100px;
+            }
+        }
         
     }
 }
