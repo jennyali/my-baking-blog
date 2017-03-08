@@ -4,26 +4,74 @@
 
 ------------------------*/
 
-
+#site-body {
     .section-recipe-index {
         padding-right: 60px;
+
+        @include mediaQ--max($bp-sm) {
+            padding: $mp-double;
+        }
      
         article {
             margin-bottom: 15px;
+
+            @include mediaQ--max($bp-sm) {
+                margin-bottom: $mp-double;
+            }
+        }
+
+        h2 {
+            @include mediaQ--max($bp-sm) {
+                text-align: center;
+                font-size: 36px;
+                margin: 0;
+            }
         }
     }
+}
 
 #site-body {
     .category-block {
+
+        @include mediaQ--max($bp-sm) {
+            text-align: center;
+        }
+
         h4 {
             letter-spacing: 2px;
             font-size: 24px;
             margin: 0;
+
+            @include mediaQ--max($bp-md) {
+                    padding: 10px;
+                    font-size: 18px;
+            }
         }
 
         h3 {
             color: $contrast-color;
         }
+
+        div {
+
+            div:nth-child(3), div:nth-child(4) {
+
+                a{
+                    img{
+                        @include mediaQ--max($bp-sm) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        p {
+            @include mediaQ--max($bp-sm) {
+                margin: $mp-sm 0;
+            }
+        }
+
     }
 }
 
@@ -31,6 +79,10 @@
         height: 180px;
         text-align: center;
         padding: 2px;
+
+            @include mediaQ--max($bp-md) {
+                height: 100%;
+            }
 
             
             a {
@@ -44,11 +96,25 @@
                 border: none;
                 padding: 0;
                 width: 100%;
+
+                @include mediaQ--max($bp-md) {
+                    max-height: 70px;
+                }
+
+                @include mediaQ--max($bp-sm) {
+                    max-height: 300px;
+                    width: initial;
+                }
             }
 
             p {
                 margin: $mp-default-row;
                 color: inherit;
+
+                @include mediaQ--max($bp-md) {
+                    margin: 0;
+                    font-size: 12px;
+                }
         }
     }
 
@@ -57,6 +123,10 @@
             display: flex;
             min-height: 180px;
 
+            @include mediaQ--max($bp-md) {
+                min-height: 120px;
+            }
+
             a {
                 width: 100%;
                 background: $contrast-color;
@@ -64,11 +134,22 @@
                 justify-content: center;
                 flex-direction: column;
 
+                @include mediaQ--max($bp-md) {
+                    height: 70px;
+                }
+
+                @include mediaQ--max($bp-sm) {
+                    margin-top: $mp-double;
+                    height: 50px;
+                }
+
             }
 
             h4 {
                 //background: $contrast-color;
                 color: $light;
                 margin: 0;
+
+
         }
     }
