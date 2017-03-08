@@ -13,6 +13,7 @@
             font-size: $font-size-xlg;
             margin: $mp-double-row;
             text-transform: capitalize;
+            text-align: center;
 
             @include mediaQ--max($bp-sm) {
                 font-size: $font-size-lg;
