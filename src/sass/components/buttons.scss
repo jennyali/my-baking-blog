@@ -15,6 +15,10 @@
         &:hover {
             opacity: 0.8;
         }
+
+        @include mediaQ--max($bp-sm) {
+            font-size: $font-size-sm;
+        }
     }
 
     .btn-primary--icon {

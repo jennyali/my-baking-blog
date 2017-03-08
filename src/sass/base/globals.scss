@@ -2,11 +2,11 @@
 //----------------------------------//
 
 body {
-    background-color: $light;
-    //background-image: url('/assets/images/oven.jpg');
+    //background-color: $light;
+    background-image: url('/assets/images/bg-tile.jpg');
     //background-repeat: no-repeat;
     //background-position: bottom right;
-    //background-size: 250px;
+    background-size: 20%;
 
         @include font-family-main;
 
@@ -15,6 +15,10 @@ body {
                 width: 1000px;
             }
         }
+}
+
+.site-body__gradient {
+    @extend %bg-gradient-white;
 }
 
 // a link hover styles 

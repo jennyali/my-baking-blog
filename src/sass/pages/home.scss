@@ -9,14 +9,29 @@
 
         article {
             padding: $mp-lg;
+
+            @include mediaQ--max($bp-sm) {
+                padding: $mp-default;
+            }
         }
 
         .panel-body{
             padding: $mp-double;
+
+            @include mediaQ--max($bp-sm) {
+                padding: $mp-sm;
+            }
         }
 
         img {
             max-height: 600px;
+        }
+
+        .panel-recipe-description {
+            @include mediaQ--max($bp-sm) {
+                max-height: 200px;
+                overflow: scroll;
+            }
         }
 }
 

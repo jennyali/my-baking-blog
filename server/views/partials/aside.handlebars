@@ -1,24 +1,27 @@
-<section class="col-sm-4 col-md-3 section section__aside">
+<section class="col-sm-4 col-md-3 section section__aside hidden-xs">
 
     <article class="aside">
-        <div>
+        <a href="/about" class="title-link visible-xs"><h4>About Us</h4></a>
+        <div class="aside__about">
             <img class="img-responsive" src="/assets/images/portrait.png">
-            <a href="/about"><h4>About Us</h4></a>
+            <a href="/about" class="title-link hidden-xs"><h4>About Us</h4></a>
             <p>We are a Mum and Son combo of baking explorers. I choose simple recipes for my son to help out.</p>
         </div>
 
-        <div class="aside__form">
-            <form action="/search-results" method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="search" name="search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary btn-primary--icon">
-                            <span class="icon-search"></span>
-                        </button>
+        <div class="hidden-xs">
+            <div class="aside__form">
+                <form action="/search-results" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="search" name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-primary--icon">
+                                <span class="icon-search"></span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        <div>
     </article>
 
     <article class="aside">
