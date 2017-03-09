@@ -1,14 +1,17 @@
-<div class="col-sm-8">
+<div class="col-sm-8 admin-section-category">
     <div>
         <h2>{{foundPosts.category}}</h2>
     </div>
     <div>
-        {{#each foundPosts.posts}}
-            <a href="/post-editor/viewPost/{{this._id}}">
-                <h4>{{ this.title }}</h4>
-            </a>
-        {{/each}}
-
+        <ul class="list-unstyled category-list col-md-12">
+            {{#each foundPosts.posts}}
+                <li>
+                    <a href="/post-editor/viewPost/{{this._id}}">
+                        {{ this.title }}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
     </div>
 
 </div>

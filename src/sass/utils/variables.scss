@@ -9,7 +9,7 @@ $colors : (
     primary: #F98A93,
     secondary: #000000,
     contrast: #6ACAD6,
-    extra: lighten(#F98A93, 10%),
+    extra: lighten(#F98A93, 15%),
     light: #FFFFFF,
     dark: lighten(#000000, 40%),
 );
@@ -73,7 +73,7 @@ $mp-triple: 60px;
 
 $breakpoints: (
     xs: 420px,
-    sm: 768px,
+    sm: 767px,
     md: 992px,
     lg: 1200px,
 );

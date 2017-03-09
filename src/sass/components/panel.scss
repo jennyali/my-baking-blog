@@ -17,6 +17,18 @@
 
         }
 
+        .panel-primary {
+            border: $border-primary-thin;
+            border-radius: 0;
+
+            .panel-heading {
+                color: $light;
+                background-color: $primary-color;
+                border: $primary-color;
+                border-radius: 0;
+            }
+        }
+
 
 
     

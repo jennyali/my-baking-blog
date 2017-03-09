@@ -16,8 +16,11 @@
             text-align: center;
 
             @include mediaQ--max($bp-sm) {
-                font-size: $font-size-lg;
-                margin: $mp-default 0;
+                //font-size: $font-size-lg;
+               // margin: $mp-default 0;
+                text-align: center;
+                font-size: 36px;
+                margin: 0;
             }
         }
 

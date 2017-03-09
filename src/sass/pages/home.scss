@@ -6,6 +6,11 @@
 
 .section-home {
     position: relative;
+    padding-right: $mp-double;
+
+        @include mediaQ--min($bp-lg) {
+            padding-right: $mp-triple;
+        }
 
         article {
             padding: $mp-lg;

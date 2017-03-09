@@ -1,4 +1,4 @@
-<main class="container">
+<main class="container" id="post-editor">
     <section class="row">
         <div class="col-sm-12">
             <h1 class="jumbotron">
@@ -12,12 +12,12 @@
 
         {{#if hasCreateBtn}}
             <div class="col-sm-12">
-                <a href="/post-editor/createPost" class="btn btn-default">
+                <a href="/post-editor/createPost" class="btn create-recipe-btn">
                     <h3>Create Recipe <span class="icon-edit-3"></span></h3>
                 </a>
 
             {{#if hasEditCategoriesBtn}}
-                    <a href="/post-editor/editCategories" class="btn btn-default">
+                    <a href="/post-editor/editCategories" class="btn edit-recipe-btn">
                         <h3>Edit Categories <span class="icon-edit-3"></span></h3>
                     </a>
             {{/if}}
