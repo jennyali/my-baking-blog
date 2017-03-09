@@ -19,6 +19,9 @@
     }
 
     .about-img-block {
-        padding: $mp-triple;
+
+        @include mediaQ--min($bp-xs) {
+            padding: $mp-triple;
+        }
     }
 }

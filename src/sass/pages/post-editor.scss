@@ -1,0 +1,231 @@
+
+#site-body #post-editor {
+    padding-bottom: $mp-triple;
+}
+
+#post-editor {
+    
+    h1 {
+        font-family: $font-family-heading;
+        text-align: center;
+    }
+
+    .panel {
+        h3 {
+            font-family: $font-family-sub-heading;
+            padding-bottom: $mp-sm;
+        }
+    }
+
+    .admin-section-category-form {
+
+    }
+
+    .admin-section-category {
+
+        li {
+            margin: 15px 0;
+            text-transform: capitalize;
+        }
+
+        a {
+            text-decoration: none;
+            color: $dark;
+
+            &:hover {
+                @extend .primary-hover-link;
+            }
+        }
+    }
+
+    .create-recipe-btn {
+        background: $primary-color;
+        border: none;
+        border-radius: 0;
+
+        h3 {
+            font-family: $font-family-sub-heading;
+            color: $light;
+        }
+
+    }
+
+    .edit-recipe-btn {
+        background: $extra-color;
+        border: none;
+        border-radius: 0;
+
+        h3 {
+            font-family: $font-family-sub-heading;
+            color: $primary-color;
+        }
+    }
+
+    .admin-recipe-index__title {
+
+        h2 {
+            margin-top: $mp-triple;
+            font-family: $font-family-sub-heading;
+            text-align: left;
+        }
+
+        .nav-tabs {
+            border-bottom: 1px solid $extra-color;
+
+            & > li.active a {
+                color: $secondary-color;
+                background-color: $light;
+                border: 1px solid $extra-color;
+                border-bottom-color: transparent;
+            }
+
+            & > li a {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .tab-content {
+        h4 {
+            color: $primary-color;
+        }
+    }
+
+    .btn-default {
+        color: $contrast-color;
+        border: 1px solid $contrast-color;
+        border-radius: 0;
+    }
+
+    .btn-success {
+        color: $light;
+        background: $contrast-color;
+        border: 1px solid $contrast-color;
+        border-radius: 0;
+    }
+
+    .btn-danger {
+        color: $light;
+        background: $primary-color;
+        border: 1px solid $primary-color;
+        border-radius: 0;
+    }
+
+    .form-control {
+        display: block;
+        padding: 6px 12px;
+        font-size: 14px;
+        color: $dark;
+        background-color: $light;
+        border: 1px solid $primary-color;
+        border-radius: 0;
+        text-transform: capitalize;
+    }
+
+    .input-sm {
+        background-color: $light;
+        border: 1px solid $primary-color;
+        border-radius: 0;
+    }
+
+    .panel-heading {
+        border-bottom: 1px solid $extra-color;
+    }
+
+    .panel-footer {
+        border-top: 1px solid $extra-color;
+    }
+
+}
+
+#all-tab {
+
+    .recipe-row:nth-child(even) {
+        background: $extra-color;
+    }
+}
+
+#categories-tab {
+
+    .img-thumbnail {
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .category-row {
+        padding: $mp-default;
+    }
+
+    .category-row:nth-child(even) {
+        background: $extra-color;
+    }
+
+    .category-row__btn--more {
+        height: 100%;
+        display: flex;
+        min-height: 180px;
+
+        @include mediaQ--max($bp-md) {
+            min-height: 120px;
+        }
+
+            a {
+                width: 100%;
+                background: $contrast-color;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                text-decoration: none;
+
+
+                @include mediaQ--max($bp-md) {
+                    height: 70px;
+                }
+
+                @include mediaQ--max($bp-sm) {
+                    margin-top: $mp-double;
+                    height: 50px;
+                }
+
+            }
+
+            h4 {
+                font-family: $font-family-sub-heading;
+                color: $light;
+                text-align: center;
+                
+        }
+    }
+}
+
+#sub-form-ingre {
+    label {
+        display: block;
+        margin-top: $mp-sm;
+    }
+
+    select {
+        background-color: $light;
+        border: none;
+        border-radius: 0;
+    }
+}
+
+#category-edit-list {
+    background: $extra-color;
+    padding: $mp-double;
+
+    .input-group-btn {
+        .btn {
+            border: 1px solid $primary-color;
+            height: 34px;
+        }
+    }
+}
+
+#category-create-form {
+    .btn-success {
+        height: 34px;
+        border: 1px solid $primary-color;
+    }
+}

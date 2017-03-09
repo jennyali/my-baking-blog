@@ -72,12 +72,15 @@ exports.pageRender = function(req, res, next) {
                                 hasEditCategoriesBtn: true,
                                 foundPosts: results,
                                 pagiResults: pagiResults,
-                                page: currentPage,
-                                pages: pagesQuantity,
                                 success: successRes,
                                 update: updateRes,
                                 delete: deleteRes,
-                                isAdmin: true
+                                isAdmin: true,
+                                pageData: {
+                                    page: currentPage,
+                                    pages: pagesQuantity,
+                                    pageName: "",
+                                }
                             }
                     );
                 });
@@ -137,6 +140,7 @@ exports.formRender = function(req, res, next) {
 
                 res.render('postEditor', { 
                     pageTitle: "Create Recipe",
+                    createRecipe: true,
                     hasForm: true,
                     categories: results,
                     isAdmin: true

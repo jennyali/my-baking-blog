@@ -9,7 +9,7 @@
         padding-right: 60px;
 
         @include mediaQ--max($bp-sm) {
-            padding: $mp-double;
+            padding-right: $mp-default;
         }
      
         article {

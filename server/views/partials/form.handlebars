@@ -23,6 +23,13 @@
             <div>
 
             <!-- TITLE & DESCRIPTION EDIT SECTION -->
+            {{#if createRecipe}}
+                <div class="panel-heading">
+                    <h3>
+                        New Recipe
+                    </h3>
+                </div>
+            {{/if}}
 
                 <div class="form-group {{#if errors.title}}has-error{{/if}}">
                     <label for="title">Title:</label>

@@ -2,7 +2,7 @@
     <article>
         <h2 class="panel-heading">{{ foundPost.title }}</h2> 
         <div class="panel-body">
-            <p class="small pull-right">{{foundPost.created}}</p>
+            <p class="small">{{foundPost.created}}</p>
             <div class="row">
                 <div class="col-sm-8">
                     {{#if foundPost.primaryPhoto}}
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <p>{{ foundPost.body }}</p>
+            <p class="view-recipe__text-block">{{ foundPost.body }}</p>
 
             <div class="row">
                 <div class="col-sm-6">

@@ -5,6 +5,11 @@
 ------------------------*/
 
 .section-gallery {
+    padding-right: $mp-double;
+
+        @include mediaQ--min($bp-lg) {
+            padding-right: $mp-triple;
+        }
 
     .pagination {
         margin: $mp-triple 0;
@@ -15,6 +20,8 @@
 .gallery-img-block {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-top: $mp-double;
 
 
 }

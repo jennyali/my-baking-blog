@@ -1,5 +1,5 @@
 <div class="col-sm-9">
-    <div>
+    <div class="admin-recipe-index__title">
         <h2> Recipe Index </h2>
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#all-tab">All Recipes</a></li>
@@ -11,7 +11,7 @@
         <div id="categories-tab" class="tab-pane fade">
 
         {{#each foundPosts}}
-            <div class="row">
+            <div class="row category-row">
 
                 <h2 class="col-sm-12">{{this.category}}</h2>
   
@@ -29,9 +29,9 @@
                     </div>
                 {{/each}}
 
-                <div class="col-sm-3">
+                <div class="col-sm-3 category-row__btn--more">
                     <a href="/post-editor/viewCategory/{{this._id}}">
-                        <h3>More <span class="icon-arrow-68"></span></h3>
+                        <h4>More <span class="icon-arrow-68"></span></h4>
                     </a>
                 </div>
             </div>
@@ -42,7 +42,7 @@
 
             {{#each pagiResults}}
 
-                    <div class="row text-left">
+                    <div class="row text-left recipe-row">
                         <div class="col-sm-6">
                             <a href="/post-editor/viewPost/{{ this._id }}" class=""><h4>{{this.title}}</h4></a>
                             <p class="small">{{this.updated}}</p>
@@ -58,9 +58,7 @@
 
             <ul class="pagination text-center row">
 
-                    {{#times pages}}
-                        <li><a href="/post-editor?p={{this}}">{{this}}</a></li>
-                    {{/times}}
+                {{#paginator pageData}} {{/paginator}}
                         
             </ul>
 
