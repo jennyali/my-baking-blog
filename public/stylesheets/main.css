@@ -5368,6 +5368,7 @@ body {
           transform: translateY(-50%); }
 
 .modal__content__img img {
+  max-height: 500px;
   max-width: 80%;
   position: relative;
   left: 50%;
@@ -5628,7 +5629,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  min-height: 180px; }
+  min-height: 121px; }
   @media (max-width: 992px) {
     .category-block__inner-section--last-child {
       min-height: 120px; } }
@@ -5661,6 +5662,13 @@ body {
     Home page Partial
 
 ------------------------*/
+#site-body .section-home__panel__title {
+  text-align: center;
+  margin: 30px 0; }
+  @media (min-width: 767px) {
+    #site-body .section-home__panel__title {
+      font-size: 30px; } }
+
 .section-home {
   position: relative;
   padding-right: 30px; }
@@ -5682,7 +5690,7 @@ body {
   @media (max-width: 767px) {
     .section-home .panel-recipe-description {
       max-height: 200px;
-      overflow: scroll; } }
+      overflow: auto; } }
 
 .recipe-banner {
   background-color: #6ACAD6;
@@ -5849,6 +5857,9 @@ body {
 #post-editor .panel h3 {
   font-family: "Oswald", sans-serif;
   padding-bottom: 10px; }
+
+#post-editor .alert-row {
+  padding: 30px 0; }
 
 #post-editor .admin-section-category li {
   margin: 15px 0;

@@ -76,10 +76,11 @@ exports.pageRender = function(req, res, next) {
                                 update: updateRes,
                                 delete: deleteRes,
                                 isAdmin: true,
+                                alertMsg: req.query.alertMsg,
                                 pageData: {
                                     page: currentPage,
                                     pages: pagesQuantity,
-                                    pageName: "",
+                                    pageName: "post-editor",
                                 }
                             }
                     );
