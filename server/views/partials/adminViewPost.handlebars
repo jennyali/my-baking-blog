@@ -4,26 +4,22 @@
         <div class="panel-body">
             <p class="small">{{foundPost.created}}</p>
             <div class="row">
-                <div class="col-sm-8">
+                <div class="">
                     {{#if foundPost.primaryPhoto}}
                         <img class="img-responsive" src="/assets/images/{{foundPost.primaryPhoto}}">
-                    {{/if}}
-                </div>
-                <div class="col-sm-4">
-                    {{#if foundPost.secondaryPhoto}}
-                        <div class="row">
-                            <img class="img-responsive col-sm-12" src="/assets/images/{{foundPost.secondaryPhoto}}">
-                        </div>
-                    {{/if}}
-                    {{#if foundPost.extraPhoto}}
-                        <div class="row">
-                            <img class="img-responsive col-sm-12" src="/assets/images/{{foundPost.extraPhoto}}">
-                        </div>
                     {{/if}}
                 </div>
             </div>
 
             <p class="view-recipe__text-block">{{ foundPost.body }}</p>
+
+                {{#if foundPost.secondaryPhoto}}
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <img class="img-responsive" src="/assets/images/{{foundPost.secondaryPhoto}}">
+                            </div>
+                    </div>
+                {{/if}}
 
             <div class="row">
                 <div class="col-sm-6">

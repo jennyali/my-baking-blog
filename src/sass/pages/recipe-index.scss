@@ -121,7 +121,7 @@
         .category-block__inner-section--last-child {
             height: 100%;
             display: flex;
-            min-height: 180px;
+            min-height: 121px;
 
             @include mediaQ--max($bp-md) {
                 min-height: 120px;

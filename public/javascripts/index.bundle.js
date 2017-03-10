@@ -141,8 +141,13 @@
 	    var $galleryModal = $('#gallery-modal');
 	
 	    //Recipe Index page
+	    var $categoryBlock = $('.category-block');
 	    var $categoryThumbnailLink = $('.category-block__inner-section');
 	    var $categoryThumbnailLinkLast = $('.category-block__inner-section--last-child');
+	
+	    // Recipe-editor category row 
+	    var $reCategoryRow = $('.category-row');
+	    var $reCategoryRowMoreBtn = $('.category-row__btn--more');
 	
 	    //--------VARIABLES ----------//
 	
@@ -209,6 +214,9 @@
 	    $window.on('scroll', ifDivInView); //---- scroll event 
 	
 	    $window.trigger('scroll');
+	
+	    // ==== Post Editor - category row 
+	
 	
 	    // ==== Recipe index page
 	    $categoryThumbnailLink.on({
@@ -353,6 +361,7 @@
 	    $subFormIngre.on('click', 'button#add-ingre-btn', function (e) {
 	        // individual ingredient add button
 	        addIngreBtnHandler(e);
+	        console.log('add ingredient clicked');
 	    });
 	
 	    //=========== Edit Category page
@@ -394,6 +403,24 @@
 	    =============================*/
 	
 	    //------- FUNCTIONS ----------//
+	
+	
+	    function categoryRowHandler(row, btn) {
+	        // if the category row has less than 3 recipes to remove 'more' btn.
+	
+	        var categoryRowArray = row;
+	
+	        _.forEach(categoryRowArray, function (categoryRow) {
+	
+	            var categoryRowDivArray = $(categoryRow).find('div');
+	            var categoryRowMoreBtn = $(categoryRow).find(btn);
+	
+	            if (categoryRowDivArray.length < 4) {
+	                categoryRowMoreBtn.remove();
+	            }
+	        });
+	    }
+	
 	    function ifDivInView() {
 	        var window_height = $window.height();
 	        var window_top_position = $window.scrollTop();
@@ -1011,6 +1038,9 @@
 	
 	    //------- FUNCTION CALLS ----------//
 	    fillCategoryPanel();
+	    //categoryRowHandler();
+	    categoryRowHandler($reCategoryRow, 'div.category-row__btn--more');
+	    categoryRowHandler($categoryBlock, 'div.category-block__inner-section--last-child');
 	});
 
 /***/ },
