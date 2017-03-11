@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 
-
 var Promise = require('bluebird');
 var _ = require('lodash');
 
