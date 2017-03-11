@@ -64,11 +64,6 @@
         position: relative;
 
         img{
-            //border: $border-contrast-thin;
-            //margin-bottom: $mp-lg;
-            //background: $contrast-color;
-            //border-radius: 0;
-
             border-radius: 100%;
             height: 150px;
             width: 160px;
@@ -81,29 +76,14 @@
             }
         }
 
-        div {
-            //position: absolute;
-            //background: $contrast-color;
-            //padding: $mp-sm $mp-double;
-            //outline: $outline-light-thin;
-            //outline-offset: -5px;
-            //margin: 0;
-            //left: 50%;
-            //top: 39%;
-            //transform: translateX(-50%);
-        }
-
         h4 {
             color: $secondary-color;
-            //border-bottom: $border-contrast-thick;
             padding-bottom: 5px;
-            //letter-spacing: 1px;
         }
     }
 
     .aside__list {
         h4 {
-            //border-bottom: $border-contrast-thick;
             padding-bottom: 5px; 
         }
 

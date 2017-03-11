@@ -7,26 +7,12 @@
         display: flex;
         justify-content: center;
         margin: 0;
-        //padding-bottom: $mp-double;
         padding: $mp-default 0 $mp-double 0;
         background-color: $light;
 
         @include mediaQ--max($bp-sm) { 
             padding: $mp-sm;
         }
-
-            /*@include mediaQ--min($bp-sm) {
-                background-image: url('/assets/images/bowl.jpg'), url('/assets/images/flour.jpg');
-                background-repeat: no-repeat, no-repeat;
-                background-size: 140px, 140px;
-                background-position: top left, bottom right;
-            }
-
-            @include mediaQ--min($bp-lg) {
-                background-image: url('/assets/images/bg-left-side.jpg');
-                background-size: contain;
-                background-position: left;
-            }*/
 
             h3 {
                 margin: 0;

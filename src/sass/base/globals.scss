@@ -2,10 +2,8 @@
 //----------------------------------//
 
 body {
-    //background-color: $light;
+
     background-image: url('/assets/images/bg-tile.jpg');
-    //background-repeat: no-repeat;
-    //background-position: bottom right;
     background-size: 20%;
 
         @include font-family-main;
@@ -13,8 +11,8 @@ body {
         .container {
             @include mediaQ--min($bp-md){
                 width: 1000px;
-            }
         }
+    }
 }
 
 .site-body__gradient {
@@ -34,7 +32,6 @@ body {
         color: $extra-color;
         transition: color 0.25s;
     }
-
 
     .scale-bg-link {
         transform: scale(1.2);

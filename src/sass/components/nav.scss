@@ -2,11 +2,8 @@
 
 #site-body {
 
-
     .header-navbar {
-        //background-color: $primary-color;
         position: relative;
-
 
         .navbar {
             background-color: $primary-color;
@@ -17,8 +14,6 @@
             -moz-box-shadow: -1px 2px 6px -1px rgba(0,0,0,0.39);
             box-shadow: -1px 2px 6px -1px rgba(0,0,0,0.39);
         }
-
-        .container {}
 
         .nav {
             @include mediaQ--max($bp-sm) {
@@ -79,7 +74,6 @@
                 display: inline-block;
                 border: none;
             }
-
         }
     }
 }

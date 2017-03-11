@@ -5133,19 +5133,7 @@ body {
           justify-content: center;
   margin: 0;
   padding: 15px 0 30px 0;
-  background-color: #FFFFFF;
-  /*@include mediaQ--min($bp-sm) {
-                background-image: url('/assets/images/bowl.jpg'), url('/assets/images/flour.jpg');
-                background-repeat: no-repeat, no-repeat;
-                background-size: 140px, 140px;
-                background-position: top left, bottom right;
-            }
-
-            @include mediaQ--min($bp-lg) {
-                background-image: url('/assets/images/bg-left-side.jpg');
-                background-size: contain;
-                background-position: left;
-            }*/ }
+  background-color: #FFFFFF; }
   @media (max-width: 767px) {
     #site-body .site-logo__block {
       padding: 10px; } }
